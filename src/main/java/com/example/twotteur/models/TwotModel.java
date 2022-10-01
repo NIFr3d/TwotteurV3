@@ -1,27 +1,28 @@
-package com.example.twotteur;
+package com.example.twotteur.models;
 
 import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
-@Table(name="com.example.twotteur.twots")
-public class twots{
+@Table(name="twots")
+public class TwotModel{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
-    @Column(name="text")
+    @Column(name="text",nullable = false,columnDefinition = "varchar")
     private String text;
 
-    @Column(name="isAnswer")
+    @Column(name="isAnswer",columnDefinition = "int")
     private boolean isAnswer;
 
-    @Column(name="originalTwot")
+    @Column(name="originalTwot",columnDefinition = "int")
     private int originalTwot;
 
-    @Column(name="com.example.twotteur.user")
-    private int user;
+    @ManyToOne
+    @JoinColumn(name = "user")
+    private UserModel user;
 
     @Column(name="created_at", columnDefinition = "DATETIME DEFAULT NOW()")
     private Date created_at;
