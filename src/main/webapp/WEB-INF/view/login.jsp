@@ -31,7 +31,7 @@
 
 </form>
 <p>Vous n'avez pas de compte ?</p>
-<a class="text-blue-700 underline" href="./register">S'enregistrer</a>
+<a class="text-blue-700 underline" href="register">S'enregistrer</a>
 
 </div>
 </div>

@@ -32,4 +32,8 @@ public class UserModel{
     public UserModel() {
 
     }
+
+    public String getNickname() {
+        return this.nickname;
+    }
 }

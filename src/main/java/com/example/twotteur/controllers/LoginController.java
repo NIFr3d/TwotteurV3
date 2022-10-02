@@ -33,4 +33,10 @@ public class LoginController {
         }
         return new RedirectView("/login?e=1");
     }
+
+    @GetMapping(value="/logout")
+    public RedirectView logout(HttpSession session){
+        session.invalidate();
+        return new RedirectView("/home");
+    }
 }

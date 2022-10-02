@@ -8,4 +8,5 @@ public interface UserRepository extends JpaRepository<UserModel, Integer> {
     Integer countUserModelByEmailAndPassword(String email,String password);
     Integer countUserModelByNickname(String nickname);
     UserModel getFirstByEmail(String email);
+    UserModel getFirstByNickname(String nickname);
 }

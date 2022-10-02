@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -18,6 +19,15 @@ public class UserService {
         List<UserModel> userModels = new ArrayList<>();
         userRepository.findAll().forEach(userModels::add);
         return userModels;
+    }
+    public Optional<UserModel> getUserById(int id){
+        return(userRepository.findById(id));
+    }
+    public UserModel getUserByNickname(String nickname){
+        if(userRepository.countUserModelByNickname(nickname)>0){
+            return userRepository.getFirstByNickname(nickname);
+        }
+        return null;
     }
     public int getIdByEmail(String email){
         return userRepository.getFirstByEmail(email).getId();
