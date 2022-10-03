@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+         pageEncoding="UTF-8"%>
 <%@ include file="taglibs.jsp" %>
 <!DOCTYPE html>
 <html>
@@ -15,14 +15,8 @@
         <c:choose>
         <c:when test="${fn:length(twots)>0}">
         <c:forEach begin="0" end="${fn:length(twots)-1}" var="index">
-            <p>
-                <span class="font-bold"><c:out value="${nickname}"/></span>
-                <span class="font-light">@<c:out value="${nickname}"/></span>
-                <span><c:out value="${twots[index].getDate()}"/></span><br>
-                <c:out value="${twots[index].getText()}"/>
-
-            </p>
-
+            <%@include file="twotsimple.jsp"%>
+            <c:set var="twot" value="${twots[index]}"></c:set>
         </c:forEach>
         </c:when>
         <c:otherwise>

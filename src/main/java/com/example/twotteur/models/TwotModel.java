@@ -17,11 +17,11 @@ public class TwotModel{
     @Column(name="text",nullable = false,columnDefinition = "varchar")
     private String text;
 
-    @Column(name="isAnswer", nullable=false)
-    private boolean isAnswer=false;
+    @Column(name="is_answer", nullable=false)
+    private boolean is_answer=false;
 
-    @Column(name="originalTwot",columnDefinition = "int, default 'null'")
-    private Integer originalTwot;
+    @Column(name="original_twot",columnDefinition = "int, default 'null'")
+    private Integer original_twot;
 
     @ManyToOne
     @JoinColumn(name = "user", nullable = false, referencedColumnName = "id")
@@ -46,5 +46,9 @@ public class TwotModel{
     public TwotModel(UserModel user,String text){
         this.user=user;
         this.text=text;
+    }
+
+    public int getId(){
+        return this.id;
     }
 }

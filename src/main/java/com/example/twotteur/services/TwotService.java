@@ -20,8 +20,20 @@ public class TwotService {
         twotRepository.findTwotModelsByUser(user).forEach(twots::add);
         return twots;
     }
+    public List<Integer> getTwotsId(UserModel user){
+        List<Integer> ids=new ArrayList<>();
+        List<TwotModel> twots=twotRepository.findTwotModelsByUser(user);
+        for(int i=0;i< twots.size();i++) {
+            ids.add(twots.get(i).getId());
+        }
+        return ids;
+    }
 
     public void newTweet(UserModel user, String text) {
         twotRepository.save(new TwotModel(user,text));
+    }
+
+    public TwotModel getTwotById(int id){
+        return twotRepository.getReferenceById(id);
     }
 }
