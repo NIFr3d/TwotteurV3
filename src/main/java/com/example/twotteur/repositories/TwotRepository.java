@@ -11,5 +11,5 @@ import java.util.List;
 public interface TwotRepository extends JpaRepository<TwotModel, Integer>  {
     List<TwotModel> findTwotModelsByUser(UserModel user);
     List<TwotModel> findTwotModelsByOriginaltwot(TwotModel model);
-    UserModel find
+    TwotModel findFirstById(int id);
 }

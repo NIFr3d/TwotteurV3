@@ -38,7 +38,7 @@ public class TwotController {
     public String fullTwot(@PathVariable int id,Model model){
         model.addAttribute("twot",twotService.getTwotById(id));
         model.addAttribute("twots",twotService.getAnswersByTwotId(id));
-        model.addAttribute("user",twotService.getUserByTwot(id));
+        model.addAttribute("user",twotService.getUserByTwotId(id));
         return "twotfull";
     }
 }

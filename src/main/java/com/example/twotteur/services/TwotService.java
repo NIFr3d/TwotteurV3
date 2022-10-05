@@ -43,6 +43,6 @@ public class TwotService {
         return twotRepository.findTwotModelsByOriginaltwot(getTwotById(id));
     }
     public UserModel getUserByTwotId(int id){
-        return twotRepository.getUserModel
+        return twotRepository.findFirstById(id).getUser();
     }
 }

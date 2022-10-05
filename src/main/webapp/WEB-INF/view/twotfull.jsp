@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
-<%@ include file="taglibs.jsp" %>
 <!DOCTYPE html>
 <html>
+<%@ include file="taglibs.jsp" %>
 <head>
     <meta charset="UTF-8">
 </head>
@@ -11,7 +11,7 @@
     <div><%@include file="leftsidebar.jsp" %></div>
     <div>
         <%@include file="twotpreview.jsp"%>
-        <span class="tilte">Réponses :</span>
+        <span class="fond-bold">Réponses :</span>
         <c:choose>
             <c:when test="${fn:length(twots)>0}">
                 <c:forEach begin="0" end="${fn:length(twots)-1}" var="index">

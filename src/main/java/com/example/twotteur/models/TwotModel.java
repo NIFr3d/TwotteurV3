@@ -54,4 +54,8 @@ public class TwotModel{
     public int getId(){
         return this.id;
     }
+
+    public UserModel getUser() {
+        return this.user;
+    }
 }
