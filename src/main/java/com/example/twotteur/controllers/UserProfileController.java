@@ -26,7 +26,7 @@ public class UserProfileController {
     public String userProfile(@PathVariable String nickname, Model model){
         if(userService.getUserByNickname(nickname)!=null){
             List<TwotModel> twots=twotService.getTwots(userService.getUserByNickname(nickname));
-            model.addAttribute("nickname",nickname);
+            model.addAttribute("user",userService.getUserByNickname(nickname));
             model.addAttribute("twots",twots);
             return "user";
         }

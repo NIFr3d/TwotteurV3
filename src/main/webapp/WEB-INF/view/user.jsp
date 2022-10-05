@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Profil de <c:out value="${nickname}"/></title>
+<title>Profil de <c:out value="${user.getNickname()}"/></title>
 </head>
 <body>
 <div class="flex">

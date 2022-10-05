@@ -3,8 +3,8 @@
 <%@ include file="taglibs.jsp" %>
 <p>
 <a href="../twot/${twot.getId()}">
-    <span class="font-bold"><c:out value="${nickname}"/></span>
-    <span class="font-light">@<c:out value="${nickname}"/></span>
+    <span class="font-bold"><c:out value="${user.getNickname()}"/></span>
+    <span class="font-light">@<c:out value="${user.getNickname()}"/></span>
     <span><c:out value="${twot.getDate()}"/></span><br>
     <c:out value="${twot.getText()}"/> <br>
 </a>
@@ -43,7 +43,7 @@
             display:none;
             " id="<c:out value="${twot.getId()}"></c:out>" class="answerForm">
     <input type="hidden" name="originalid" value="${twot.getId()}">
-    <input type="hidden" name="userid" value="${nickname}">
+    <input type="hidden" name="userid" value="${user.getNickname()}">
     <textarea class="resize-none border-none" name="text" placeholder="Donnez votre avis" required></textarea><br>
     <button type="submit" class="rounded-lg bg-gray-200">Répondre</button>
 </form>

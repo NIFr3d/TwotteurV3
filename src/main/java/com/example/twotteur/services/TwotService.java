@@ -42,4 +42,7 @@ public class TwotService {
     public List<TwotModel> getAnswersByTwotId(int id) {
         return twotRepository.findTwotModelsByOriginaltwot(getTwotById(id));
     }
+    public UserModel getUserByTwotId(int id){
+        return twotRepository.getUserModel
+    }
 }
