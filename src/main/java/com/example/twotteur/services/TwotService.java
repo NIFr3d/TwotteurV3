@@ -32,6 +32,9 @@ public class TwotService {
     public void newTweet(UserModel user, String text) {
         twotRepository.save(new TwotModel(user,text));
     }
+    public void newAnswer(UserModel user,String text,TwotModel twot){
+        twotRepository.save(new TwotModel(user,text,twot));
+    }
 
     public TwotModel getTwotById(int id){
         return twotRepository.getReferenceById(id);

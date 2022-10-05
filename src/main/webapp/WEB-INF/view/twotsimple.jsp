@@ -39,27 +39,16 @@
             background-color:white;
             z-index:100;
             display:none;
-            " id="<c:out value="${twot.getId()}"></c:out>">
-    <input type="hidden" value="${twot.getId()}">
+            " id="<c:out value="${twot.getId()}"></c:out>" class="answerForm">
+    <input type="hidden" name="originalid" value="${twot.getId()}">
+    <input type="hidden" name="userid" value="${nickname}">
     <textarea class="resize-none border-none" name="text" placeholder="Donnez votre avis" required></textarea><br>
     <button type="submit" class="rounded-lg bg-gray-200">Répondre</button>
 </form>
-<div id="overlay-back" style="position   : fixed;
-            top        : 0;
-            left       : 0;
-            width      : 100%;
-            height     : 100%;
-            background : #000;
-            opacity    : 0.6;
-            filter     : alpha(opacity=60);
-            z-index    : 5;
-            display    : none;"></div>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
     function afficher_msg(id) {
         $('#'+id+', #overlay-back').fadeIn(500);
-    }
-    function cacher_msg(id) {
-        $('#'+id+', #overlay-back').fadeOut(500);
     }
 </script>

@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.net.http.HttpRequest;
+
 @RestController
 public class TwotController {
     @Autowired
@@ -27,5 +29,11 @@ public class TwotController {
     @GetMapping(value="/twotSimple")
     public TwotModel simpleTwot(@RequestParam("id") int id){
         return twotService.getTwotById(id);
+    }
+
+    @PostMapping(value="/answer")
+    public RedirectView answer(@RequestParam("userid") String userid, @RequestParam("originalid") int originalid, @RequestParam("text") String text){
+        twotService.newAnswer(userService.getUserByNickname(userid),text,twotService.getTwotById(originalid));
+        return new RedirectView("/home");
     }
 }

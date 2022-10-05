@@ -15,8 +15,18 @@
         <c:choose>
         <c:when test="${fn:length(twots)>0}">
         <c:forEach begin="0" end="${fn:length(twots)-1}" var="index">
-            <%@include file="twotsimple.jsp"%>
             <c:set var="twot" value="${twots[index]}"></c:set>
+            <%@include file="twotsimple.jsp"%>
+            <button onclick="fadeOut()"><div id="overlay-back" style="position   : fixed;
+            top        : 0;
+            left       : 0;
+            width      : 100%;
+            height     : 100%;
+            background : #000;
+            opacity    : 0.6;
+            filter     : alpha(opacity=60);
+            z-index    : 5;
+            display    : none;"></div></button>
         </c:forEach>
         </c:when>
         <c:otherwise>
@@ -27,4 +37,9 @@
         </c:choose>
     </div>
 </body>
+<script>
+    function fadeOut(){
+        $('.answerForm, #overlay-back').fadeOut(500);
+    }
+</script>
 </html>

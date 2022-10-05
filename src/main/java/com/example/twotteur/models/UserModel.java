@@ -3,20 +3,18 @@ package com.example.twotteur.models;
 import javax.persistence.*;
 
 @Entity
-@Table(name="users")
 public class UserModel{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private int id;
 
-    @Column(name="email", nullable = false,unique = true,columnDefinition = "varchar")
+    @Column(nullable = false,unique = true)
     private String email;
 
-    @Column(name="nickname",nullable = false,unique = true,columnDefinition = "varchar")
+    @Column(nullable = false,unique = true)
     private String nickname;
 
-    @Column(name="password",nullable = false,columnDefinition = "varchar")
+    @Column(nullable = false)
     private String password;
 
     public int getId(){
