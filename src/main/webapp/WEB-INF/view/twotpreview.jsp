@@ -3,14 +3,14 @@
 <%@ include file="taglibs.jsp" %>
 <p>
 <a href="../twot/${twot.getId()}">
-    <span class="font-bold"><c:out value="${user.getNickname()}"/></span>
+    <span class="font-bold"><c:out value="${user.getDisplayname()}"/></span>
     <span class="font-light">@<c:out value="${user.getNickname()}"/></span>
     <span><c:out value="${twot.getDate()}"/></span><br>
     <c:out value="${twot.getText()}"/> <br>
 </a>
     <div>
         <button class="">
-            <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                  viewBox="0 0 471.701 471.701" style="enable-background:new 0 0 471.701 471.701;" xml:space="preserve" width="20" height="20">
                                 <g>
                                     <path d="M433.601,67.001c-24.7-24.7-57.4-38.2-92.3-38.2s-67.7,13.6-92.4,38.3l-12.9,12.9l-13.1-13.1
@@ -24,7 +24,7 @@
             </svg>
         </button>
         <button class="text-left" onclick="afficher_msg(<c:out value="${twot.getId()}"></c:out>)">
-            <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                  viewBox="0 0 230 230" style="enable-background:new 0 0 230 230;" xml:space="preserve" width="20" height="20">
             <path d="M230,222.087V7.913H0v179h174.813L230,222.087z M15,22.913h200v171.826l-35.814-22.826H15V22.913z M62.75,112.08h104.5v15
                 H62.75V112.08z M62.75,67.747h104.5v15H62.75V67.747z"/>

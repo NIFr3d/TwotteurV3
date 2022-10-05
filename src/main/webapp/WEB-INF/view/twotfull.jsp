@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
 </head>
 <body>
-<div class="flex">
+<div class="inline-flex">
     <div><%@include file="leftsidebar.jsp" %></div>
     <div>
         <%@include file="twotpreview.jsp"%>
@@ -17,7 +17,15 @@
                 <c:forEach begin="0" end="${fn:length(twots)-1}" var="index">
                     <c:set var="twot" value="${twots[index]}"></c:set>
                     <%@include file="twotpreview.jsp"%>
-                    <button onclick="fadeOut()"><div id="overlay-back" style="position   : fixed;
+                </c:forEach>
+            </c:when>
+            <c:otherwise>
+                <p>
+                    Ce tweet n'as pas de réponses.
+                </p>
+            </c:otherwise>
+        </c:choose>
+        <button onclick="fadeOut()"><div id="overlay-back" style="position   : fixed;
                 top        : 0;
                 left       : 0;
                 width      : 100%;
@@ -27,14 +35,6 @@
                 filter     : alpha(opacity=60);
                 z-index    : 5;
                 display    : none;"></div></button>
-                </c:forEach>
-            </c:when>
-            <c:otherwise>
-                <p>
-                    Ce tweet n'as pas de réponses.
-                </p>
-            </c:otherwise>
-        </c:choose>
     </div>
 </div>
 </body>
