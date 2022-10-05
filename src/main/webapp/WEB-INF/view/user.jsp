@@ -5,7 +5,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-    <% String nickname=(String)request.getAttribute("nickname"); %>
 <title>Profil de <c:out value="${nickname}"/></title>
 </head>
 <body>
@@ -16,7 +15,7 @@
         <c:when test="${fn:length(twots)>0}">
         <c:forEach begin="0" end="${fn:length(twots)-1}" var="index">
             <c:set var="twot" value="${twots[index]}"></c:set>
-            <%@include file="twotsimple.jsp"%>
+            <%@include file="twotpreview.jsp"%>
             <button onclick="fadeOut()"><div id="overlay-back" style="position   : fixed;
             top        : 0;
             left       : 0;

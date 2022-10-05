@@ -6,15 +6,12 @@ import com.example.twotteur.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.net.http.HttpRequest;
 
-@RestController
+@Controller
 public class TwotController {
     @Autowired
     private TwotService twotService;
@@ -26,7 +23,7 @@ public class TwotController {
         twotService.newTweet(userService.getUserById(id).get(),text);
         return new RedirectView("/home");
     }
-    @GetMapping(value="/twotSimple")
+    @GetMapping(value="/twotpreview")
     public TwotModel simpleTwot(@RequestParam("id") int id){
         return twotService.getTwotById(id);
     }
@@ -35,5 +32,12 @@ public class TwotController {
     public RedirectView answer(@RequestParam("userid") String userid, @RequestParam("originalid") int originalid, @RequestParam("text") String text){
         twotService.newAnswer(userService.getUserByNickname(userid),text,twotService.getTwotById(originalid));
         return new RedirectView("/home");
+    }
+
+    @GetMapping(value="/twot/{id}")
+    public String fullTwot(@PathVariable int id,Model model){
+        model.addAttribute("twot",twotService.getTwotById(id));
+        model.addAttribute("twots",twotService.getAnswersByTwotId(id));
+        return "twotfull";
     }
 }

@@ -15,10 +15,10 @@ public class TwotModel{
     private String text;
 
     @Column(nullable=false)
-    private boolean is_answer=false;
+    private boolean isanswer=false;
 
     @ManyToOne
-    private TwotModel original_twot;
+    private TwotModel originaltwot;
 
     @ManyToOne
     private UserModel user;
@@ -26,7 +26,7 @@ public class TwotModel{
     @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
-    private Date created_at=new Date();
+    private Date createdat=new Date();
 
     public TwotModel() {
 
@@ -36,7 +36,7 @@ public class TwotModel{
         return this.text;
     }
     public Date getDate(){
-        return this.created_at;
+        return this.createdat;
     }
 
     public TwotModel(UserModel user,String text){
@@ -47,8 +47,8 @@ public class TwotModel{
     public TwotModel(UserModel user,String text,TwotModel twot){
         this.user=user;
         this.text=text;
-        this.original_twot=twot;
-        this.is_answer=true;
+        this.originaltwot=twot;
+        this.isanswer=true;
     }
 
     public int getId(){
