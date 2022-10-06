@@ -23,19 +23,19 @@ public class UserService {
     public Optional<User> getUserById(int id){
         return(userRepository.findById(id));
     }
-    public User getUserByNickname(String nickname){
-        if(userRepository.countUserModelByNickname(nickname)>0){
-            return userRepository.findByUsername(nickname).get();
+    public User getUserByNickname(String username){
+        if(userRepository.existsByUsername(username)){
+            return userRepository.findByUsername(username).get();
         }
         return null;
     }
     public int getIdByEmail(String email){
         return userRepository.getFirstByEmail(email).getId();
     }
-    public int addUser(String email,String nickname, String password){
+    public int addUser(String email,String username, String password){
         if(!userExist(email)){
-            if(userRepository.countUserModelByNickname(nickname)==0){
-                userRepository.save(new User(email,nickname,password));
+            if(!userRepository.existsByUsername(username)){
+                userRepository.save(new User(email,username,password));
                 return 0;
             }
             return 2;
@@ -44,7 +44,7 @@ public class UserService {
     }
 
     public boolean userExist(String email){
-        return (userRepository.countUserModelByEmail(email)>0);
+        return (userRepository.existsByEmail(email));
     }
     public boolean correctPassword(String email,String password){
         return (userRepository.countUserModelByEmailAndPassword(email,password)>0);

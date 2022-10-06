@@ -36,7 +36,7 @@ public class UserProfileController {
     @GetMapping(value="/profile")
     public RedirectView profile(HttpSession session){
         int id=(int)session.getAttribute("userid");
-        String nickname=userService.getUserById(id).get().getNickname();
+        String nickname=userService.getUserById(id).get().getUsername();
         return new RedirectView("/user/"+nickname);
     }
 }
