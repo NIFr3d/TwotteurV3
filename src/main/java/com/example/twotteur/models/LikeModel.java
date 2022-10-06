@@ -9,12 +9,12 @@ public class LikeModel {
     private int id;
 
     @ManyToOne
-    private UserModel user;
+    private User user;
 
     @ManyToOne
     private TwotModel twot;
 
-    public LikeModel(UserModel user,TwotModel twot){
+    public LikeModel(User user,TwotModel twot){
         this.user=user;
         this.twot=twot;
     }

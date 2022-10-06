@@ -1,7 +1,7 @@
 package com.example.twotteur.services;
 
 import com.example.twotteur.models.TwotModel;
-import com.example.twotteur.models.UserModel;
+import com.example.twotteur.models.User;
 import com.example.twotteur.repositories.LikeRepository;
 import com.example.twotteur.repositories.TwotRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,16 +19,16 @@ public class TwotService {
     @Autowired
     private LikeRepository likeRepository;
 
-    public List<TwotModel> getTwots(UserModel user){
+    public List<TwotModel> getTwots(User user){
         List<TwotModel> twots=new ArrayList<>();
         twotRepository.findTwotModelsByUser(user).forEach(twots::add);
         return twots;
     }
 
-    public void newTweet(UserModel user, String text) {
+    public void newTweet(User user, String text) {
         twotRepository.save(new TwotModel(user,text));
     }
-    public void newAnswer(UserModel user,String text,TwotModel twot){
+    public void newAnswer(User user,String text,TwotModel twot){
         twotRepository.save(new TwotModel(user,text,twot));
     }
 
@@ -38,7 +38,7 @@ public class TwotService {
     public List<TwotModel> getAnswersByTwotId(int id) {
         return twotRepository.findTwotModelsByOriginaltwot(getTwotById(id));
     }
-    public UserModel getUserByTwotId(int id){
+    public User getUserByTwotId(int id){
         return twotRepository.findFirstById(id).getUser();
     }
 
