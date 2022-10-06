@@ -12,4 +12,5 @@ public interface TwotRepository extends JpaRepository<TwotModel, Integer>  {
     List<TwotModel> findTwotModelsByUser(UserModel user);
     List<TwotModel> findTwotModelsByOriginaltwot(TwotModel model);
     TwotModel findFirstById(int id);
+    int countByOriginaltwot(TwotModel twot);
 }

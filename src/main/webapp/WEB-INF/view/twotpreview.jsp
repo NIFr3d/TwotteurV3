@@ -2,12 +2,12 @@
          pageEncoding="UTF-8"%>
 <%@ include file="taglibs.jsp" %>
 <p>
-<a href="../twot/${twot.getId()}">
-    <span class="font-bold"><c:out value="${user.getDisplayname()}"/></span>
-    <span class="font-light">@<c:out value="${user.getNickname()}"/></span>
-    <span><c:out value="${twot.getDate()}"/></span><br>
-    <c:out value="${twot.getText()}"/> <br>
-</a>
+    <a href="../twot/${twot.getId()}">
+        <span class="font-bold"><c:out value="${user.getDisplayname()}"/></span>
+        <span class="font-light">@<c:out value="${user.getNickname()}"/></span>
+        <span><c:out value="${twot.getDate()}"/></span><br>
+        <c:out value="${twot.getText()}"/> <br>
+    </a>
     <div>
         <button class="">
             <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -22,6 +22,7 @@
                                         C444.801,187.101,434.001,213.101,414.401,232.701z"/>
                                 </g>
             </svg>
+            <span id="likecount${twot.getId()}">0</span>
         </button>
         <button class="text-left" onclick="afficher_msg(<c:out value="${twot.getId()}"></c:out>)">
             <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -29,6 +30,7 @@
             <path d="M230,222.087V7.913H0v179h174.813L230,222.087z M15,22.913h200v171.826l-35.814-22.826H15V22.913z M62.75,112.08h104.5v15
                 H62.75V112.08z M62.75,67.747h104.5v15H62.75V67.747z"/>
             </svg>
+            <span id="answercount${twot.getId()}">0</span>
         </button>
     </div>
 </p>
@@ -47,10 +49,11 @@
     <textarea class="resize-none border-none" name="text" placeholder="Donnez votre avis" required></textarea><br>
     <button type="submit" class="rounded-lg bg-gray-200">Répondre</button>
 </form>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
-    function afficher_msg(id) {
-        $('#'+id+', #overlay-back').fadeIn(500);
-    }
+        xmlHttpReq.open("GET", "../countanswers/${twot.getId()}", false);
+        xmlHttpReq.send(null);
+        document.getElementById("answercount${twot.getId()}").innerHTML=xmlHttpReq.responseText;
+        xmlHttpReq.open("GET", "../countanswers/${twot.getId()}", false);
+        xmlHttpReq.send(null);
+        document.getElementById("answercount${twot.getId()}").innerHTML=xmlHttpReq.responseText;
 </script>
