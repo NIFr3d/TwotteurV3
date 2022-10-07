@@ -8,6 +8,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Table(uniqueConstraints = {
+        @UniqueConstraint(columnNames = "username"),
+        @UniqueConstraint(columnNames = "email")
+})
 public class User{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

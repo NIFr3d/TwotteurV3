@@ -3,6 +3,8 @@ package com.example.twotteur.models;
 import javax.persistence.*;
 
 @Entity
+@Table(uniqueConstraints = {
+        @UniqueConstraint(columnNames = "name")})
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

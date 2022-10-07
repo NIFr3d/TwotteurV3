@@ -8,11 +8,11 @@
 if((boolean) session.getAttribute("isLogged")){
 %>
 <a href="../profile"><button class="rounded-lg bg-gray-200" type=button>Profil</button></a><br>
-<a href="../logout"><button class="rounded-lg bg-gray-200" type=button>Se déconnecter</button></a><br>
+<a href="../auth/singout"><button class="rounded-lg bg-gray-200" type=button>Se déconnecter</button></a><br>
 <% } %>
 </c:when>
 <c:otherwise>
-<a href="../login"><button class="rounded-lg bg-gray-200" type=button>Se connecter</button></a><br>
+<a href="../auth/signin"><button class="rounded-lg bg-gray-200" type=button>Se connecter</button></a><br>
 </c:otherwise>
 </c:choose>
 <button class="rounded-lg bg-gray-200" type=button>Twoter</button>

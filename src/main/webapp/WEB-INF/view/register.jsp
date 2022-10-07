@@ -15,7 +15,7 @@
 		<label>Email</label><br>
 		<input class="border-2 rounded-lg" type="email" name="email" required/><br>
 		<label>Pseudo</label><br>
-		<input class="border-2 rounded-lg" type="text" name="nickname" required/><br>
+		<input class="border-2 rounded-lg" type="text" name="username" required/><br>
 		<label>Mot de passe</label><br>
 		<input class="border-2 rounded-lg mb-2" type="password" name="password" required/><br>
 	<% if(request.getParameter("e")!=null){
@@ -35,7 +35,7 @@
 		<button class="rounded-lg bg-gray-200" type="submit">S'enregistrer</button>
 	</form>
 	<p>Vous avez déjà un compte ?</p>
-	<a class="text-blue-700 underline" href="./login">Se connecter</a>
+	<a class="text-blue-700 underline" href="../auth/signin">Se connecter</a>
 	</div>
 	</div>
 	</body>

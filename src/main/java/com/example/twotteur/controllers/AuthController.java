@@ -16,17 +16,18 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@RestController
+@Controller
 @RequestMapping("/auth")
 public class AuthController {
     @Autowired
@@ -43,6 +44,15 @@ public class AuthController {
 
     @Autowired
     JwtUtils jwtUtils;
+
+    @GetMapping("/signin")
+    public String signinView(){
+        return "login";
+    }
+    @GetMapping("/signup")
+    public String registerView(){
+        return "register";
+    }
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@RequestParam("username") String username, @RequestParam("password") String password) {
@@ -75,12 +85,12 @@ public class AuthController {
         }
 
         // Create new user's account
-        User user = new User(username,
-                email,
+        User user = new User(email,
+                username,
                 encoder.encode(password));
 
         Set<String> strRoles = new HashSet<>();
-        strRoles.add("ROLE_USER");
+        strRoles.add("user");
         Set<Role> roles = new HashSet<>();
 
         if (strRoles == null) {
