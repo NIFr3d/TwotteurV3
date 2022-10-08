@@ -4,6 +4,7 @@ import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class User{
@@ -25,6 +26,9 @@ public class User{
 
     @Column(nullable = false)
     private String displayname;
+
+    @ManyToMany
+    List<Twot> likes;
 
     @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
