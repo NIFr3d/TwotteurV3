@@ -53,7 +53,7 @@
         xmlHttpReq.open("GET", "../countanswers/${twot.getId()}", false);
         xmlHttpReq.send(null);
         document.getElementById("answercount${twot.getId()}").innerHTML=xmlHttpReq.responseText;
-        xmlHttpReq.open("GET", "../countanswers/${twot.getId()}", false);
+        xmlHttpReq.open("GET", "../countlikes/${twot.getId()}", false);
         xmlHttpReq.send(null);
-        document.getElementById("answercount${twot.getId()}").innerHTML=xmlHttpReq.responseText;
+        document.getElementById("likecount${twot.getId()}").innerHTML=xmlHttpReq.responseText;
 </script>

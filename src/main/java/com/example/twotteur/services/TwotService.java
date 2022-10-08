@@ -2,18 +2,23 @@ package com.example.twotteur.services;
 
 import com.example.twotteur.models.Twot;
 import com.example.twotteur.models.User;
+import com.example.twotteur.repositories.LikeRepository;
 import com.example.twotteur.repositories.TwotRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TwotService {
 
     @Autowired
     private TwotRepository twotRepository;
+
+    @Autowired
+    private LikeRepository likeRepository;
 
     public List<Twot> getTwots(User user){
         List<Twot> twots=new ArrayList<>();
@@ -42,15 +47,21 @@ public class TwotService {
     public List<Twot> getAnswersByTwotId(int id) {
         return twotRepository.findTwotsByOriginaltwot(getTwotById(id));
     }
-    public User getUserByTwotId(int id){
-        return twotRepository.findFirstById(id).getUser();
+    public Optional<User> getUserByTwotId(int id){
+        Optional<User> user=Optional.empty();
+        if(twotRepository.findFirstById(id).isPresent()) user.of(twotRepository.findFirstById(id).get().getUser());
+        return user;
     }
 
     public int countAnswers(int id) {
-        return twotRepository.countByOriginaltwot(twotRepository.findFirstById(id));
+        int count=0;
+        if(twotRepository.findFirstById(id).isPresent()) count=twotRepository.countByOriginaltwot(twotRepository.findFirstById(id).get());
+        return count;
     }
 
     public int countLikes(int id) {
-        return 1;
+        int count=0;
+        if(twotRepository.findFirstById(id).isPresent()) count=likeRepository.countByTwot(twotRepository.findFirstById(id).get());
+        return count;
     }
 }

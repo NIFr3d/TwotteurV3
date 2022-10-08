@@ -7,12 +7,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface TwotRepository extends JpaRepository<Twot, Integer>  {
     List<Twot> findTwotsByUser(User user);
     List<Twot> findTwotsByOriginaltwot(Twot model);
-    Twot findFirstById(int id);
+    Optional<Twot> findFirstById(int id);
 
     Integer countByOriginaltwot(Twot twot);
 
