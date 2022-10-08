@@ -4,15 +4,9 @@ import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
-@Table(uniqueConstraints = {
-        @UniqueConstraint(columnNames = "username"),
-        @UniqueConstraint(columnNames = "email")
-})
-public class User{
+public class UserModel{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -21,7 +15,7 @@ public class User{
     private String email;
 
     @Column(nullable = false,unique = true)
-    private String username;
+    private String nickname;
 
     @Column
     private String biography;
@@ -37,43 +31,26 @@ public class User{
     @Column(nullable = false)
     private Date createdat=new Date();
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    private Set<Role> roles = new HashSet<>();
-
     public int getId(){
         return this.id;
     }
 
-    public User(String email,String username,String password){
+    public UserModel(String email,String nickname,String password){
         this.email=email;
-        this.username=username;
+        this.nickname=nickname;
         this.password=password;
-        this.displayname=username;
+        this.displayname=nickname;
     }
 
-    public User() {
+    public UserModel() {
 
     }
-    public Set<Role> getRoles() {
-        return roles;
-    }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
-
-    public String getUsername() {
-        return this.username;
+    public String getNickname() {
+        return this.nickname;
     }
     public String getDisplayname(){return this.displayname;}
 
     public String getBiography(){return this.biography;}
     public Date getCreatedat(){return this.createdat;}
-
-    public String getEmail() {
-        return this.email;
-    }
-    public String getPassword(){
-        return this.password;
-    }
 }

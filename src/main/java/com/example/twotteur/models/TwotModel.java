@@ -21,7 +21,7 @@ public class TwotModel{
     private TwotModel originaltwot;
 
     @ManyToOne
-    private User user;
+    private UserModel user;
 
     @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
@@ -39,12 +39,12 @@ public class TwotModel{
         return this.createdat;
     }
 
-    public TwotModel(User user,String text){
+    public TwotModel(UserModel user,String text){
         this.user=user;
         this.text=text;
     }
 
-    public TwotModel(User user,String text,TwotModel twot){
+    public TwotModel(UserModel user,String text,TwotModel twot){
         this.user=user;
         this.text=text;
         this.originaltwot=twot;
@@ -55,7 +55,7 @@ public class TwotModel{
         return this.id;
     }
 
-    public User getUser() {
+    public UserModel getUser() {
         return this.user;
     }
 }

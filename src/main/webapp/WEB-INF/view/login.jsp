@@ -12,9 +12,9 @@
 <%@include file="leftsidebar.jsp"%>
 <div class="block">
 <form method="post">
-<label>Nom d'utilisateur</label><br>
-<input class="border-2 rounded-lg" type="text" name="username"/><br>
-<label>Mot de passe</label><br>
+<label for="email">Email</label><br>
+<input class="border-2 rounded-lg" type="email" name="email"/><br>
+<label for="password">Mot de passe</label><br>
 <input class="border-2 rounded-lg mb-2" type="password" name="password"/><br>
 <% if(request.getParameter("e")!=null){ 
 	switch(request.getParameter("e")){
@@ -31,7 +31,7 @@
 
 </form>
 <p>Vous n'avez pas de compte ?</p>
-<a class="text-blue-700 underline" href="../auth/signup">S'enregistrer</a>
+<a class="text-blue-700 underline" href="register">S'enregistrer</a>
 
 </div>
 </div>

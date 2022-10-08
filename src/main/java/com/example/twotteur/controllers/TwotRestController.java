@@ -6,6 +6,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 @RestController
 public class TwotRestController {
     @Autowired
@@ -16,7 +19,7 @@ public class TwotRestController {
         return twotService.countAnswers(id);
     }
     @GetMapping(value="/countlikes/{id}")
-    public int countLikes(@PathVariable int id){
+    public int countLikes(@PathVariable int id, HttpSession session){
         return twotService.countLikes(id);
     }
 

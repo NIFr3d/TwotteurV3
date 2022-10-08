@@ -12,12 +12,14 @@
 	<%@include file="leftsidebar.jsp"%>
 	<div class="block">
 	<form method="post">
-		<label>Email</label><br>
+		<label for="email">Email</label><br>
 		<input class="border-2 rounded-lg" type="email" name="email" required/><br>
-		<label>Pseudo</label><br>
-		<input class="border-2 rounded-lg" type="text" name="username" required/><br>
-		<label>Mot de passe</label><br>
+		<label for="nickname">Pseudo</label><br>
+		<input class="border-2 rounded-lg" type="text" name="nickname" required/><br>
+		<label for="password">Mot de passe</label><br>
 		<input class="border-2 rounded-lg mb-2" type="password" name="password" required/><br>
+		<label for="password">Confirmer le mot de passe</label><br>
+		<input class="border-2 rounded-lg mb-2" type="password" name="password2" required/><br>
 	<% if(request.getParameter("e")!=null){
 		switch(request.getParameter("e")){
 			case("0"):
@@ -35,7 +37,7 @@
 		<button class="rounded-lg bg-gray-200" type="submit">S'enregistrer</button>
 	</form>
 	<p>Vous avez déjà un compte ?</p>
-	<a class="text-blue-700 underline" href="../auth/signin">Se connecter</a>
+	<a class="text-blue-700 underline" href="./login">Se connecter</a>
 	</div>
 	</div>
 	</body>
