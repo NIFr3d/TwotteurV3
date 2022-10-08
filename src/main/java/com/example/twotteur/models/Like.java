@@ -3,22 +3,22 @@ package com.example.twotteur.models;
 import javax.persistence.*;
 
 @Entity
-public class LikeModel {
+public class Like {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @ManyToOne
-    private UserModel user;
+    private User user;
 
     @ManyToOne
-    private TwotModel twot;
+    private Twot twot;
 
-    public LikeModel(UserModel user,TwotModel twot){
+    public Like(User user,Twot twot){
         this.user=user;
         this.twot=twot;
     }
 
-    public LikeModel() {
+    public Like() {
     }
 }

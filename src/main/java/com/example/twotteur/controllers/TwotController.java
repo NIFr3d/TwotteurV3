@@ -1,6 +1,6 @@
 package com.example.twotteur.controllers;
 
-import com.example.twotteur.models.TwotModel;
+import com.example.twotteur.models.Twot;
 import com.example.twotteur.services.TwotService;
 import com.example.twotteur.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class TwotController {
         return new RedirectView("/home");
     }
     @GetMapping(value="/twotpreview")
-    public TwotModel simpleTwot(@RequestParam("id") int id){
+    public Twot simpleTwot(@RequestParam("id") int id){
         return twotService.getTwotById(id);
     }
 

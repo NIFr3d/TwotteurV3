@@ -1,6 +1,6 @@
 package com.example.twotteur.services;
 
-import com.example.twotteur.models.UserModel;
+import com.example.twotteur.models.User;
 import com.example.twotteur.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,16 +15,16 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public List<UserModel> getallUsers(){
-        List<UserModel> userModels = new ArrayList<>();
-        userRepository.findAll().forEach(userModels::add);
-        return userModels;
+    public List<User> getallUsers(){
+        List<User> Users = new ArrayList<>();
+        userRepository.findAll().forEach(Users::add);
+        return Users;
     }
-    public Optional<UserModel> getUserById(int id){
+    public Optional<User> getUserById(int id){
         return(userRepository.findById(id));
     }
-    public UserModel getUserByNickname(String nickname){
-        if(userRepository.countUserModelByNickname(nickname)>0){
+    public User getUserByNickname(String nickname){
+        if(userRepository.countUserByNickname(nickname)>0){
             return userRepository.getFirstByNickname(nickname);
         }
         return null;
@@ -34,8 +34,8 @@ public class UserService {
     }
     public int addUser(String email,String nickname, String password){
         if(!userExist(email)){
-            if(userRepository.countUserModelByNickname(nickname)==0){
-                userRepository.save(new UserModel(email,nickname,password));
+            if(userRepository.countUserByNickname(nickname)==0){
+                userRepository.save(new User(email,nickname,password));
                 return 0;
             }
             return 2;
@@ -44,10 +44,10 @@ public class UserService {
     }
 
     public boolean userExist(String email){
-        return (userRepository.countUserModelByEmail(email)>0);
+        return (userRepository.countUserByEmail(email)>0);
     }
     public boolean correctPassword(String email,String password){
-        return (userRepository.countUserModelByEmailAndPassword(email,password)>0);
+        return (userRepository.countUserByEmailAndPassword(email,password)>0);
     }
 
 }

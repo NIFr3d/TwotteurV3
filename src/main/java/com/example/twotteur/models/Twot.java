@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-public class TwotModel{
+public class Twot{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -18,17 +18,17 @@ public class TwotModel{
     private boolean isanswer=false;
 
     @ManyToOne
-    private TwotModel originaltwot;
+    private Twot originaltwot;
 
     @ManyToOne
-    private UserModel user;
+    private User user;
 
     @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
     private Date createdat=new Date();
 
-    public TwotModel() {
+    public Twot() {
 
     }
 
@@ -39,12 +39,12 @@ public class TwotModel{
         return this.createdat;
     }
 
-    public TwotModel(UserModel user,String text){
+    public Twot(User user,String text){
         this.user=user;
         this.text=text;
     }
 
-    public TwotModel(UserModel user,String text,TwotModel twot){
+    public Twot(User user,String text,Twot twot){
         this.user=user;
         this.text=text;
         this.originaltwot=twot;
@@ -55,7 +55,7 @@ public class TwotModel{
         return this.id;
     }
 
-    public UserModel getUser() {
+    public User getUser() {
         return this.user;
     }
 }
