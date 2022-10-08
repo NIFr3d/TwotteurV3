@@ -37,4 +37,15 @@ public class TwotRestController {
         }
         return 0;
     }
+
+    @GetMapping(value="/didilike/{id}")
+    public int didilike(@PathVariable int id,HttpSession session){
+        boolean isLogged=false;
+        if(session.getAttribute("isLogged") != null) isLogged=(boolean)session.getAttribute("isLogged");
+        if(isLogged) {
+            int userid = (int) session.getAttribute("userid");
+            if(twotService.userAlreadyLiked(id,userid)) return 1;
+        }
+        return 0;
+    }
 }
