@@ -19,8 +19,22 @@ public class TwotRestController {
         return twotService.countAnswers(id);
     }
     @GetMapping(value="/countlikes/{id}")
-    public int countLikes(@PathVariable int id, HttpSession session){
+    public int countLikes(@PathVariable int id){
         return twotService.countLikes(id);
     }
 
+    @GetMapping(value="/like/{id}")
+    public int like(@PathVariable int id, HttpSession session){
+        boolean isLogged=false;
+        if(session.getAttribute("isLogged") != null) isLogged=(boolean)session.getAttribute("isLogged");
+        if(isLogged){
+            int userid=(int)session.getAttribute("userid");
+            if(twotService.userAlreadyLiked(id,userid)){
+                if(twotService.removeLike(id,userid)) return 2;
+            }else{
+                if(twotService.addLike(id,userid)) return 1;
+            }
+        }
+        return 0;
+    }
 }

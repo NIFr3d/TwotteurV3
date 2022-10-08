@@ -1,9 +1,11 @@
 package com.example.twotteur.services;
 
+import com.example.twotteur.models.LikeAsso;
 import com.example.twotteur.models.Twot;
 import com.example.twotteur.models.User;
 import com.example.twotteur.repositories.LikeRepository;
 import com.example.twotteur.repositories.TwotRepository;
+import com.example.twotteur.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,10 @@ public class TwotService {
 
     @Autowired
     private LikeRepository likeRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
 
     public List<Twot> getTwots(User user){
         List<Twot> twots=new ArrayList<>();
@@ -63,5 +69,36 @@ public class TwotService {
         int count=0;
         if(twotRepository.findFirstById(id).isPresent()) count=likeRepository.countByTwot(twotRepository.findFirstById(id).get());
         return count;
+    }
+
+    public boolean addLike(int twotid, int userid) {
+        if(twotRepository.findFirstById(twotid).isPresent()){
+            if(userRepository.findById(userid).isPresent()){
+                likeRepository.save(new LikeAsso(twotRepository.findFirstById(twotid).get(),userRepository.findById(userid).get()));
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean removeLike(int twotid,int userid) {
+        if(twotRepository.findFirstById(twotid).isPresent()) {
+            if (userRepository.findById(userid).isPresent()) {
+                if (likeRepository.findByTwotAndUser(twotRepository.findFirstById(twotid).get(), userRepository.findById(userid).get()).isPresent()) {
+                    likeRepository.delete(likeRepository.findByTwotAndUser(twotRepository.findFirstById(twotid).get(), userRepository.findById(userid).get()).get());
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    public boolean userAlreadyLiked(int twotid,int userid) {
+        if (twotRepository.findFirstById(twotid).isPresent()) {
+            if (userRepository.findById(userid).isPresent()) {
+                if (likeRepository.findByTwotAndUser(twotRepository.findFirstById(twotid).get(), userRepository.findById(userid).get()).isPresent()) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

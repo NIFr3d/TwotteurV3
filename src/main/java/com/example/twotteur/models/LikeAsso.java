@@ -16,4 +16,13 @@ public class LikeAsso {
     @ManyToOne
     @JoinColumn(nullable=false)
     private Twot twot;
+
+    public LikeAsso(Twot twot, User user) {
+        this.twot=twot;
+        this.user=user;
+    }
+
+    public LikeAsso() {
+
+    }
 }
