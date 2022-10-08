@@ -27,9 +27,6 @@ public class User{
     @Column(nullable = false)
     private String displayname;
 
-    @ManyToMany
-    List<Twot> likes;
-
     @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
