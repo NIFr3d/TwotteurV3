@@ -6,8 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="../styles/tailwind.css" />
-<title>Profil de <c:out value="${user.getnickname()}"/></title>
-</head>
+<title>Profil de ${user.getnickname()}</title>
 </head>
 <script>
     let xmlHttpReq = new XMLHttpRequest();
@@ -17,10 +16,10 @@
     <div><%@include file="leftsidebar.jsp" %></div>
     <div style="width:50%">
         <div>
-            <span class="text-xl font-bold"><c:out value="${user.getnickname()}"/> </span>
-            <span class="text-l font-sm"><c:out value="@${user.getusername()}"/> </span><br>
+            <span class="text-xl font-bold">${user.getnickname()} </span>
+            <span class="text-l font-sm">@${user.getusername()}</span><br>
             <span class="text-xl font-sm">Biographie :</span><br>
-            <span class="text-l"><c:out value="${user.getBiography()}"/></span><br>
+            <span class="text-l">${user.getBiography()}</span><br>
 
             <c:set var="date" value="${user.getCreatedat().toString()}"/>
             <span class="text-l font-sm italic text-right">A rejoint twotteur le

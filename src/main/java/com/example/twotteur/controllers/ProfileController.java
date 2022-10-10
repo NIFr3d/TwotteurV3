@@ -1,6 +1,7 @@
 package com.example.twotteur.controllers;
 
 import com.example.twotteur.models.Twot;
+import com.example.twotteur.models.User;
 import com.example.twotteur.services.TwotService;
 import com.example.twotteur.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpSession;
@@ -34,8 +37,37 @@ public class ProfileController {
 
     @GetMapping(value="/profile")
     public RedirectView profile(HttpSession session){
-        int id=(int)session.getAttribute("userid");
-        String username=userService.getUserById(id).get().getusername();
-        return new RedirectView("/user/"+username);
+        if(session.getAttribute("userid")!=null) {
+            int id = (int) session.getAttribute("userid");
+            String username = userService.getUserById(id).get().getusername();
+            return new RedirectView("/user/" + username);
+        }
+        return new RedirectView("/error");
+    }
+
+    @GetMapping(value="/editprofile")
+    public String editprofile(HttpSession session,Model model){
+        if(session.getAttribute("userid")!=null) {
+            int id = (int) session.getAttribute("userid");
+            if (userService.getUserById(id).isPresent()) {
+                model.addAttribute("user", userService.getUserById(id).get());
+                return "editprofile";
+            }
+        }
+        return "error";
+    }
+
+    @PostMapping(value="/editprofile")
+    public RedirectView editprofilepost(@RequestParam("nickname") String nickname,@RequestParam("biography") String biography, HttpSession session) {
+        if (session.getAttribute("userid") != null) {
+            int id = (int) session.getAttribute("userid");
+            if (userService.getUserById(id).isPresent()) {
+                User user = userService.getUserById(id).get();
+                user.setbiography(biography);
+                user.setnickname(nickname);
+                userService.update(user);
+            }
+        }
+        return new RedirectView("/profile");
     }
 }

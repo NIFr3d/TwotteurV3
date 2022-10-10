@@ -50,4 +50,7 @@ public class UserService {
         return (userRepository.countUserByEmailAndPassword(email,password)>0);
     }
 
+    public void update(User user) {
+        userRepository.save(user);
+    }
 }

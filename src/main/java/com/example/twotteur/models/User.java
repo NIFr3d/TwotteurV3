@@ -54,4 +54,11 @@ public class User{
 
     public String getBiography(){return this.biography;}
     public Date getCreatedat(){return this.createdat;}
+
+    public void setbiography(String biography) {
+        this.biography=biography;
+    }
+    public void setnickname(String nickname){
+        this.nickname=nickname;
+    }
 }
