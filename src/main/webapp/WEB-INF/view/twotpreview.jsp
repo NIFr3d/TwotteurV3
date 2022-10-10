@@ -6,8 +6,8 @@
 <%@ include file="taglibs.jsp" %>
 <p>
     <a href="../twot/${twot.getId()}">
-        <span class="font-bold"><c:out value="${user.getDisplayname()}"/></span>
-        <span class="font-light">@<c:out value="${user.getNickname()}"/></span>
+        <span class="font-bold"><c:out value="${user.getnickname()}"/></span>
+        <span class="font-light">@<c:out value="${user.getusername()}"/></span>
         <%
             Date nowplus1d=new Date(new Date().getTime() - TimeUnit.DAYS.toMillis( 1 ));
             Twot twot=(Twot)pageContext.getAttribute("twot");
@@ -71,7 +71,7 @@
             display:none;
             " id="<c:out value="${twot.getId()}"></c:out>" class="answerForm">
     <input type="hidden" name="originalid" value="${twot.getId()}">
-    <input type="hidden" name="userid" value="${user.getNickname()}">
+    <input type="hidden" name="userid" value="${user.getusername()}">
     <textarea class="resize-none border-none" name="text" placeholder="Donnez votre avis" required></textarea><br>
     <button type="submit" class="rounded-lg bg-gray-200">Répondre</button>
 </form>

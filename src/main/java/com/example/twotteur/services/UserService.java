@@ -23,19 +23,19 @@ public class UserService {
     public Optional<User> getUserById(int id){
         return(userRepository.findById(id));
     }
-    public User getUserByNickname(String nickname){
-        if(userRepository.countUserByNickname(nickname)>0){
-            return userRepository.getFirstByNickname(nickname);
+    public User getUserByusername(String username){
+        if(userRepository.countUserByUsername(username)>0){
+            return userRepository.getFirstByUsername(username);
         }
         return null;
     }
     public int getIdByEmail(String email){
         return userRepository.getFirstByEmail(email).getId();
     }
-    public int addUser(String email,String nickname, String password){
+    public int addUser(String email,String username, String password){
         if(!userExist(email)){
-            if(userRepository.countUserByNickname(nickname)==0){
-                userRepository.save(new User(email,nickname,password));
+            if(userRepository.countUserByUsername(username)==0){
+                userRepository.save(new User(email,username,password));
                 return 0;
             }
             return 2;

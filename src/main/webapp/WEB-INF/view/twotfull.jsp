@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../styles/tailwind.css" />
-    <title>Twot de ${user.getNickname()}</title>
+    <title>Twot de ${user.getusername()}</title>
 </head>
 <script>
     let xmlHttpReq = new XMLHttpRequest();
@@ -16,8 +16,8 @@
     <div><%@include file="leftsidebar.jsp" %></div>
     <div>
         <div>
-            <span class="font-bold"><c:out value="${user.getDisplayname()}"/></span>
-            <span class="font-light">@<c:out value="${user.getNickname()}"/></span><br>
+            <span class="font-bold"><c:out value="${user.getnickname()}"/></span>
+            <span class="font-light">@<c:out value="${user.getusername()}"/></span><br>
             <c:out value="${twot.getText()}"/> <br>
             <c:set var="date" value="${twot.getDate().toString()}"/>
             <span class="text-l font-sm italic text-right">
@@ -28,7 +28,7 @@
         <span class="text-xl mt-2">Répondre :</span>
         <form action="/answer" method="post">
             <input type="hidden" name="originalid" value="${twot.getId()}">
-            <input type="hidden" name="userid" value="${user.getNickname()}">
+            <input type="hidden" name="userid" value="${user.getusername()}">
             <textarea class="resize-none border-none" name="text" placeholder="Donnez votre avis" required></textarea><br>
             <button type="submit" class="rounded-lg bg-gray-200">Envoyer</button>
         </form>

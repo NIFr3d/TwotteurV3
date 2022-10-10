@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="../styles/tailwind.css" />
-<title>Profil de <c:out value="${user.getDisplayname()}"/></title>
+<title>Profil de <c:out value="${user.getnickname()}"/></title>
 </head>
 </head>
 <script>
@@ -17,8 +17,8 @@
     <div><%@include file="leftsidebar.jsp" %></div>
     <div style="width:50%">
         <div>
-            <span class="text-xl font-bold"><c:out value="${user.getDisplayname()}"/> </span>
-            <span class="text-l font-sm"><c:out value="@${user.getNickname()}"/> </span><br>
+            <span class="text-xl font-bold"><c:out value="${user.getnickname()}"/> </span>
+            <span class="text-l font-sm"><c:out value="@${user.getusername()}"/> </span><br>
             <span class="text-xl font-sm">Biographie :</span><br>
             <span class="text-l"><c:out value="${user.getBiography()}"/></span><br>
 

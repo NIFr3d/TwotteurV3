@@ -21,11 +21,11 @@ public class ProfileController {
     @Autowired
     private TwotService twotService;
 
-    @GetMapping(value="/user/{nickname}")
-    public String userProfile(@PathVariable String nickname, Model model){
-        if(userService.getUserByNickname(nickname)!=null){
-            List<Twot> twots=twotService.getTwots(userService.getUserByNickname(nickname));
-            model.addAttribute("user",userService.getUserByNickname(nickname));
+    @GetMapping(value="/user/{username}")
+    public String userProfile(@PathVariable String username, Model model){
+        if(userService.getUserByusername(username)!=null){
+            List<Twot> twots=twotService.getTwots(userService.getUserByusername(username));
+            model.addAttribute("user",userService.getUserByusername(username));
             model.addAttribute("twots",twots);
             return "user";
         }
@@ -35,7 +35,7 @@ public class ProfileController {
     @GetMapping(value="/profile")
     public RedirectView profile(HttpSession session){
         int id=(int)session.getAttribute("userid");
-        String nickname=userService.getUserById(id).get().getNickname();
-        return new RedirectView("/user/"+nickname);
+        String username=userService.getUserById(id).get().getusername();
+        return new RedirectView("/user/"+username);
     }
 }

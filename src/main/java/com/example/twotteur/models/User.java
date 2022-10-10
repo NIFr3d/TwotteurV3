@@ -16,7 +16,7 @@ public class User{
     private String email;
 
     @Column(nullable = false,unique = true)
-    private String nickname;
+    private String username;
 
     @Column
     private String biography;
@@ -25,7 +25,7 @@ public class User{
     private String password;
 
     @Column(nullable = false)
-    private String displayname;
+    private String nickname;
 
     @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
@@ -36,21 +36,21 @@ public class User{
         return this.id;
     }
 
-    public User(String email,String nickname,String password){
+    public User(String email,String username,String password){
         this.email=email;
-        this.nickname=nickname;
+        this.username=username;
         this.password=password;
-        this.displayname=nickname;
+        this.nickname=username;
     }
 
     public User() {
 
     }
 
-    public String getNickname() {
-        return this.nickname;
+    public String getusername() {
+        return this.username;
     }
-    public String getDisplayname(){return this.displayname;}
+    public String getnickname(){return this.nickname;}
 
     public String getBiography(){return this.biography;}
     public Date getCreatedat(){return this.createdat;}

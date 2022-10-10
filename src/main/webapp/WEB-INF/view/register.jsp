@@ -16,7 +16,7 @@
 		<label>Email</label><br>
 		<input class="border-2 rounded-lg" type="email" name="email" required/><br>
 		<label>Pseudo</label><br>
-		<input class="border-2 rounded-lg" type="text" name="nickname" required/><br>
+		<input class="border-2 rounded-lg" type="text" name="username" required/><br>
 		<label>Mot de passe</label><br>
 		<input class="border-2 rounded-lg mb-2" type="password" name="password" required/><br>
 		<label>Confirmer le mot de passe</label><br>

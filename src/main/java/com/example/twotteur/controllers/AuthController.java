@@ -43,11 +43,11 @@ public class AuthController {
     }
 
     @PostMapping(value="register")
-    public RedirectView postRegister(@RequestParam("email") String email,@RequestParam("nickname") String nickname,
+    public RedirectView postRegister(@RequestParam("email") String email,@RequestParam("username") String username,
                                   @RequestParam("password") String password,@RequestParam("password2") String password2,
                                   HttpSession session){
         if(password.equals(password2)){
-            switch (userService.addUser(email, nickname, password)){
+            switch (userService.addUser(email, username, password)){
                 case 0:
                     session.setAttribute("isLogged", true);
                     session.setAttribute("userid", userService.getIdByEmail(email));
