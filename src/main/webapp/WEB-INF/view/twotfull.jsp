@@ -15,7 +15,16 @@
 <div class="inline-flex">
     <div><%@include file="leftsidebar.jsp" %></div>
     <div>
-        <%@include file="twotpreview.jsp"%>
+        <div>
+            <span class="font-bold"><c:out value="${user.getDisplayname()}"/></span>
+            <span class="font-light">@<c:out value="${user.getNickname()}"/></span><br>
+            <c:out value="${twot.getText()}"/> <br>
+            <c:set var="date" value="${twot.getDate().toString()}"/>
+            <span class="text-l font-sm italic text-right">
+                <c:out value="${date.substring(11,13)}"/>:<c:out value="${date.substring(14,16)}"/>:<c:out value="${date.substring(17,19)}"/>
+                <c:out value="${date.substring(8,10)}"/>/<c:out value="${date.substring(5,7)}"/>/<c:out value="${date.substring(0,4)}"/>
+            </span>
+        </div>
         <span class="text-xl mt-2">Répondre :</span>
         <form action="/answer" method="post">
             <input type="hidden" name="originalid" value="${twot.getId()}">

@@ -55,7 +55,7 @@ public class TwotService {
     }
     public Optional<User> getUserByTwotId(int id){
         Optional<User> user=Optional.empty();
-        if(twotRepository.findFirstById(id).isPresent()) user.of(twotRepository.findFirstById(id).get().getUser());
+        if(twotRepository.findFirstById(id).isPresent()) user=Optional.of(twotRepository.findFirstById(id).get().getUser());
         return user;
     }
 

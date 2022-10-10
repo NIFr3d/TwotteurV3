@@ -28,8 +28,8 @@
                 <%= timedif %>
             </c:when>
             <c:otherwise>
-                <c:set var="date" value="${twot.getDate().toString()}"/>
-                <c:out value="${date.substring(8,10)}"/>/<c:out value="${date.substring(5,7)}"/>/<c:out value="${date.substring(0,4)}"/>
+                <c:set var="dateE" value="${twot.getDate().toString()}"/>
+                <c:out value="${dateE.substring(8,10)}"/>/<c:out value="${dateE.substring(5,7)}"/>/<c:out value="${dateE.substring(0,4)}"/>
             </c:otherwise>
         </c:choose>
         <br>

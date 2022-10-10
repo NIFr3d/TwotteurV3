@@ -23,10 +23,6 @@ public class TwotController {
         twotService.newTweet(userService.getUserById(id).get(),text);
         return new RedirectView("/home");
     }
-    @GetMapping(value="/twotpreview")
-    public Twot simpleTwot(@RequestParam("id") int id){
-        return twotService.getTwotById(id);
-    }
 
     @PostMapping(value="/answer")
     public RedirectView answer(@RequestParam("userid") String userid, @RequestParam("originalid") int originalid, @RequestParam("text") String text){
