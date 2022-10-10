@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="../styles/tailwind.css" />
 <title>Twotteur - Connexion</title>
 </head>
 <body>
@@ -12,9 +13,9 @@
 <%@include file="leftsidebar.jsp"%>
 <div class="block">
 <form method="post">
-<label for="email">Email</label><br>
+<label>Email</label><br>
 <input class="border-2 rounded-lg" type="email" name="email"/><br>
-<label for="password">Mot de passe</label><br>
+<label>Mot de passe</label><br>
 <input class="border-2 rounded-lg mb-2" type="password" name="password"/><br>
 <% if(request.getParameter("e")!=null){ 
 	switch(request.getParameter("e")){

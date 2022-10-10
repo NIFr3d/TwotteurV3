@@ -5,6 +5,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="../styles/tailwind.css" />
     <title>Twot de ${user.getNickname()}</title>
 </head>
 <script>

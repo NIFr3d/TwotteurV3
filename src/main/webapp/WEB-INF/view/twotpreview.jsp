@@ -1,3 +1,6 @@
+<%@ page import="java.util.Date" %>
+<%@ page import="java.util.concurrent.TimeUnit" %>
+<%@ page import="com.example.twotteur.models.Twot" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ include file="taglibs.jsp" %>
@@ -5,7 +8,31 @@
     <a href="../twot/${twot.getId()}">
         <span class="font-bold"><c:out value="${user.getDisplayname()}"/></span>
         <span class="font-light">@<c:out value="${user.getNickname()}"/></span>
-        <span><c:out value="${twot.getDate()}"/></span><br>
+        <%
+            Date nowplus1d=new Date(new Date().getTime() - TimeUnit.DAYS.toMillis( 1 ));
+            Twot twot=(Twot)pageContext.getAttribute("twot");
+            int cpre=twot.getDate().compareTo(nowplus1d);
+            String timedif="";
+            if(cpre==1){
+                long dif=twot.getDate().getTime()- new Date().getTime();
+                if(((dif/(1000*60*60))%24)==0) {
+                    timedif=String.valueOf(Math.abs(dif/(1000*60))%60)+"min";
+                }else{
+                    timedif=String.valueOf(Math.abs(dif/(1000*60*60))%24)+"h";
+                }
+            }
+        %>
+        <c:set var="cpre"><%= cpre %></c:set>
+        <c:choose>
+            <c:when test="${cpre==1}">
+                <%= timedif %>
+            </c:when>
+            <c:otherwise>
+                <c:set var="date" value="${twot.getDate().toString()}"/>
+                <c:out value="${date.substring(8,10)}"/>/<c:out value="${date.substring(5,7)}"/>/<c:out value="${date.substring(0,4)}"/>
+            </c:otherwise>
+        </c:choose>
+        <br>
         <c:out value="${twot.getText()}"/> <br>
     </a>
     <div>
