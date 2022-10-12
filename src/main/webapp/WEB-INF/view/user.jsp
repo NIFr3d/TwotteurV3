@@ -39,6 +39,29 @@
             <span class="text-xl font-sm">Biographie :</span><br>
             <span class="text-l">${user.getBiography()}</span><br>
 
+            <button onclick="showfollowed()" class="underline">${user.getnickname()} suit</button>
+            <button onclick="showfollowers()" class="underline">${user.getnickname()} est suivi par</button><br>
+            <div id="followed" style="
+            position:fixed;
+            top:10%;
+            left:30%;
+            width:40%;
+            height:auto;
+            background-color:white;
+            z-index:100;
+            display:none;
+            " class="answerForm"></div>
+            <div id="followers" style="
+            position:fixed;
+            top:10%;
+            left:30%;
+            width:40%;
+            height:auto;
+            background-color:white;
+            z-index:100;
+            display:none;
+            " class="answerForm"></div>
+
             <c:set var="date" value="${user.getCreatedat().toString()}"/>
             <span class="text-l font-sm italic text-right">A rejoint twotteur le
                 <c:out value="${date.substring(8,10)}"/>/<c:out value="${date.substring(5,7)}"/>/<c:out value="${date.substring(0,4)}"/>
@@ -80,6 +103,24 @@
     }
     function fadeOut(){
         $('.answerForm, #overlay-back').fadeOut(500);
+    }
+    function showfollowers(){
+        xmlHttpReq.open("GET", "../followers/${user.getId()}", false);
+        xmlHttpReq.send(null);
+        var followersdiv=document.getElementById("followers");
+        var followers=JSON.parse(xmlHttpReq.response);
+        var tempdiv;
+        followers.forEach(function(follower){
+            tempdiv=document.createElement('div');
+            tempdiv.innerHTML=follower.username;
+            followersdiv.appendChild(tempdiv);
+            console.log(follower.username);
+        })
+        followersdiv.innerHTML=
+        $('#followers, #overlay-back').fadeIn(500);
+    }
+    function showfollowed(){
+        $('#followed, #overlay-back').fadeIn(500);
     }
 </script>
 </html>
