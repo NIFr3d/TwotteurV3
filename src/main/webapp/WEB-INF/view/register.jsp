@@ -11,7 +11,7 @@
 	<body>
 	<div class="flex">
 	<%@include file="leftsidebar.jsp"%>
-	<div class="block">
+	<div class="ml-64 mt-8">
 	<form method="post">
 		<label>Email</label><br>
 		<input class="border-2 rounded-lg" type="email" name="email" required/><br>

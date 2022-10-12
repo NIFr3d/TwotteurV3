@@ -10,8 +10,11 @@
 </head>
 <body>
 <div class="flex">
-<div><%@include file="leftsidebar.jsp" %></div>
-<%@include file="twotter.jsp"%>
+    <%@include file="leftsidebar.jsp" %>
+    <div class="ml-64 mt-8">
+        <%@include file="twotter.jsp"%>
+    </div>
+
 </div>
 </body>
 </html>

@@ -13,8 +13,8 @@
 </script>
 <body>
 <div class="inline-flex">
-    <div><%@include file="leftsidebar.jsp" %></div>
-    <div>
+    <%@include file="leftsidebar.jsp" %>
+    <div class="ml-56 mt-8">
         <div>
             <span class="font-bold"><c:out value="${user.getnickname()}"/></span>
             <span class="font-light">@<c:out value="${user.getusername()}"/></span><br>

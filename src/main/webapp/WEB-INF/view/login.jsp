@@ -10,31 +10,31 @@
 </head>
 <body>
 <div class="flex">
-<%@include file="leftsidebar.jsp"%>
-<div class="block">
-<form method="post">
-<label>Email</label><br>
-<input class="border-2 rounded-lg" type="email" name="email"/><br>
-<label>Mot de passe</label><br>
-<input class="border-2 rounded-lg mb-2" type="password" name="password"/><br>
-<% if(request.getParameter("e")!=null){ 
-	switch(request.getParameter("e")){
-		case("0"):
-			out.println("Mot de passe incorrect. <br>");
-			break;
-		case("1"):
-			out.println("Email inconnu ! <br>");
-			break;
-}
-}
-%>
-<button class="rounded-lg bg-gray-200" type="submit">Connexion</button>
+	<%@include file="leftsidebar.jsp"%>
+	<div class="ml-64 mt-8">
+	<form method="post">
+	<label>Email</label><br>
+	<input class="border-2 rounded-lg" type="email" name="email"/><br>
+	<label>Mot de passe</label><br>
+	<input class="border-2 rounded-lg mb-2" type="password" name="password"/><br>
+	<% if(request.getParameter("e")!=null){
+		switch(request.getParameter("e")){
+			case("0"):
+				out.println("Mot de passe incorrect. <br>");
+				break;
+			case("1"):
+				out.println("Email inconnu ! <br>");
+				break;
+	}
+	}
+	%>
+	<button class="rounded-lg bg-gray-200" type="submit">Connexion</button>
 
-</form>
-<p>Vous n'avez pas de compte ?</p>
-<a class="text-blue-700 underline" href="register">S'enregistrer</a>
+	</form>
+	<p>Vous n'avez pas de compte ?</p>
+	<a class="text-blue-700 underline" href="register">S'enregistrer</a>
 
-</div>
+	</div>
 </div>
 </body>
 </html>
