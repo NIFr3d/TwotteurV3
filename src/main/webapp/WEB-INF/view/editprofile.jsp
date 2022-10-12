@@ -16,7 +16,7 @@
             <label>Pseudo</label><br>
             <input type="text" name="nickname" class="border-4 rounded-lg" value="${user.getnickname()}" required/><br>
             <label>Biographie</label><br>
-            <textarea class="resize-none border-4 rounded-lg" name="biography"></textarea><br>
+            <textarea class="resize-none border-4 rounded-lg" name="biography">${user.getBiography()}</textarea><br>
             <button type="submit" class="text-white bg-blue-700 rounded-lg">Sauvegarder</button>
         </form>
     </div>
