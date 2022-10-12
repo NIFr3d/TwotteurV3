@@ -20,20 +20,5 @@ public class FollowController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/followers/{id}")
-    public List<User> getfollowers(@PathVariable("id") int id){
-        List<User> users=new ArrayList<>();
-        if(userService.getUserById(id).isPresent()){
-            users=followService.getfollowers(userService.getUserById(id).get());
-        }
-        return users;
-    }
-    @GetMapping("/followed/{id}")
-    public List<User> getfollowed(@PathVariable("id") int id){
-        List<User> users=new ArrayList<>();
-        if(userService.getUserById(id).isPresent()){
-            users=followService.getfollowed(userService.getUserById(id).get());
-        }
-        return users;
-    }
+
 }

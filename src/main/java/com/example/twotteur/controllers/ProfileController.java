@@ -2,6 +2,7 @@ package com.example.twotteur.controllers;
 
 import com.example.twotteur.models.Twot;
 import com.example.twotteur.models.User;
+import com.example.twotteur.services.FollowService;
 import com.example.twotteur.services.TwotService;
 import com.example.twotteur.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +25,16 @@ public class ProfileController {
     @Autowired
     private TwotService twotService;
 
+    @Autowired
+    private FollowService followService;
+
     @GetMapping(value="/user/{username}")
     public String userProfile(@PathVariable String username, Model model){
         if(userService.getUserByusername(username)!=null){
             List<Twot> twots=twotService.getTwots(userService.getUserByusername(username));
             model.addAttribute("user",userService.getUserByusername(username));
+            model.addAttribute("followers",followService.getfollowers(userService.getUserByusername(username)));
+            model.addAttribute("followeds",followService.getfollowed(userService.getUserByusername(username)));
             model.addAttribute("twots",twots);
             return "user";
         }

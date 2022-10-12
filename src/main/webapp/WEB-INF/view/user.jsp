@@ -45,22 +45,60 @@
             position:fixed;
             top:10%;
             left:30%;
-            width:40%;
+            width:30%;
             height:auto;
             background-color:white;
             z-index:100;
             display:none;
-            " class="answerForm"></div>
+            " class="answerForm">
+                <c:choose>
+                    <c:when test="${fn:length(followeds)>0}">
+                        <c:forEach begin="0" end="${fn:length(followeds)-1}" var="index">
+                            <c:set var="followed" value="${followeds[index]}"></c:set>
+                            <div class="m-3">
+                                <a href="../user/${followed.getusername()}">
+                                    <span class="text-l font-bold">${followed.getnickname()}</span>
+                                    <span class="text-base font-sm">@${followed.getusername()}</span>
+                                </a>
+                                <button class="bg-gray-400 float-right">Suivre</button><br>
+                                <span>${followed.getBiography()}</span>
+                            </div>
+                        </c:forEach>
+                    </c:when>
+                    <c:otherwise>
+                        <span>Aucun follower. </span>
+                    </c:otherwise>
+                </c:choose>
+            </div>
             <div id="followers" style="
             position:fixed;
             top:10%;
             left:30%;
-            width:40%;
+            width:30%;
             height:auto;
             background-color:white;
             z-index:100;
             display:none;
-            " class="answerForm"></div>
+            " class="answerForm">
+                <c:choose>
+                    <c:when test="${fn:length(followers)>0}">
+                        <c:forEach begin="0" end="${fn:length(followers)-1}" var="index">
+                            <c:set var="follower" value="${followers[index]}"></c:set>
+                            <div class="m-3">
+                                <a href="../user/${follower.getusername()}">
+                                    <span class="text-l font-bold">${follower.getnickname()}</span>
+                                    <span class="text-base font-sm">@${follower.getusername()}</span>
+                                </a>
+                                <button class="bg-gray-400 float-right">Suivre</button><br>
+                                <span>${follower.getBiography()}</span>
+                            </div>
+                        </c:forEach>
+                    </c:when>
+                    <c:otherwise>
+                        <span>Aucun follower. </span>
+                    </c:otherwise>
+                </c:choose>
+            </div>
 
             <c:set var="date" value="${user.getCreatedat().toString()}"/>
             <span class="text-l font-sm italic text-right">A rejoint twotteur le
@@ -105,18 +143,6 @@
         $('.answerForm, #overlay-back').fadeOut(500);
     }
     function showfollowers(){
-        xmlHttpReq.open("GET", "../followers/${user.getId()}", false);
-        xmlHttpReq.send(null);
-        var followersdiv=document.getElementById("followers");
-        var followers=JSON.parse(xmlHttpReq.response);
-        var tempdiv;
-        followers.forEach(function(follower){
-            tempdiv=document.createElement('div');
-            tempdiv.innerHTML=follower.username;
-            followersdiv.appendChild(tempdiv);
-            console.log(follower.username);
-        })
-        followersdiv.innerHTML=
         $('#followers, #overlay-back').fadeIn(500);
     }
     function showfollowed(){
