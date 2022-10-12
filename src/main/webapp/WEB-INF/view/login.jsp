@@ -8,15 +8,15 @@
 <link rel="stylesheet" href="../styles/tailwind.css" />
 <title>Twotteur - Connexion</title>
 </head>
-<body>
+<body style="background: #0f2f79" class="text-gray-300">
 <div class="flex">
 	<%@include file="leftsidebar.jsp"%>
 	<div class="ml-64 mt-8">
 	<form method="post">
 	<label>Email</label><br>
-	<input class="border-2 rounded-lg" type="email" name="email"/><br>
+	<input class="border-2 rounded-lg bg-blue-900" type="email" name="email"/><br>
 	<label>Mot de passe</label><br>
-	<input class="border-2 rounded-lg mb-2" type="password" name="password"/><br>
+	<input class="border-2 rounded-lg mb-2 bg-blue-900" type="password" name="password"/><br>
 	<% if(request.getParameter("e")!=null){
 		switch(request.getParameter("e")){
 			case("0"):
@@ -28,7 +28,7 @@
 	}
 	}
 	%>
-	<button class="rounded-lg bg-gray-200" type="submit">Connexion</button>
+	<button class="rounded-lg bg-blue-900" type="submit">Connexion</button>
 
 	</form>
 	<p>Vous n'avez pas de compte ?</p>

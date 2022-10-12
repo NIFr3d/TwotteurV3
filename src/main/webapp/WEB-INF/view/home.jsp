@@ -8,10 +8,10 @@
 <link rel="stylesheet" href="../styles/tailwind.css" />
 <title>Twotteur</title>
 </head>
-<body>
+<body style="background: #0f2f79" class="text-gray-300">
 <div class="flex">
     <%@include file="leftsidebar.jsp" %>
-    <div class="ml-64 mt-8">
+    <div class="ml-64 mt-8 w-1/5">
         <%@include file="twotter.jsp"%>
     </div>
 

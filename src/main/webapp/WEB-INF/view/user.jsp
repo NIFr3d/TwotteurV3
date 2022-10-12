@@ -47,7 +47,7 @@
             left:30%;
             width:30%;
             height:auto;
-            background-color:white;
+            background: #0f2f79;
             z-index:100;
             display:none;
             " class="answerForm">
@@ -60,7 +60,7 @@
                                     <span class="text-l font-bold">${followed.getnickname()}</span>
                                     <span class="text-base font-sm">@${followed.getusername()}</span>
                                 </a>
-                                <button class="bg-gray-400 float-right">Suivre</button><br>
+                                <button class="bg-blue-900 rounded-lg p-1 float-right">Suivre</button><br>
                                 <span>${followed.getBiography()}</span>
                             </div>
                         </c:forEach>
@@ -76,7 +76,7 @@
             left:30%;
             width:30%;
             height:auto;
-            background-color:white;
+            background: #0f2f79;
             z-index:100;
             display:none;
             " class="answerForm">
@@ -89,7 +89,7 @@
                                     <span class="text-l font-bold">${follower.getnickname()}</span>
                                     <span class="text-base font-sm">@${follower.getusername()}</span>
                                 </a>
-                                <button class="bg-gray-400 float-right">Suivre</button><br>
+                                <button class="bg-blue-900 rounded-lg p-1 float-right">Suivre</button><br>
                                 <span>${follower.getBiography()}</span>
                             </div>
                         </c:forEach>
