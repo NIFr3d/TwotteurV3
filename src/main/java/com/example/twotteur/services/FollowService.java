@@ -31,4 +31,20 @@ public class FollowService {
         }
         return users;
     }
+
+    public void addFollow(User followed, User follower) {
+        Follow follow=new Follow(followed,follower);
+        followRepository.save(follow);
+    }
+
+    public boolean doesFollow(User followed, User follower) {
+        if(followRepository.countByFollowedAndFollower(followed,follower)>0) return true;
+        return false;
+    }
+
+    public void removeFollow(User followed, User follower) {
+        if(followRepository.getByFollowedAndFollower(followed,follower).isPresent()){
+            followRepository.delete(followRepository.getByFollowedAndFollower(followed,follower).get());
+        }
+    }
 }

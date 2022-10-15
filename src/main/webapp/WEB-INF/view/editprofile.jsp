@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../styles/tailwind.css" />
     <title>Edition du profil</title>
 </head>
-<body style="background: #0f2f79" class="text-gray-300">
+<body class="text-gray-300 bg-blue-900">
 <div class="inline-flex w-full">
     <div><%@include file="leftsidebar.jsp" %></div>
     <div class="ml-64 mt-8">

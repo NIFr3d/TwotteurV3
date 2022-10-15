@@ -15,11 +15,11 @@ public class TwotRestController {
     private TwotService twotService;
 
     @GetMapping(value="/countanswers/{id}")
-    public int countAnswer(@PathVariable int id){
+    public int countAnswer(@PathVariable long id){
         return twotService.countAnswers(id);
     }
     @GetMapping(value="/countlikes/{id}")
-    public int countLikes(@PathVariable int id){
+    public int countLikes(@PathVariable long id){
         return twotService.countLikes(id);
     }
 
@@ -28,7 +28,7 @@ public class TwotRestController {
         boolean isLogged=false;
         if(session.getAttribute("isLogged") != null) isLogged=(boolean)session.getAttribute("isLogged");
         if(isLogged){
-            int userid=(int)session.getAttribute("userid");
+            long userid=(long)session.getAttribute("userid");
             if(twotService.userAlreadyLiked(id,userid)){
                 if(twotService.removeLike(id,userid)) return 2;
             }else{
@@ -39,11 +39,11 @@ public class TwotRestController {
     }
 
     @GetMapping(value="/didilike/{id}")
-    public int didilike(@PathVariable int id,HttpSession session){
+    public int didilike(@PathVariable long id,HttpSession session){
         boolean isLogged=false;
         if(session.getAttribute("isLogged") != null) isLogged=(boolean)session.getAttribute("isLogged");
         if(isLogged) {
-            int userid = (int) session.getAttribute("userid");
+            long userid = (long) session.getAttribute("userid");
             if(twotService.userAlreadyLiked(id,userid)) return 1;
         }
         return 0;

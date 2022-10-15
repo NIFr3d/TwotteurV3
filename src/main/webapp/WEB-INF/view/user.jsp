@@ -18,11 +18,27 @@
     <div class="ml-64 mt-8">
         <div>
             <span class="text-xl font-bold">${user.getnickname()} </span>
-            <span class="text-l font-sm">@${user.getusername()}</span><br>
-            <a href="../editprofile">
-                <button>
-                    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                         viewBox="0 0 490.584 490.584" style="enable-background:new 0 0 490.584 490.584;" xml:space="preserve" height="20" width="20">
+            <span class="text-l font-sm">@${user.getusername()}</span>
+            <c:choose>
+            <c:when test="${!(sessionScope.userid==user.getId())}">
+                <button onclick="follow()" id="doifollow" type="button" class="float-right rounded-lg p-2 border-2 border-blue-700 hover:bg-blue-700">Suivre</button>
+                <script>
+                    xmlHttpReq.open("GET","../doifollow/${user.getId()}",false);
+                    xmlHttpReq.send(null);
+                    if(xmlHttpReq.responseText==1)document.getElementById("doifollow").innerHTML="Ne plus suivre";
+                    function follow(){
+                        xmlHttpReq.open("GET","../follow/${user.getId()}",false);
+                        xmlHttpReq.send(null);
+                        if(xmlHttpReq.responseText==1)document.getElementById("doifollow").innerHTML="Ne plus suivre";
+                        if(xmlHttpReq.responseText==2)document.getElementById("doifollow").innerHTML="Suivre";
+                    }
+                </script>
+            </c:when>
+            <c:otherwise>
+                <a href="../editprofile" class="float-right rounded-lg p-2">
+                    <button>
+                        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                             viewBox="0 0 490.584 490.584" style="enable-background:new 0 0 490.584 490.584; fill:white;" xml:space="preserve" height="20" width="20">
                         <g>
                             <g>
                                 <path d="M100.911,419.404l123.8-51c3.1-2.1,6.2-4.2,8.3-6.2l203.9-248.6c6.2-9.4,5.2-21.8-3.1-29.1l-96.8-80.1
@@ -34,8 +50,11 @@
                             </g>
                         </g>
                     </svg>
-                </button>
-            </a>
+                    </button>
+                </a>
+            </c:otherwise>
+            </c:choose>
+            <br>
             <span class="text-xl font-sm">Biographie :</span><br>
             <span class="text-l">${user.getBiography()}</span><br>
 
@@ -146,5 +165,6 @@
     function showfollowed(){
         $('#followed, #overlay-back').fadeIn(500);
     }
+
 </script>
 </html>
