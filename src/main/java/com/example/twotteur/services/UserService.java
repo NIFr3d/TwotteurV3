@@ -20,7 +20,7 @@ public class UserService {
         userRepository.findAll().forEach(Users::add);
         return Users;
     }
-    public Optional<User> getUserById(int id){
+    public Optional<User> getUserById(long id){
         return(userRepository.findById(id));
     }
     public User getUserByusername(String username){
@@ -29,7 +29,7 @@ public class UserService {
         }
         return null;
     }
-    public int getIdByEmail(String email){
+    public long getIdByEmail(String email){
         return userRepository.getFirstByEmail(email).getId();
     }
     public int addUser(String email,String username, String password){

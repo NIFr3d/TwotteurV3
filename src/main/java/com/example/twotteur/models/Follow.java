@@ -7,7 +7,7 @@ public class Follow {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
-    private int id;
+    private long id;
 
     @ManyToOne
     @JoinColumn(nullable = false)
@@ -31,7 +31,7 @@ public class Follow {
         return this.follower;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

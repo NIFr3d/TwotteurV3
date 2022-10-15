@@ -10,10 +10,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface TwotRepository extends JpaRepository<Twot, Integer>  {
+public interface TwotRepository extends JpaRepository<Twot, Long>  {
     List<Twot> findTwotsByUser(User user);
     List<Twot> findTwotsByOriginaltwot(Twot model);
-    Optional<Twot> findFirstById(int id);
+    Optional<Twot> findFirstById(long id);
 
     Integer countByOriginaltwot(Twot twot);
 

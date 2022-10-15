@@ -10,7 +10,7 @@ import java.util.List;
 public class User{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
 
     @Column(nullable = false,unique = true)
     private String email;
@@ -32,7 +32,7 @@ public class User{
     @Column(nullable = false)
     private Date createdat=new Date();
 
-    public int getId(){
+    public long getId(){
         return this.id;
     }
 

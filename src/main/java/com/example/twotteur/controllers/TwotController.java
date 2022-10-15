@@ -19,19 +19,19 @@ public class TwotController {
     private UserService userService;
 
     @PostMapping(value = "/twot")
-    public RedirectView newTwot(@RequestParam("id") int id,@RequestParam("text") String text){
+    public RedirectView newTwot(@RequestParam("id") long id,@RequestParam("text") String text){
         twotService.newTweet(userService.getUserById(id).get(),text);
         return new RedirectView("/home");
     }
 
     @PostMapping(value="/answer")
-    public RedirectView answer(@RequestParam("userid") String userid, @RequestParam("originalid") int originalid, @RequestParam("text") String text){
+    public RedirectView answer(@RequestParam("userid") String userid, @RequestParam("originalid") long originalid, @RequestParam("text") String text){
         twotService.newAnswer(userService.getUserByusername(userid),text,twotService.getTwotById(originalid));
         return new RedirectView("/home");
     }
 
     @GetMapping(value="/twot/{id}")
-    public String fullTwot(@PathVariable int id,Model model){
+    public String fullTwot(@PathVariable long id,Model model){
         model.addAttribute("twot",twotService.getTwotById(id));
         model.addAttribute("twots",twotService.getAnswersByTwotId(id));
         if(twotService.getUserByTwotId(id).isPresent()) {

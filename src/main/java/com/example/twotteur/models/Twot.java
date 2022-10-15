@@ -9,7 +9,7 @@ import java.util.Date;
 public class Twot{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
 
     @Column(nullable = false)
     private String text;
@@ -51,7 +51,7 @@ public class Twot{
         this.isanswer=true;
     }
 
-    public int getId(){
+    public long getId(){
         return this.id;
     }
 

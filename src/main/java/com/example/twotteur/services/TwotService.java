@@ -31,8 +31,8 @@ public class TwotService {
         twotRepository.findTwotsByUser(user).forEach(twots::add);
         return twots;
     }
-    public List<Integer> getTwotsId(User user){
-        List<Integer> ids=new ArrayList<>();
+    public List<Long> getTwotsId(User user){
+        List<Long> ids=new ArrayList<>();
         List<Twot> twots=twotRepository.findTwotsByUser(user);
         for(int i=0;i< twots.size();i++) {
             ids.add(twots.get(i).getId());
@@ -47,31 +47,31 @@ public class TwotService {
         twotRepository.save(new Twot(user,text,twot));
     }
 
-    public Twot getTwotById(int id){
+    public Twot getTwotById(long id){
         return twotRepository.getReferenceById(id);
     }
-    public List<Twot> getAnswersByTwotId(int id) {
+    public List<Twot> getAnswersByTwotId(long id) {
         return twotRepository.findTwotsByOriginaltwot(getTwotById(id));
     }
-    public Optional<User> getUserByTwotId(int id){
+    public Optional<User> getUserByTwotId(long id){
         Optional<User> user=Optional.empty();
         if(twotRepository.findFirstById(id).isPresent()) user=Optional.of(twotRepository.findFirstById(id).get().getUser());
         return user;
     }
 
-    public int countAnswers(int id) {
+    public int countAnswers(long id) {
         int count=0;
         if(twotRepository.findFirstById(id).isPresent()) count=twotRepository.countByOriginaltwot(twotRepository.findFirstById(id).get());
         return count;
     }
 
-    public int countLikes(int id) {
+    public int countLikes(long id) {
         int count=0;
         if(twotRepository.findFirstById(id).isPresent()) count=likeRepository.countByTwot(twotRepository.findFirstById(id).get());
         return count;
     }
 
-    public boolean addLike(int twotid, int userid) {
+    public boolean addLike(long twotid, long userid) {
         if(twotRepository.findFirstById(twotid).isPresent()){
             if(userRepository.findById(userid).isPresent()){
                 likeRepository.save(new LikeAsso(twotRepository.findFirstById(twotid).get(),userRepository.findById(userid).get()));
@@ -80,7 +80,7 @@ public class TwotService {
         }
         return false;
     }
-    public boolean removeLike(int twotid,int userid) {
+    public boolean removeLike(long twotid,long userid) {
         if(twotRepository.findFirstById(twotid).isPresent()) {
             if (userRepository.findById(userid).isPresent()) {
                 if (likeRepository.findByTwotAndUser(twotRepository.findFirstById(twotid).get(), userRepository.findById(userid).get()).isPresent()) {
@@ -91,7 +91,7 @@ public class TwotService {
         }
         return false;
     }
-    public boolean userAlreadyLiked(int twotid,int userid) {
+    public boolean userAlreadyLiked(long twotid,long userid) {
         if (twotRepository.findFirstById(twotid).isPresent()) {
             if (userRepository.findById(userid).isPresent()) {
                 if (likeRepository.findByTwotAndUser(twotRepository.findFirstById(twotid).get(), userRepository.findById(userid).get()).isPresent()) {

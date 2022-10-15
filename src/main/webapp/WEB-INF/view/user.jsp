@@ -12,7 +12,7 @@
 <script>
     let xmlHttpReq = new XMLHttpRequest();
 </script>
-<body style="background: #0f2f79" class="text-gray-300">
+<body class="text-gray-300 bg-blue-900">
 <div class="inline-flex w-full">
     <div><%@include file="leftsidebar.jsp" %></div>
     <div class="ml-64 mt-8">
@@ -47,10 +47,9 @@
             left:30%;
             width:30%;
             height:auto;
-            background: #0f2f79;
             z-index:100;
             display:none;
-            " class="answerForm">
+            " class="answerForm bg-blue-900">
                 <c:choose>
                     <c:when test="${fn:length(followeds)>0}">
                         <c:forEach begin="0" end="${fn:length(followeds)-1}" var="index">
@@ -76,10 +75,9 @@
             left:30%;
             width:30%;
             height:auto;
-            background: #0f2f79;
             z-index:100;
             display:none;
-            " class="answerForm">
+            " class="answerForm bg-blue-900">
                 <c:choose>
                     <c:when test="${fn:length(followers)>0}">
                         <c:forEach begin="0" end="${fn:length(followers)-1}" var="index">
