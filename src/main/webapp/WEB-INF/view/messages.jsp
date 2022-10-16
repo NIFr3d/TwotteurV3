@@ -12,7 +12,16 @@
 <div class="flex">
     <%@include file="leftsidebar.jsp" %>
     <div class="ml-64 mt-8 w-1/5">
-        WIP
+        <c:choose>
+        <c:when test="${fn:length(contacts)>0}">
+            <c:forEach begin="0" end="${fn:length(contacts)-1}" var="index">
+                ${contacts[index].getusername()}
+        </c:forEach>
+        </c:when>
+        <c:otherwise>
+            Aucun contact
+        </c:otherwise>
+        </c:choose>
     </div>
 
 </div>

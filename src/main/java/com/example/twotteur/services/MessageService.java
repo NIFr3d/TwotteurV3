@@ -24,4 +24,5 @@ public class MessageService {
     public List<Message> getConv(User user1,User user2){
         return messageRepository.getByUser1AndUser2(user1,user2);
     }
+
 }
