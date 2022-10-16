@@ -78,7 +78,20 @@
                                     <span class="text-l font-bold">${followed.getnickname()}</span>
                                     <span class="text-base font-sm">@${followed.getusername()}</span>
                                 </a>
-                                <button class="bg-blue-900 rounded-lg p-1 float-right">Suivre</button><br>
+                                <c:if test="${!(sessionScope.userid==followed.getId())}">
+                                    <button onclick="follow${followed.getId()}()" id="doifollow${followed.getId()}" type="button" class="float-right rounded-lg p-2 border-2 border-blue-700 hover:bg-blue-700">Suivre</button>
+                                    <script>
+                                        xmlHttpReq.open("GET","../doifollow/${followed.getId()}",false);
+                                        xmlHttpReq.send(null);
+                                        if(xmlHttpReq.responseText==1)document.getElementById("doifollow${followed.getId()}").innerHTML="Ne plus suivre";
+                                        function follow${followed.getId()}(){
+                                            xmlHttpReq.open("GET","../follow/${followed.getId()}",false);
+                                            xmlHttpReq.send(null);
+                                            if(xmlHttpReq.responseText==1)document.getElementById("doifollow${followed.getId()}").innerHTML="Ne plus suivre";
+                                            if(xmlHttpReq.responseText==2)document.getElementById("doifollow${followed.getId()}").innerHTML="Suivre";
+                                        }
+                                    </script>
+                                </c:if>
                                 <span>${followed.getBiography()}</span>
                             </div>
                         </c:forEach>
@@ -106,7 +119,20 @@
                                     <span class="text-l font-bold">${follower.getnickname()}</span>
                                     <span class="text-base font-sm">@${follower.getusername()}</span>
                                 </a>
-                                <button class="bg-blue-900 rounded-lg p-1 float-right">Suivre</button><br>
+                                <c:if test="${!(sessionScope.userid==follower.getId())}">
+                                    <button onclick="follow${follower.getId()}()" id="doifollow${follower.getId()}" type="button" class="float-right rounded-lg p-2 border-2 border-blue-700 hover:bg-blue-700">Suivre</button>
+                                    <script>
+                                        xmlHttpReq.open("GET","../doifollow/${follower.getId()}",false);
+                                        xmlHttpReq.send(null);
+                                        if(xmlHttpReq.responseText==1)document.getElementById("doifollow${follower.getId()}").innerHTML="Ne plus suivre";
+                                        function follow${follower.getId()}(){
+                                            xmlHttpReq.open("GET","../follow/${follower.getId()}",false);
+                                            xmlHttpReq.send(null);
+                                            if(xmlHttpReq.responseText==1)document.getElementById("doifollow${follower.getId()}").innerHTML="Ne plus suivre";
+                                            if(xmlHttpReq.responseText==2)document.getElementById("doifollow${follower.getId()}").innerHTML="Suivre";
+                                        }
+                                    </script>
+                                </c:if>
                                 <span>${follower.getBiography()}</span>
                             </div>
                         </c:forEach>
