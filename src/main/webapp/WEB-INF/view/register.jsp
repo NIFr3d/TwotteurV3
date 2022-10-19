@@ -35,9 +35,9 @@
 			}
 	}
 	%>
-		<button class="rounded-lg bg-blue-900" type="submit">S'enregistrer</button>
+		<button class="rounded-lg p-1" type="submit">S'enregistrer</button>
 	</form>
-	<p>Vous avez déjà un compte ?</p>
+	<p class="mt-8">Vous avez déjà un compte ?</p>
 	<a class="text-blue-700 underline" href="./login">Se connecter</a>
 	</div>
 	</div>
