@@ -11,29 +11,31 @@
 <body class="text-gray-300 bg-blue-900">
 <div class="flex">
 	<%@include file="leftsidebar.jsp"%>
-	<div class="ml-64 mt-8">
-	<form method="post">
-	<label>Email</label><br>
-	<input class="border-2 rounded-lg bg-blue-900" type="email" name="email"/><br>
-	<label>Mot de passe</label><br>
-	<input class="border-2 rounded-lg mb-2 bg-blue-900" type="password" name="password"/><br>
-	<% if(request.getParameter("e")!=null){
-		switch(request.getParameter("e")){
-			case("0"):
-				out.println("Mot de passe incorrect. <br>");
-				break;
-			case("1"):
-				out.println("Email inconnu ! <br>");
-				break;
-	}
-	}
-	%>
-	<button class="rounded-lg bg-blue-900" type="submit">Connexion</button>
+	<div class="ml-64 mt-24">
+		<div class="ml-24">
+		<form method="post">
+		<label class="text-2xl">Email</label><br>
+		<input class="border-2 text-2xl rounded-lg bg-blue-900" type="email" name="email"/><br>
+		<label class="text-2xl">Mot de passe</label><br>
+		<input class="border-2 text-2xl rounded-lg mb-2 bg-blue-900" type="password" name="password"/><br>
+		<% if(request.getParameter("e")!=null){
+			switch(request.getParameter("e")){
+				case("0"):
+					out.println("Mot de passe incorrect. <br>");
+					break;
+				case("1"):
+					out.println("Email inconnu ! <br>");
+					break;
+		}
+		}
+		%>
+		<button class="rounded-lg bg-blue-900 text-2xl mb-24" type="submit">Connexion</button>
 
-	</form>
-	<p>Vous n'avez pas de compte ?</p>
-	<a class="text-blue-700 underline" href="register">S'enregistrer</a>
+		</form>
+		<p class="text-xl">Vous n'avez pas de compte ?</p>
+		<a class="text-blue-700 underline text-xl" href="register">S'enregistrer</a>
 
+		</div>
 	</div>
 </div>
 </body>
