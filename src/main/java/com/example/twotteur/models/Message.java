@@ -46,4 +46,6 @@ public class Message {
     public Date getdate(){
         return this.createdat;
     }
+
+    public User getreceiver() { return this.user2;}
 }

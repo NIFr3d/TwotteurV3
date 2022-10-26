@@ -34,11 +34,11 @@ public class MessageRestController {
                     List<Message> msgs= messageService.getConv(user1,user2);
                     histo+="[";
                     for(int i=0;i<msgs.size();i++){
-                        String user="1";
+                        int user=0;
                         String virgule=",";
-                        if(msgs.get(i).getsender().equals(user1)) {user="0";}
+                        if(msgs.get(i).getreceiver().getusername().equals(username)) {user=1;}
                         if(i == msgs.size()-1) {virgule="";}
-                        histo+="{\"text\":\""+msgs.get(i).gettext()+"\",\"user\":\""+user+"\",\"date\":\""+msgs.get(i).getdate().toString()+"\"}"+virgule;
+                        histo+="{\"text\":\""+msgs.get(i).gettext()+"\",\"user\":"+user+",\"date\":\""+msgs.get(i).getdate().toString()+"\"}"+virgule;
                     }
                     histo+="]";
                 }
