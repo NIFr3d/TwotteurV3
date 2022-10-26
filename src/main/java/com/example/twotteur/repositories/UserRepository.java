@@ -4,11 +4,14 @@ import com.example.twotteur.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
     Integer countUserByEmail(String email);
     Integer countUserByEmailAndPassword(String email,String password);
     Integer countUserByUsername(String username);
     User getFirstByEmail(String email);
-    User getFirstByUsername(String username);
+
+    Optional<User> findByUsername(String username);
 }

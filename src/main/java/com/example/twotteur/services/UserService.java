@@ -23,9 +23,9 @@ public class UserService {
     public Optional<User> getUserById(long id){
         return(userRepository.findById(id));
     }
-    public User getUserByusername(String username){
+    public Optional<User> getUserByusername(String username){
         if(userRepository.countUserByUsername(username)>0){
-            return userRepository.getFirstByUsername(username);
+            return userRepository.findByUsername(username);
         }
         return null;
     }

@@ -26,7 +26,9 @@ public class TwotController {
 
     @PostMapping(value="/answer")
     public RedirectView answer(@RequestParam("userid") String userid, @RequestParam("originalid") long originalid, @RequestParam("text") String text){
-        twotService.newAnswer(userService.getUserByusername(userid),text,twotService.getTwotById(originalid));
+        if(userService.getUserByusername(userid).isPresent()) {
+            twotService.newAnswer(userService.getUserByusername(userid).get(), text, twotService.getTwotById(originalid));
+        }
         return new RedirectView("/home");
     }
 

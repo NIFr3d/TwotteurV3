@@ -30,11 +30,11 @@ public class ProfileController {
 
     @GetMapping(value="/user/{username}")
     public String userProfile(@PathVariable String username, Model model){
-        if(userService.getUserByusername(username)!=null){
-            List<Twot> twots=twotService.getTwots(userService.getUserByusername(username));
-            model.addAttribute("user",userService.getUserByusername(username));
-            model.addAttribute("followers",followService.getfollowers(userService.getUserByusername(username)));
-            model.addAttribute("followeds",followService.getfollowed(userService.getUserByusername(username)));
+        if(userService.getUserByusername(username).isPresent()){
+            List<Twot> twots=twotService.getTwots(userService.getUserByusername(username).get());
+            model.addAttribute("user",userService.getUserByusername(username).get());
+            model.addAttribute("followers",followService.getfollowers(userService.getUserByusername(username).get()));
+            model.addAttribute("followeds",followService.getfollowed(userService.getUserByusername(username).get()));
             model.addAttribute("twots",twots);
             return "user";
         }
