@@ -48,6 +48,11 @@
         xmlHttpReq.open("GET","../conv/"+contact,false);
         xmlHttpReq.send(null);
         var msgs=JSON.parse(xmlHttpReq.responseText);
-        console.dir(msgs);
+        msgs.forEach(function(msg){
+            var convdiv=document.getElementById("msghisto");
+            var div = document.createElement('div');
+            div.innerHTML="<div class='text-right'>"+msg.text+"</div>"
+            convdiv.appendChild(div);
+        });
     }
 </script>
