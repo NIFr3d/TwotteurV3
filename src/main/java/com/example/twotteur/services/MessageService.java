@@ -6,6 +6,7 @@ import com.example.twotteur.repositories.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -22,7 +23,10 @@ public class MessageService {
         return false;
     }
     public List<Message> getConv(User user1,User user2){
-        return messageRepository.getByUser1AndUser2(user1,user2);
+        List<Message> msglist=new ArrayList<>();
+        msglist.addAll(messageRepository.getByUser1AndUser2(user1,user2));
+        msglist.addAll(messageRepository.getByUser1AndUser2(user2,user1));
+        return msglist;
     }
 
 }
