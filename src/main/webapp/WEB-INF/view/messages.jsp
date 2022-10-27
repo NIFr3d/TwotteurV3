@@ -8,8 +8,8 @@
     <link rel="stylesheet" href="../styles/tailwind.css" />
     <title>Messages</title>
 </head>
-<body class="text-gray-300 bg-blue-900 h-screen w-screen">
-<div class="flex h-screen mx-auto w-4/5">
+    <body class="text-gray-300 bg-blue-900 h-screen w-screen">
+    <div class="flex h-screen mx-auto w-4/5">
     <%@include file="leftsidebar.jsp" %>
     <div class="w-1/5">
         <h2 class="text-3xl font-bold mt-8 mb-8">Messages</h2>
@@ -57,7 +57,10 @@
             convdiv.innerHTML+="<div class='"+align+" border-2 p-2 mb-2' style='width: max-content; max-width:50%;'>"+msg.text+"</div>";
             convdiv.scrollTop=convdiv.scrollHeight;
         });
-
+        var input=document.getElementById("input");
+        input.addEventListener('keypress',function(e){
+            if(e.key=='Enter') envoyermsg(contact);
+        });
     }
     function comparedates(value1,value2){
         var date1=sqlToJsDate(value1.date).getTime();
