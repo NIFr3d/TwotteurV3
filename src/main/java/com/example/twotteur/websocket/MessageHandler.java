@@ -45,14 +45,7 @@ public class MessageHandler extends TextWebSocketHandler {
     public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) throws Exception {
 
         super.handleMessage(session, message);
-        String cookies=session.getHandshakeHeaders().get(HttpHeaders.COOKIE).get(0);
-        String[] cookiesarray=cookies.split("; ");
-        String identtoken="0";
-        for(String cookie : cookiesarray){
-            if(cookie.startsWith("WEBSOCKET-IDENT=")){
-                identtoken=cookie.substring(16,46);
-            }
-        }
+        String identtoken=getidenttoken(session);
         if(!identtoken.equals("")){
             String msg=message.getPayload().toString();
             JSONParser parser = new JSONParser();
@@ -71,6 +64,18 @@ public class MessageHandler extends TextWebSocketHandler {
                 }
             }
         }
+    }
+
+    public String getidenttoken(WebSocketSession session){
+        String cookies=session.getHandshakeHeaders().get(HttpHeaders.COOKIE).get(0);
+        String[] cookiesarray=cookies.split("; ");
+        String identtoken="";
+        for(String cookie : cookiesarray){
+            if(cookie.startsWith("WEBSOCKET-IDENT=")){
+                identtoken=cookie.substring(16,46);
+            }
+        }
+        return identtoken;
     }
 
 }
