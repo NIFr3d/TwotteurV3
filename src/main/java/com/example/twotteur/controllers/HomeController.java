@@ -17,4 +17,7 @@ public class HomeController {
     public RedirectView redirectWithUsingRedirectView() {
         return new RedirectView("home");
     }
+
+    @GetMapping("test")
+    public String test() {return "test";}
 }
