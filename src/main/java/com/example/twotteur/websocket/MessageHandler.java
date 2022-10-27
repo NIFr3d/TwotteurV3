@@ -1,5 +1,6 @@
 package com.example.twotteur.websocket;
 
+import com.example.twotteur.models.User;
 import com.example.twotteur.services.UserService;
 import com.example.twotteur.services.WSTokenService;
 import org.json.simple.JSONObject;
@@ -16,10 +17,17 @@ import java.util.*;
 
 public class MessageHandler extends TextWebSocketHandler {
 
-    @Autowired private WSTokenService tokenService;
-    @Autowired private UserService userService;
+    @Autowired
+    private WSTokenService wsTokenService;
+    @Autowired
+    private UserService userService;
 
     List<WebSocketSession> webSocketSessions = Collections.synchronizedList(new ArrayList<>());
+
+    public MessageHandler(WSTokenService wsTokenService,UserService userService) {
+        this.wsTokenService = wsTokenService;
+        this.userService=userService;
+    }
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
@@ -49,9 +57,17 @@ public class MessageHandler extends TextWebSocketHandler {
             String msg=message.getPayload().toString();
             JSONParser parser = new JSONParser();
             JSONObject json = (JSONObject) parser.parse(msg);
-            if(json.containsKey("message") && json.containsKey("receiver")){
-                for (WebSocketSession webSocketSession : webSocketSessions) {
-                    webSocketSession.sendMessage(new TextMessage(json.get("message").toString()+","+json.get("receiver").toString()));
+            if(wsTokenService.getbytoken(identtoken).isPresent()){
+                User sender=wsTokenService.getbytoken(identtoken).get();
+                if(json.containsKey("message") && json.containsKey("receiver")){
+                    if(userService.getUserByusername(json.get("receiver").toString()).isPresent()){
+                        User receiver=userService.getUserByusername(json.get("receiver").toString()).get();
+                        if(!sender.getusername().equals(receiver.getusername())){
+                            for (WebSocketSession webSocketSession : webSocketSessions) {
+                                webSocketSession.sendMessage(new TextMessage(json.get("message").toString()+","+json.get("receiver").toString()));
+                            }
+                        }
+                    }
                 }
             }
         }

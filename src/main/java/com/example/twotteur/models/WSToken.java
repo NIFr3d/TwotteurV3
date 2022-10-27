@@ -28,4 +28,8 @@ public class WSToken {
     public void settoken(String token) {
         this.token=token;
     }
+
+    public User getuser() {
+        return this.user;
+    }
 }

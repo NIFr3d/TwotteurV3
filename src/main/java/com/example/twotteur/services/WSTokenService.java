@@ -13,12 +13,19 @@ import java.util.Random;
 @Service
 public class WSTokenService {
     @Autowired
-    WSTokenRepository wsTokenRepository;
+    private WSTokenRepository wsTokenRepository;
 
-    public Optional<String> gettoken(User user){
-        Optional<String> result=Optional.empty();
-        if(wsTokenRepository.findByUser(user).isPresent()) {
-            result=Optional.of(wsTokenRepository.findByUser(user).get().gettoken());
+    public Optional<User> getbytoken(String token){
+        Optional<User> result=Optional.empty();
+        if(wsTokenRepository.findByToken(token).isPresent()) {
+            result=Optional.of(wsTokenRepository.findByToken(token).get().getuser());
+        }
+        return result;
+    }
+    public Optional<String> gettoken(User user) {
+        Optional<String> result = Optional.empty();
+        if (wsTokenRepository.findByUser(user).isPresent()) {
+            result = Optional.of(wsTokenRepository.findByUser(user).get().gettoken());
         }
         return result;
     }
