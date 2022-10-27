@@ -22,7 +22,8 @@
     }
     function envoi(){
         socket.send(JSON.stringify({
-            message:"test"
+            message:"oui",
+            receiver:"fred2"
         }));
     }
 </script>
