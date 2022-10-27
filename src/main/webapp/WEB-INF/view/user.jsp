@@ -12,10 +12,10 @@
 <script>
     let xmlHttpReq = new XMLHttpRequest();
 </script>
-<body class="text-gray-300 bg-blue-900">
-<div class="inline-flex w-full">
-    <div><%@include file="leftsidebar.jsp" %></div>
-    <div class="ml-64 mt-8">
+<body class="text-gray-300 bg-blue-900 h-screen w-screen">
+<div class="flex h-screen mx-auto w-4/5">
+    <%@include file="leftsidebar.jsp" %>
+    <div class="w-3/5">
         <div>
             <span class="text-xl font-bold">${user.getnickname()} </span>
             <span class="text-l font-sm">@${user.getusername()}</span>

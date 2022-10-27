@@ -8,10 +8,10 @@
     <link rel="stylesheet" href="../styles/tailwind.css" />
     <title>Messages</title>
 </head>
-<body class="text-gray-300 bg-blue-900 h-screen">
-<div class="flex h-screen">
+<body class="text-gray-300 bg-blue-900 h-screen w-screen">
+<div class="flex h-screen mx-auto w-4/5">
     <%@include file="leftsidebar.jsp" %>
-    <div class="ml-64 w-1/5">
+    <div class="w-1/5">
         <h2 class="text-3xl font-bold mt-8 mb-8">Messages</h2>
         <c:choose>
         <c:when test="${fn:length(contacts)>0}">
