@@ -1,5 +1,6 @@
 package com.example.twotteur.controllers;
 import com.example.twotteur.services.UserService;
+import com.example.twotteur.services.WSTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class AuthController {
     @Autowired private UserService userService;
+    @Autowired private WSTokenService tokenService;
     @GetMapping(value="/login")
     public static String getLogin() {
         return "login";
@@ -24,6 +26,8 @@ public class AuthController {
             if(userService.correctPassword(email, password)){
                 session.setAttribute("isLogged", true);
                 session.setAttribute("userid", userService.getIdByEmail(email));
+                tokenService.settoken(userService.getUserById(userService.getIdByEmail(email)).get());
+                session.setAttribute("wstoken",tokenService.gettoken(userService.getUserById(userService.getIdByEmail(email)).get()).get());
                 return new RedirectView("/home");
             }
             return new RedirectView("/login?e=0");
@@ -51,6 +55,8 @@ public class AuthController {
                 case 0:
                     session.setAttribute("isLogged", true);
                     session.setAttribute("userid", userService.getIdByEmail(email));
+                    tokenService.settoken(userService.getUserById(userService.getIdByEmail(email)).get());
+                    session.setAttribute("wstoken",tokenService.gettoken(userService.getUserById(userService.getIdByEmail(email)).get()));
                     return new RedirectView("/home");
                 case 1:
                     return new RedirectView("/register?e=1");

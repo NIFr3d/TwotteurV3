@@ -1,6 +1,7 @@
 package com.example.twotteur.websocket;
 
 import org.springframework.web.socket.CloseStatus;
+import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
@@ -30,7 +31,7 @@ public class MessageHandler extends TextWebSocketHandler {
 
         super.handleMessage(session, message);
         for (WebSocketSession webSocketSession : webSocketSessions) {
-            webSocketSession.sendMessage(message);
+            webSocketSession.sendMessage(new TextMessage(webSocketSession.getHandshakeHeaders().toString()));
         }
     }
 
