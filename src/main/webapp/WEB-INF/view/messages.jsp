@@ -11,13 +11,14 @@
     <body class="text-gray-300 bg-blue-900 h-screen w-screen">
     <div class="flex h-screen mx-auto w-4/5">
     <%@include file="leftsidebar.jsp" %>
-    <div class="w-1/5">
+    <div class="w-2/5">
         <h2 class="text-3xl font-bold mt-8 mb-8">Messages</h2>
         <c:choose>
         <c:when test="${fn:length(contacts)>0}">
             <c:forEach begin="0" end="${fn:length(contacts)-1}" var="index">
                 <button class="w-full" type="button" onclick=showConv("${contacts[index].getusername()}")>
-                    <span class="text-xl">${contacts[index].getnickname()}</span><span class="text-lg">@${contacts[index].getusername()}</span>
+                    <span class="text-xl overflow-hidden w-2/5">${contacts[index].getnickname()}</span> <span class="text-lg overflow-hidden w-2/5">@${contacts[index].getusername()}</span>
+                    <span class="bg-blue-500 rounded-full w-1/5 hidden" id="notif${contacts[index].getusername()}">0</span>
                 </button><br>
             </c:forEach>
         </c:when>
@@ -46,6 +47,11 @@
             var convdiv=document.getElementById("msghisto");
             convdiv.innerHTML+="<div class='text-left bg-gray-600 ml-2 rounded-r-full rounded-tl-full border-2 p-2 mb-2' style='width: max-content; max-width:50%;'>"+msg.message+"</div>";
             convdiv.scrollTop=convdiv.scrollHeight;
+        }else{
+            var div=document.getElementById("notif"+msg.sender);
+            count=parseInt(div.innerHTML);
+            div.innerHTML=count+1;
+            if(div.classList.contains("hidden")) div.classList.remove("hidden");
         }
     }
     function envoiws(message,receiver){
@@ -58,6 +64,8 @@
     let xmlHttpReq = new XMLHttpRequest();
     function showConv(contact){
         currentcontact=contact;
+        var notifdiv=document.getElementById("notif"+contact);
+        if(!notifdiv.classList.contains("hidden")) notifdiv.classList.add("hidden");
         conv.innerHTML="" +
             "<div class='w-full h-full border-l-2 border-r-2 overflow-hidden'>" +
                 "<div class='text-xl text-center border-t-2 border-b-2' style='height:4%'>@"+contact+ "</div>" +
@@ -124,6 +132,7 @@
             var convdiv=document.getElementById("msghisto");
             convdiv.innerHTML+="<div class='text-right bg-blue-700 mr-2 ml-auto rounded-l-full rounded-tr-full border-2 p-2 mb-2' style='width: max-content; max-width:50%;'>"+text+"</div>";
             document.getElementById("input").value="";
+            convdiv.scrollTop=convdiv.scrollHeight;
         }
     }
 </script>
