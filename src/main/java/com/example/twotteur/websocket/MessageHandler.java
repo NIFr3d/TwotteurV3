@@ -57,7 +57,12 @@ public class MessageHandler extends TextWebSocketHandler {
                         User receiver=userService.getUserByusername(json.get("receiver").toString()).get();
                         if(!sender.getusername().equals(receiver.getusername())){
                             for (WebSocketSession webSocketSession : webSocketSessions) {
-                                webSocketSession.sendMessage(new TextMessage(json.get("message").toString()+","+json.get("receiver").toString()));
+                                String receivertoken=getidenttoken(webSocketSession);
+                                if(wsTokenService.getbytoken(receivertoken).isPresent()){
+                                    if(wsTokenService.getbytoken(receivertoken).get().getusername().equals(receiver.getusername())){
+                                        webSocketSession.sendMessage(new TextMessage("{sender:"+sender.getusername()+",message:"+json.get("message")+"}"));
+                                    }
+                                }
                             }
                         }
                     }
