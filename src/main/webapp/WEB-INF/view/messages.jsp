@@ -41,11 +41,11 @@
         console.log("Socket ouvert");
     }
     socket.onmessage=function (msg){
-        console.log(msg.data);
         msg=JSON.parse(msg.data);
         if(currentcontact==msg.sender){
             var convdiv=document.getElementById("msghisto");
             convdiv.innerHTML+="<div class='text-left bg-gray-600 ml-2 rounded-r-full rounded-tl-full border-2 p-2 mb-2' style='width: max-content; max-width:50%;'>"+msg.message+"</div>";
+            convdiv.scrollTop=convdiv.scrollHeight;
         }
     }
     function envoiws(message,receiver){
