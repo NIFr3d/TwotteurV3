@@ -60,7 +60,7 @@ public class MessageHandler extends TextWebSocketHandler {
                                 String receivertoken=getidenttoken(webSocketSession);
                                 if(wsTokenService.getbytoken(receivertoken).isPresent()){
                                     if(wsTokenService.getbytoken(receivertoken).get().getusername().equals(receiver.getusername())){
-                                        webSocketSession.sendMessage(new TextMessage("{sender:"+sender.getusername()+",message:"+json.get("message")+"}"));
+                                        webSocketSession.sendMessage(new TextMessage("{\"sender\":\""+sender.getusername()+"\",\"message\":\""+json.get("message")+"\"}"));
                                     }
                                 }
                             }

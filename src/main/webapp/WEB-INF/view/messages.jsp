@@ -33,9 +33,31 @@
 </body>
 </html>
 <script>
+    var currentcontact="";
+    let authToken = '${wstoken}';
+    document.cookie = 'WEBSOCKET-IDENT=' + authToken + '; path=/';
+    let socket = new WebSocket("ws://localhost:8080/chat");
+    socket.onopen=function(){
+        console.log("Socket ouvert");
+    }
+    socket.onmessage=function (msg){
+        console.log(msg.data);
+        msg=JSON.parse(msg.data);
+        if(currentcontact==msg.sender){
+            var convdiv=document.getElementById("msghisto");
+            convdiv.innerHTML+="<div class='text-left bg-gray-600 ml-2 rounded-r-full rounded-tl-full border-2 p-2 mb-2' style='width: max-content; max-width:50%;'>"+msg.message+"</div>";
+        }
+    }
+    function envoiws(message,receiver){
+        socket.send(JSON.stringify({
+            message:message,
+            receiver:receiver
+        }));
+    }
     let conv=document.getElementById("conv");
     let xmlHttpReq = new XMLHttpRequest();
     function showConv(contact){
+        currentcontact=contact;
         conv.innerHTML="" +
             "<div class='w-full h-full border-l-2 border-r-2 overflow-hidden'>" +
                 "<div class='text-xl text-center border-t-2 border-b-2' style='height:4%'>@"+contact+ "</div>" +
@@ -61,6 +83,8 @@
         input.addEventListener('keypress',function(e){
             if(e.key=='Enter') envoyermsg(contact);
         });
+
+
     }
     function comparedates(value1,value2){
         var date1=sqlToJsDate(value1.date).getTime();
@@ -96,6 +120,7 @@
         formdata.append("text",text);
         xmlHttpReq.send(formdata);
         if(xmlHttpReq.responseText==1){
+            envoiws(text,contact);
             var convdiv=document.getElementById("msghisto");
             convdiv.innerHTML+="<div class='text-right bg-blue-700 mr-2 ml-auto rounded-l-full rounded-tr-full border-2 p-2 mb-2' style='width: max-content; max-width:50%;'>"+text+"</div>";
             document.getElementById("input").value="";

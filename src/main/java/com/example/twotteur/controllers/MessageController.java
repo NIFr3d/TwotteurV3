@@ -40,6 +40,7 @@ public class MessageController {
             }
         }
         model.addAttribute("contacts",contacts);
+        model.addAttribute("wstoken",session.getAttribute("wstoken"));
         return "messages";
     }
 }
