@@ -12,14 +12,14 @@
     <div class="flex h-screen mx-auto w-4/5">
     <%@include file="leftsidebar.jsp" %>
     <div class="w-2/5">
-        <h2 class="text-3xl font-bold mt-8 mb-8">Messages</h2>
+        <h2 class="text-3xl font-bold mt-8 mb-8 flex flex-col">Messages</h2>
         <c:choose>
         <c:when test="${fn:length(contacts)>0}">
             <c:forEach begin="0" end="${fn:length(contacts)-1}" var="index">
                 <button class="w-full" type="button" onclick=showConv("${contacts[index].getusername()}")>
-                    <span class="text-xl overflow-hidden w-2/5">${contacts[index].getnickname()}</span> <span class="text-lg overflow-hidden w-2/5">@${contacts[index].getusername()}</span>
+                    <span class="text-xl text-clip w-2/5">${contacts[index].getnickname()}</span> <span class="text-lg text-clip w-2/5">@${contacts[index].getusername()}</span>
                     <span class="bg-blue-500 rounded-full w-1/5 hidden" id="notif${contacts[index].getusername()}">0</span>
-                </button><br>
+                </button>
             </c:forEach>
         </c:when>
         <c:otherwise>
@@ -67,10 +67,10 @@
         var notifdiv=document.getElementById("notif"+contact);
         if(!notifdiv.classList.contains("hidden")) notifdiv.classList.add("hidden");
         conv.innerHTML="" +
-            "<div class='w-full h-full border-l-2 border-r-2 overflow-hidden'>" +
-                "<div class='text-xl text-center border-t-2 border-b-2' style='height:4%'>@"+contact+ "</div>" +
-                "<div class='overflow-y-scroll' style='height:90%' id='msghisto'></div>" +
-                "<div class='text-center w-full border-t-2 border-b-2' style='height:6%'>"+
+            "<div class='w-full h-full flex flex-col'>" +
+                "<div class='text-xl text-center relative' style='height:4%'>@"+contact+ "</div>" +
+                "<div class='overflow-y-scroll relative border-l-2 border-blue-800' style='height:90%' id='msghisto'></div>" +
+                "<div class='text-center w-full border-t-2 border-blue-800' style='height:6%'>"+
                     "<input id='input' class='bg-blue-900 border-2 rounded-lg w-3/5' type='text'/>"+
                     "<button class='w-1/5 border-2 m-2' onclick='envoyermsg(\""+contact+"\")'>Envoyer</button>"+
                 "</div>"+
