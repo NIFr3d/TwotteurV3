@@ -101,4 +101,9 @@ public class TwotService {
         }
         return false;
     }
+
+
+    public void deleteTwotById(long id) {
+        twotRepository.delete(getTwotById(id));
+    }
 }

@@ -17,10 +17,10 @@ public class Twot{
     @Column(nullable=false)
     private boolean isanswer=false;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Twot originaltwot;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private User user;
 
     @CreatedDate

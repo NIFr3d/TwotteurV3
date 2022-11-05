@@ -8,10 +8,10 @@
     <link rel="stylesheet" href="../styles/tailwind.css" />
     <title>Edition du profil</title>
 </head>
-<body class="text-gray-300 bg-blue-900">
-<div class="inline-flex w-full">
+<body class="text-gray-300 bg-blue-900 h-screen w-screen">
+<div class="flex h-screen mx-auto w-4/5">
     <div><%@include file="leftsidebar.jsp" %></div>
-    <div class="ml-64 mt-8">
+    <div class="w-3/5">
         <form method="post">
             <label>Pseudo</label><br>
             <input type="text" name="nickname" class="border-4 rounded-lg bg-blue-900" value="${user.getnickname()}" required/><br>

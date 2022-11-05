@@ -55,6 +55,8 @@ public class User{
     public String getBiography(){return this.biography;}
     public Date getCreatedat(){return this.createdat;}
 
+    public long getid(){return this.id;}
+
     public void setbiography(String biography) {
         this.biography=biography;
     }

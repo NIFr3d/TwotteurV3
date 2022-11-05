@@ -15,7 +15,7 @@
 <body class="text-gray-300 bg-blue-900 h-screen w-screen">
 <div class="flex h-screen mx-auto w-4/5">
     <%@include file="leftsidebar.jsp" %>
-    <div class="w-3/5">
+    <div class="w-2/5">
         <div>
             <span class="text-xl font-bold">${user.getnickname()} </span>
             <span class="text-l font-sm">@${user.getusername()}</span>
@@ -148,7 +148,7 @@
                 <c:out value="${date.substring(8,10)}"/>/<c:out value="${date.substring(5,7)}"/>/<c:out value="${date.substring(0,4)}"/>
             </span>
         </div>
-        <div class="mt-10">
+        <div class="mt-10 w-full">
             <c:choose>
             <c:when test="${fn:length(twots)>0}">
             <c:forEach begin="0" end="${fn:length(twots)-1}" var="index">
@@ -190,6 +190,29 @@
     }
     function showfollowed(){
         $('#followed, #overlay-back').fadeIn(500);
+    }
+    function like(id){
+        xmlHttpReq.open("GET", "../like/"+id, false);
+        xmlHttpReq.send(null);
+        let compte=parseInt(document.getElementById("likecount"+id).innerHTML);
+        if(xmlHttpReq.responseText==1) {
+            document.getElementById("likecount"+id).innerHTML=compte+1;
+            document.getElementById("likeicon"+id).style.fill="red";
+        }
+        else if(xmlHttpReq.responseText==2) {
+            document.getElementById("likecount"+id).innerHTML=compte-1;
+            document.getElementById("likeicon"+id).style.fill="black";
+        }
+    }
+    function deleteTwot(id){
+        xmlHttpReq.open("DELETE", "../twot", false);
+        var formdata =new FormData();
+        formdata.append("id",id);
+        xmlHttpReq.send(formdata);
+        if(xmlHttpReq.responseText==1) {
+            var div=document.getElementById("twot"+id);
+            div.parentNode.removeChild(div);
+        }
     }
 
 </script>

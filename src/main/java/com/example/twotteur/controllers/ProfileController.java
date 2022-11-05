@@ -43,7 +43,9 @@ public class ProfileController {
 
     @GetMapping(value="/profile")
     public RedirectView profile(HttpSession session){
-        if(session.getAttribute("userid")!=null) {
+        boolean isLogged=false;
+        if(session.getAttribute("isLogged") != null) isLogged=(boolean)session.getAttribute("isLogged");
+        if(isLogged) {
             long id = (long) session.getAttribute("userid");
             String username = userService.getUserById(id).get().getusername();
             return new RedirectView("/user/" + username);
@@ -53,7 +55,9 @@ public class ProfileController {
 
     @GetMapping(value="/editprofile")
     public String editprofile(HttpSession session,Model model){
-        if(session.getAttribute("userid")!=null) {
+        boolean isLogged=false;
+        if(session.getAttribute("isLogged") != null) isLogged=(boolean)session.getAttribute("isLogged");
+        if(isLogged) {
             long id = (long) session.getAttribute("userid");
             if (userService.getUserById(id).isPresent()) {
                 model.addAttribute("user", userService.getUserById(id).get());
@@ -65,7 +69,9 @@ public class ProfileController {
 
     @PostMapping(value="/editprofile")
     public RedirectView editprofilepost(@RequestParam("nickname") String nickname,@RequestParam("biography") String biography, HttpSession session) {
-        if (session.getAttribute("userid") != null) {
+        boolean isLogged=false;
+        if(session.getAttribute("isLogged") != null) isLogged=(boolean)session.getAttribute("isLogged");
+        if(isLogged) {
             long id = (long) session.getAttribute("userid");
             if (userService.getUserById(id).isPresent()) {
                 User user = userService.getUserById(id).get();

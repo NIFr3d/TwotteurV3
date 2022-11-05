@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.http.HttpSession;
 import java.net.http.HttpRequest;
 
 @Controller
@@ -23,6 +24,7 @@ public class TwotController {
         twotService.newTweet(userService.getUserById(id).get(),text);
         return new RedirectView("/home");
     }
+
 
     @PostMapping(value="/answer")
     public RedirectView answer(@RequestParam("userid") String userid, @RequestParam("originalid") long originalid, @RequestParam("text") String text){

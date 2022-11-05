@@ -11,10 +11,10 @@
 <script>
     let xmlHttpReq = new XMLHttpRequest();
 </script>
-<body>
-<div class="inline-flex">
+<body class="text-gray-300 bg-blue-900 h-screen w-screen">
+<div class="flex h-screen mx-auto w-4/5">
     <%@include file="leftsidebar.jsp" %>
-    <div class="ml-56 mt-8">
+    <div class="w-2/5">
         <div>
             <span class="font-bold"><c:out value="${user.getnickname()}"/></span>
             <span class="font-light">@<c:out value="${user.getusername()}"/></span><br>
@@ -29,8 +29,8 @@
         <form action="/answer" method="post">
             <input type="hidden" name="originalid" value="${twot.getId()}">
             <input type="hidden" name="userid" value="${user.getusername()}">
-            <textarea class="resize-none border-none" name="text" placeholder="Donnez votre avis" required></textarea><br>
-            <button type="submit" class="rounded-lg bg-gray-200">Envoyer</button>
+            <textarea class="resize-none border-none bg-blue-700" name="text" placeholder="Donnez votre avis" required></textarea><br>
+            <button type="submit" class="rounded-lg bg-blue-700 p-2">Envoyer</button>
         </form>
         <span class="fond-bold text-xl">Réponses :</span>
         <c:choose>
@@ -67,8 +67,18 @@
     function fadeOut(){
         $('.answerForm, #overlay-back').fadeOut(500);
     }
-    function likeButton(id){
-
+    function like(id){
+        xmlHttpReq.open("GET", "../like/"+id, false);
+        xmlHttpReq.send(null);
+        let compte=parseInt(document.getElementById("likecount"+id).innerHTML);
+        if(xmlHttpReq.responseText==1) {
+            document.getElementById("likecount"+id).innerHTML=compte+1;
+            document.getElementById("likeicon"+id).style.fill="red";
+        }
+        else if(xmlHttpReq.responseText==2) {
+            document.getElementById("likecount"+id).innerHTML=compte-1;
+            document.getElementById("likeicon"+id).style.fill="black";
+        }
     }
 </script>
 </html>

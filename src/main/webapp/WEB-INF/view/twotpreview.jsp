@@ -4,8 +4,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ include file="taglibs.jsp" %>
-<p>
-    <a href="../twot/${twot.getId()}">
+<p class="w-full" id="twot${twot.getId()}">
+    <a href="../twot/${twot.getId()}" class="w-full">
         <span class="font-bold"><c:out value="${user.getnickname()}"/></span>
         <span class="font-light">@<c:out value="${user.getusername()}"/></span>
         <%
@@ -22,6 +22,7 @@
                 }
             }
         %>
+        <span class="ml-auto mr-2">
         <c:set var="cpre"><%= cpre %></c:set>
         <c:choose>
             <c:when test="${cpre==1}">
@@ -32,11 +33,12 @@
                 <c:out value="${dateE.substring(8,10)}"/>/<c:out value="${dateE.substring(5,7)}"/>/<c:out value="${dateE.substring(0,4)}"/>
             </c:otherwise>
         </c:choose>
+        </span>
         <br>
         <c:out value="${twot.getText()}"/> <br>
     </a>
     <div>
-        <button class="" onclick="like${twot.getId()}()">
+        <button class="" onclick="like(${twot.getId()})">
             <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                  viewBox="0 0 471.701 471.701" style="enable-background:new 0 0 471.701 471.701;" xml:space="preserve" width="20" height="20">
                 <path id="likeicon${twot.getId()}" d="M433.601,67.001c-24.7-24.7-57.4-38.2-92.3-38.2s-67.7,13.6-92.4,38.3l-12.9,12.9l-13.1-13.1
@@ -58,6 +60,14 @@
             </svg>
             <span id="answercount${twot.getId()}">0</span>
         </button>
+        <c:if test="${user.getid()==sessionScope.userid}">
+            <button onclick="deleteTwot(${twot.getId()})" class="">
+                <svg width="24px" height="24px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path fill="white" d="M20 2h-4v-.85C16 .52 15.48 0 14.85 0h-5.7C8.52 0 8 .52 8 1.15V2H4c-1.1 0-2 .9-2 2 0 .74.4 1.38 1 1.73v14.02C3 22.09 4.91 24 7.25 24h9.5c2.34 0 4.25-1.91 4.25-4.25V5.73c.6-.35 1-.99 1-1.73 0-1.1-.9-2-2-2zm-1 17.75c0 1.24-1.01 2.25-2.25 2.25h-9.5C6.01 22 5 20.99 5 19.75V6h14v13.75z"/>
+                    <path fill="white" d="M8 20.022c-.553 0-1-.447-1-1v-10c0-.553.447-1 1-1s1 .447 1 1v10c0 .553-.447 1-1 1zm8 0c-.553 0-1-.447-1-1v-10c0-.553.447-1 1-1s1 .447 1 1v10c0 .553-.447 1-1 1zm-4 0c-.553 0-1-.447-1-1v-10c0-.553.447-1 1-1s1 .447 1 1v10c0 .553-.447 1-1 1z"/>
+                </svg>
+            </button>
+        </c:if>
     </div>
 </p>
 <form action="/answer" method="post" style="
@@ -66,29 +76,15 @@
             left:30%;
             width:40%;
             height:auto;
-            background-color:white;
             z-index:100;
             display:none;
-            " id="<c:out value="${twot.getId()}"></c:out>" class="answerForm">
+            " id="<c:out value="${twot.getId()}"></c:out>" class="answerForm w-1/5">
     <input type="hidden" name="originalid" value="${twot.getId()}">
     <input type="hidden" name="userid" value="${user.getusername()}">
-    <textarea class="resize-none border-none" name="text" placeholder="Donnez votre avis" required></textarea><br>
-    <button type="submit" class="rounded-lg bg-gray-200">Répondre</button>
+    <textarea class="resize-none border-none w-full bg-blue-700" name="text" placeholder="Donnez votre avis" required></textarea><br>
+    <button type="submit" class="rounded-lg bg-blue-700 w-1/5 p-2 mx-auto">Répondre</button>
 </form>
 <script>
-        function like${twot.getId()}(){
-            xmlHttpReq.open("GET", "../like/${twot.getId()}", false);
-            xmlHttpReq.send(null);
-            let compte=parseInt(document.getElementById("likecount${twot.getId()}").innerHTML);
-            if(xmlHttpReq.responseText==1) {
-                document.getElementById("likecount${twot.getId()}").innerHTML=compte+1;
-                document.getElementById("likeicon${twot.getId()}").style.fill="red";
-            }
-            else if(xmlHttpReq.responseText==2) {
-                document.getElementById("likecount${twot.getId()}").innerHTML=compte-1;
-                document.getElementById("likeicon${twot.getId()}").style.fill="black";
-            }
-        }
         xmlHttpReq.open("GET", "../countanswers/${twot.getId()}", false);
         xmlHttpReq.send(null);
         document.getElementById("answercount${twot.getId()}").innerHTML=xmlHttpReq.responseText;

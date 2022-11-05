@@ -9,11 +9,11 @@ public class LikeAsso {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(nullable=false)
     private User user;
 
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY ,cascade = CascadeType.ALL)
     @JoinColumn(nullable=false)
     private Twot twot;
 

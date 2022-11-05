@@ -2,9 +2,7 @@ package com.example.twotteur.controllers;
 
 import com.example.twotteur.services.TwotService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -33,6 +31,19 @@ public class TwotRestController {
                 if(twotService.removeLike(id,userid)) return 2;
             }else{
                 if(twotService.addLike(id,userid)) return 1;
+            }
+        }
+        return 0;
+    }
+
+    @DeleteMapping(value="/twot")
+    public int deleteTwot(@RequestParam("id") long id, HttpSession session){
+        boolean isLogged=false;
+        if(session.getAttribute("isLogged") != null) isLogged=(boolean)session.getAttribute("isLogged");
+        if(isLogged) {
+            if (twotService.getTwotById(id).getUser().getId() == (long) session.getAttribute("userid")) {
+                twotService.deleteTwotById(id);
+                return 1;
             }
         }
         return 0;
