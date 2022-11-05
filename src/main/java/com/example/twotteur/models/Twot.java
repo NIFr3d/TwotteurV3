@@ -4,6 +4,7 @@ import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 public class Twot{
@@ -17,10 +18,15 @@ public class Twot{
     @Column(nullable=false)
     private boolean isanswer=false;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private Twot originaltwot;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+
+    @OneToMany(mappedBy ="twot",fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
+    private Set<LikeAsso> likes;
+
+    @ManyToOne
     private User user;
 
     @CreatedDate
