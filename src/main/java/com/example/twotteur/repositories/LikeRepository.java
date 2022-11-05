@@ -12,4 +12,5 @@ import java.util.Optional;
 public interface LikeRepository extends JpaRepository<LikeAsso, Long> {
         Integer countByTwot(Twot twot);
         Optional<LikeAsso> findByTwotAndUser(Twot twot, User user);
+        List<LikeAsso> getByTwot(Twot twot);
 }

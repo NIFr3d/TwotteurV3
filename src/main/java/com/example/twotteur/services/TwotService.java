@@ -1,8 +1,10 @@
 package com.example.twotteur.services;
 
+import com.example.twotteur.models.AnswerAsso;
 import com.example.twotteur.models.LikeAsso;
 import com.example.twotteur.models.Twot;
 import com.example.twotteur.models.User;
+import com.example.twotteur.repositories.AnswerAssoRepository;
 import com.example.twotteur.repositories.LikeRepository;
 import com.example.twotteur.repositories.TwotRepository;
 import com.example.twotteur.repositories.UserRepository;
@@ -25,6 +27,8 @@ public class TwotService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private AnswerAssoRepository answerAssoRepository;
 
     public List<Twot> getTwots(User user){
         List<Twot> twots=new ArrayList<>();
@@ -41,17 +45,23 @@ public class TwotService {
     }
 
     public void newTweet(User user, String text) {
-        twotRepository.save(new Twot(user,text));
+        twotRepository.save(new Twot(user,text,false));
     }
     public void newAnswer(User user,String text,Twot twot){
-        twotRepository.save(new Twot(user,text,twot));
+        Twot newtwot=new Twot(user,text,true);
+        twotRepository.save(newtwot);
+        answerAssoRepository.save(new AnswerAsso(twot,newtwot));
     }
 
     public Twot getTwotById(long id){
         return twotRepository.getReferenceById(id);
     }
     public List<Twot> getAnswersByTwotId(long id) {
-        return twotRepository.findTwotsByOriginaltwot(getTwotById(id));
+        List<Twot> twots=new ArrayList<>();
+        for(AnswerAsso answer:answerAssoRepository.findByOriginaltwot(getTwotById(id))){
+            twots.add(answer.getanswer());
+        }
+        return twots;
     }
     public Optional<User> getUserByTwotId(long id){
         Optional<User> user=Optional.empty();
@@ -61,7 +71,7 @@ public class TwotService {
 
     public int countAnswers(long id) {
         int count=0;
-        if(twotRepository.findFirstById(id).isPresent()) count=twotRepository.countByOriginaltwot(twotRepository.findFirstById(id).get());
+        if(twotRepository.findFirstById(id).isPresent()) count=answerAssoRepository.countByOriginaltwot(twotRepository.findFirstById(id).get());
         return count;
     }
 
@@ -104,6 +114,11 @@ public class TwotService {
 
 
     public void deleteTwotById(long id) {
+        Twot twot=getTwotById(id);
+        List<LikeAsso> likes=likeRepository.getByTwot(twot);
+        for(LikeAsso like:likes){
+            likeRepository.delete(like);
+        }
         twotRepository.delete(getTwotById(id));
     }
 }

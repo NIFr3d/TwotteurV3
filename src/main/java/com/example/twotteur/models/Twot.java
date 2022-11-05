@@ -19,10 +19,6 @@ public class Twot{
     private boolean isanswer=false;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Twot originaltwot;
-
-
-    @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
     @CreatedDate
@@ -41,16 +37,12 @@ public class Twot{
         return this.createdat;
     }
 
-    public Twot(User user,String text){
-        this.user=user;
-        this.text=text;
-    }
 
-    public Twot(User user,String text,Twot twot){
+
+    public Twot(User user,String text,boolean isanswer){
         this.user=user;
         this.text=text;
-        this.originaltwot=twot;
-        this.isanswer=true;
+        this.isanswer=isanswer;
     }
 
     public long getId(){
