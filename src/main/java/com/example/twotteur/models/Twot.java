@@ -18,15 +18,11 @@ public class Twot{
     @Column(nullable=false)
     private boolean isanswer=false;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Twot originaltwot;
 
 
-    @OneToMany(mappedBy ="twot",fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL)
-    private Set<LikeAsso> likes;
-
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
     @CreatedDate

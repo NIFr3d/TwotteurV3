@@ -8,7 +8,7 @@ public class WSToken {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false,unique = true)
     private User user;
 
