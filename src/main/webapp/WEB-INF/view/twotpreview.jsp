@@ -4,7 +4,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ include file="taglibs.jsp" %>
-<p class="w-full" id="twot${twot.getId()}">
+<div class="w-full" id="twot${twot.getId()}">
     <a href="../twot/${twot.getId()}" class="w-full">
         <span class="font-bold"><c:out value="${user.getnickname()}"/></span>
         <span class="font-light">@<c:out value="${user.getusername()}"/></span>
@@ -69,7 +69,7 @@
             </button>
         </c:if>
     </div>
-</p>
+</div>
 <form action="/answer" method="post" style="
             position:fixed;
             top:10%;
