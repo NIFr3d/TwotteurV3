@@ -7,13 +7,58 @@
     <%
     if((boolean) session.getAttribute("isLogged")){
     %>
-    <a href="../profile"><button class="rounded-lg bg-blue-900 text-xl p-2" type=button>Profil</button></a><br>
-    <a href="../logout"><button class="rounded-lg bg-blue-900 text-xl p-2" type=button>Se déconnecter</button></a><br>
+        <form class="border-2 mt-2 w-full" style="
+          position:fixed;
+          top:10%;
+          left:30%;
+          width:40%;
+          height:auto;
+          z-index:100;
+          display:none;" method="post" class="w-1/5" id="twotterform">
+            <textarea class="resize-none border-none bg-blue-900 w-full" name="text" placeholder="Quoi de neuf ?" required></textarea>
+            <input type="hidden" name="id" value=<c:out value="${userid}"></c:out> />
+            <button type="button" onclick="sendtwot()" class="rounded-lg bg-blue-900 w-full">Twoter</button>
+        </form>
+        <button onclick="hide()"><div id="overlay-back0" style="position   : fixed;
+                top        : 0;
+                left       : 0;
+                width      : 100%;
+                height     : 100%;
+                background : #000;
+                opacity    : 0.6;
+                filter     : alpha(opacity=60);
+                z-index    : 5;
+                display    : none;"></div></button>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script>
+            function twotter() {
+                $('#twotterform, #overlay-back0').fadeIn(500);
+            }
+            function hide(){
+                $('#twotterform, #overlay-back0').fadeOut(500);
+            }
+            var twotform=document.getElementById("twotterform");
+           function sendtwot(){
+                var response = fetch('../resttwot', {
+                    method: 'POST',
+                    body: new FormData(twotform)
+                });
+                hide();
+            }
+        </script>
+        <a href="../profile"><button class="rounded-lg bg-blue-900 text-xl p-2" type=button>Profil</button></a><br>
+        <a href="../logout"><button class="rounded-lg bg-blue-900 text-xl p-2" type=button>Se déconnecter</button></a><br>
     <% } %>
     </c:when>
     <c:otherwise>
     <a href="../login"><button class="rounded-lg bg-blue-900 text-xl p-2" type=button>Se connecter</button></a><br>
     </c:otherwise>
     </c:choose>
-    <button class="rounded-lg bg-blue-900 text-2xl p-2" type=button>Twoter</button>
+    <c:if test="${!empty sessionScope.isLogged }">
+    <%
+        if((boolean) session.getAttribute("isLogged")){
+    %>
+        <button class="rounded-lg bg-blue-900 text-2xl p-2" onclick="twotter()" type=button>Twoter</button>
+    <% } %>
+    </c:if>
 </div>

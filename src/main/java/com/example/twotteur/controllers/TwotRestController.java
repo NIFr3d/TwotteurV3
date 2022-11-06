@@ -1,16 +1,17 @@
 package com.example.twotteur.controllers;
 
 import com.example.twotteur.services.TwotService;
+import com.example.twotteur.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @RestController
 public class TwotRestController {
     @Autowired
     private TwotService twotService;
+    @Autowired
+    private UserService userService;
 
     @GetMapping(value="/countanswers/{id}")
     public int countAnswer(@PathVariable long id){
@@ -58,5 +59,10 @@ public class TwotRestController {
             if(twotService.userAlreadyLiked(id,userid)) return 1;
         }
         return 0;
+    }
+    @PostMapping(value = "/resttwot")
+    public int newTwot(@RequestParam("id") long id, @RequestParam("text") String text){
+        twotService.newTweet(userService.getUserById(id).get(),text);
+        return 1;
     }
 }
