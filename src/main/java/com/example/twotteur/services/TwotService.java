@@ -115,15 +115,11 @@ public class TwotService {
 
     public void deleteTwotById(long id) {
         Twot twot=getTwotById(id);
-        List<LikeAsso> likes=likeRepository.getByTwot(twot);
-        for(LikeAsso like:likes){
-            likeRepository.delete(like);
-        }
         List<Twot> toDelete=new ArrayList<>();
+        toDelete.add(twot);
         List<AnswerAsso> toTreat=new ArrayList<>();
         for(AnswerAsso answerAsso:answerAssoRepository.findByOriginaltwot(twot)){
             toTreat.add(answerAsso);
-            toDelete.add(answerAsso.getanswer());
         }
         while(toTreat.size()>0){
             List<AnswerAsso> newtreat=new ArrayList<>();
@@ -134,15 +130,16 @@ public class TwotService {
             toTreat=newtreat;
         }
         for(int i=1;i<=toDelete.size();i++){
-        //for(Twot deletetwot:toDelete){
-            Twot deletetwot=toDelete.get(toDelete.size()-1);
+            Twot deletetwot=toDelete.get(toDelete.size()-i);
+            List<AnswerAsso> deleteassos=answerAssoRepository.findByAnswer(deletetwot);
             List<LikeAsso> deletelikes=likeRepository.getByTwot(deletetwot);
+            for(AnswerAsso asso:deleteassos){
+                answerAssoRepository.delete(asso);
+            }
             for(LikeAsso like:deletelikes){
                 likeRepository.delete(like);
             }
-            //twotRepository.delete(deletetwot);
-            System.out.println(deletetwot.getId());
+            twotRepository.delete(deletetwot);
         }
-        //twotRepository.delete(getTwotById(id));
     }
 }

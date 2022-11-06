@@ -11,5 +11,6 @@ import java.util.List;
 public interface AnswerAssoRepository extends JpaRepository<AnswerAsso, Long> {
 
     List<AnswerAsso> findByOriginaltwot(Twot twot);
+    List<AnswerAsso> findByAnswer(Twot twot);
     int countByOriginaltwot(Twot twot);
 }
