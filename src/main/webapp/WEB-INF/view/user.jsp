@@ -15,7 +15,7 @@
 <body class="text-gray-300 bg-blue-900 h-screen w-screen">
 <div class="flex h-screen mx-auto w-4/5">
     <%@include file="leftsidebar.jsp" %>
-    <div class="w-full md:w-2/5 mx-auto">
+    <div class="w-full md:w-3/5 mx-auto">
         <div>
             <span class="text-xl font-bold">${user.getnickname()} </span>
             <span class="text-l font-sm">@${user.getusername()}</span>
