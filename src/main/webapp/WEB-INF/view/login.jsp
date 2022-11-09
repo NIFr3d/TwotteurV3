@@ -11,7 +11,7 @@
 <body class="text-gray-300 bg-blue-900 h-screen w-screen">
 <div class="flex h-screen mx-auto w-3/5">
 	<%@include file="leftsidebar.jsp"%>
-	<div class="w-2/5 my-auto" style="height:70%">
+	<div class="w-full md:w-2/5 my-auto h-4/5 ml-8">
 		<form method="post">
 		<label class="text-2xl">Email</label><br>
 		<input class="border-2 text-2xl rounded-lg bg-blue-900" type="email" name="email"/><br>

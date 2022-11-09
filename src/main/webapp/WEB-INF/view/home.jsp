@@ -11,8 +11,14 @@
 <body class="text-gray-300 bg-blue-900 h-screen w-screen">
 <div class="flex h-screen mx-auto w-4/5">
     <%@include file="leftsidebar.jsp" %>
-    <div class="ml-64 mt-8 w-1/5">
-        <%@include file="twotter.jsp"%>
+    <div class="ml-8 mt-8 w-full md:w-2/5">
+        <c:if test="${!empty sessionScope.isLogged }">
+            <form class="border-2 mt-2 w-full" action="../twot" method="post">
+                <textarea class="resize-none border-none bg-blue-900 w-full" name="text" placeholder="Quoi de neuf ?" required></textarea>
+                <input type="hidden" name="id" value=<c:out value="${userid}"></c:out> />
+                <button type="submit" class="rounded-lg bg-blue-900 w-full">Twoter</button>
+            </form>
+        </c:if>
     </div>
 
 </div>
