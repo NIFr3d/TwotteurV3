@@ -3,7 +3,7 @@ module.exports = {
   safelist: [
     {
       pattern: /./,
-      variants: ['md'], // you can add your variants here
+      variants: ['md','hover'], // you can add your variants here
     },
   ],
   theme: {

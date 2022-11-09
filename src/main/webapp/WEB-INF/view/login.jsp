@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="../styles/tailwind.css" />
 <title>Twotteur - Connexion</title>
 </head>
-<body class="text-gray-300 bg-blue-900 h-screen w-screen">
+<body class="text-gray-300 bg-sky-900 h-screen w-screen">
 <div class="flex h-screen mx-auto w-3/5">
 	<%@include file="leftsidebar.jsp"%>
 	<div class="w-full md:w-2/5 my-auto h-4/5 ml-8">

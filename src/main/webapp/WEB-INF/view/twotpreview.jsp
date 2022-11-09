@@ -5,9 +5,24 @@
          pageEncoding="UTF-8"%>
 <%@ include file="taglibs.jsp" %>
 <div class="w-full mt-2 ml-2" id="twot${twot.getId()}">
+    <c:if test="${twot.isanswer()}">
+        <a href="" id="url${twot.getId()}" class="text-blue-500">Voir le twot original</a>
+    </c:if>
     <a href="../twot/${twot.getId()}" class="w-full">
         <c:if test="${twot.isanswer()}">
-            <p>Répond à </p>
+            <p>Répond à <span id="answto${twot.getId()}"></span></p>
+            <script>
+                async function answto${twot.getId()}(){
+                    let response = await fetch('../original/${twot.getId()}');
+                    if (response.ok) {
+                        let json = await response.json();
+                        document.getElementById("answto${twot.getId()}").innerHTML="@"+json.user;
+                        document.getElementById("url${twot.getId()}").href="../twot/"+json.original;
+                    }
+                }
+                answto${twot.getId()}();
+
+            </script>
         </c:if>
         <p>
             <span class="font-bold"><c:out value="${user.getnickname()}"/></span>

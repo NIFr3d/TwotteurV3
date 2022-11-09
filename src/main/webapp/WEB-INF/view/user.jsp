@@ -12,7 +12,7 @@
 <script>
     let xmlHttpReq = new XMLHttpRequest();
 </script>
-<body class="text-gray-300 bg-blue-900 h-screen w-screen">
+<body class="text-gray-300 bg-sky-900 h-screen w-screen">
 <div class="flex h-screen mx-auto w-4/5">
     <%@include file="leftsidebar.jsp" %>
     <div class="md:border-x w-full md:w-3/5 mx-auto">
