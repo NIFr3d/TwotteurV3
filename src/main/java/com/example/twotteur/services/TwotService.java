@@ -65,36 +65,47 @@ public class TwotService {
     }
     public Optional<User> getUserByTwotId(long id){
         Optional<User> user=Optional.empty();
-        if(twotRepository.findFirstById(id).isPresent()) user=Optional.of(twotRepository.findFirstById(id).get().getUser());
+        if(twotRepository.findById(id).isPresent()) user=Optional.of(twotRepository.findById(id).get().getUser());
         return user;
+    }
+
+    public Optional<Twot> getOriginalByAnswer(long id){
+        Optional<Twot> result=Optional.empty();
+        if(twotRepository.findById(id).isPresent()){
+            if(answerAssoRepository.findByAnswer(twotRepository.findById(id).get()).isPresent()){
+                result=Optional.of(answerAssoRepository.findByAnswer(twotRepository.findById(id).get()).get().getoriginal());
+            }
+        }
+
+        return result;
     }
 
     public int countAnswers(long id) {
         int count=0;
-        if(twotRepository.findFirstById(id).isPresent()) count=answerAssoRepository.countByOriginaltwot(twotRepository.findFirstById(id).get());
+        if(twotRepository.findById(id).isPresent()) count=answerAssoRepository.countByOriginaltwot(twotRepository.findById(id).get());
         return count;
     }
 
     public int countLikes(long id) {
         int count=0;
-        if(twotRepository.findFirstById(id).isPresent()) count=likeRepository.countByTwot(twotRepository.findFirstById(id).get());
+        if(twotRepository.findById(id).isPresent()) count=likeRepository.countByTwot(twotRepository.findById(id).get());
         return count;
     }
 
     public boolean addLike(long twotid, long userid) {
-        if(twotRepository.findFirstById(twotid).isPresent()){
+        if(twotRepository.findById(twotid).isPresent()){
             if(userRepository.findById(userid).isPresent()){
-                likeRepository.save(new LikeAsso(twotRepository.findFirstById(twotid).get(),userRepository.findById(userid).get()));
+                likeRepository.save(new LikeAsso(twotRepository.findById(twotid).get(),userRepository.findById(userid).get()));
                 return true;
             }
         }
         return false;
     }
     public boolean removeLike(long twotid,long userid) {
-        if(twotRepository.findFirstById(twotid).isPresent()) {
+        if(twotRepository.findById(twotid).isPresent()) {
             if (userRepository.findById(userid).isPresent()) {
-                if (likeRepository.findByTwotAndUser(twotRepository.findFirstById(twotid).get(), userRepository.findById(userid).get()).isPresent()) {
-                    likeRepository.delete(likeRepository.findByTwotAndUser(twotRepository.findFirstById(twotid).get(), userRepository.findById(userid).get()).get());
+                if (likeRepository.findByTwotAndUser(twotRepository.findById(twotid).get(), userRepository.findById(userid).get()).isPresent()) {
+                    likeRepository.delete(likeRepository.findByTwotAndUser(twotRepository.findById(twotid).get(), userRepository.findById(userid).get()).get());
                     return true;
                 }
             }
@@ -102,9 +113,9 @@ public class TwotService {
         return false;
     }
     public boolean userAlreadyLiked(long twotid,long userid) {
-        if (twotRepository.findFirstById(twotid).isPresent()) {
+        if (twotRepository.findById(twotid).isPresent()) {
             if (userRepository.findById(userid).isPresent()) {
-                if (likeRepository.findByTwotAndUser(twotRepository.findFirstById(twotid).get(), userRepository.findById(userid).get()).isPresent()) {
+                if (likeRepository.findByTwotAndUser(twotRepository.findById(twotid).get(), userRepository.findById(userid).get()).isPresent()) {
                     return true;
                 }
             }
@@ -131,11 +142,8 @@ public class TwotService {
         }
         for(int i=1;i<=toDelete.size();i++){
             Twot deletetwot=toDelete.get(toDelete.size()-i);
-            List<AnswerAsso> deleteassos=answerAssoRepository.findByAnswer(deletetwot);
+            if(answerAssoRepository.findByAnswer(deletetwot).isPresent()) answerAssoRepository.delete(answerAssoRepository.findByAnswer(deletetwot).get());
             List<LikeAsso> deletelikes=likeRepository.getByTwot(deletetwot);
-            for(AnswerAsso asso:deleteassos){
-                answerAssoRepository.delete(asso);
-            }
             for(LikeAsso like:deletelikes){
                 likeRepository.delete(like);
             }

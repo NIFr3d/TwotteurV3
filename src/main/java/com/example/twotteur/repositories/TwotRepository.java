@@ -12,7 +12,7 @@ import java.util.Optional;
 @Repository
 public interface TwotRepository extends JpaRepository<Twot, Long>  {
     List<Twot> findTwotsByUser(User user);
-    Optional<Twot> findFirstById(long id);
+    Optional<Twot> findById(long id);
 
 
 }

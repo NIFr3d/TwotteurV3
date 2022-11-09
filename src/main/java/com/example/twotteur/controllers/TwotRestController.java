@@ -1,5 +1,6 @@
 package com.example.twotteur.controllers;
 
+import com.example.twotteur.models.Twot;
 import com.example.twotteur.services.TwotService;
 import com.example.twotteur.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,5 +65,15 @@ public class TwotRestController {
     public int newTwot(@RequestParam("id") long id, @RequestParam("text") String text){
         twotService.newTweet(userService.getUserById(id).get(),text);
         return 1;
+    }
+
+    @GetMapping("/original/{id}")
+    public String originalByAnswerId(@PathVariable long id){
+        String result="";
+        if(twotService.getOriginalByAnswer(id).isPresent()){
+            Twot twot=twotService.getOriginalByAnswer(id).get();
+            result="{\"user\":\""+twot.getUser().getusername()+"\",\"originial\":\""+twot.getId()+"\"}";
+        }
+        return result;
     }
 }
