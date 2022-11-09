@@ -72,7 +72,7 @@ public class TwotRestController {
         String result="";
         if(twotService.getOriginalByAnswer(id).isPresent()){
             Twot twot=twotService.getOriginalByAnswer(id).get();
-            result="{\"user\":\""+twot.getUser().getusername()+"\",\"originial\":\""+twot.getId()+"\"}";
+            result="{\"user\":\""+twot.getUser().getusername()+"\",\"original\":\""+twot.getId()+"\"}";
         }
         return result;
     }
