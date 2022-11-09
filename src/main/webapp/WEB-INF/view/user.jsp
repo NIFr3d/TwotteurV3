@@ -15,8 +15,8 @@
 <body class="text-gray-300 bg-blue-900 h-screen w-screen">
 <div class="flex h-screen mx-auto w-4/5">
     <%@include file="leftsidebar.jsp" %>
-    <div class="w-full md:w-3/5 mx-auto">
-        <div>
+    <div class="md:border-x w-full md:w-3/5 mx-auto">
+        <div class="ml-2">
             <span class="text-xl font-bold">${user.getnickname()} </span>
             <span class="text-l font-sm">@${user.getusername()}</span>
             <c:choose>
@@ -148,13 +148,15 @@
                 <c:out value="${date.substring(8,10)}"/>/<c:out value="${date.substring(5,7)}"/>/<c:out value="${date.substring(0,4)}"/>
             </span>
         </div>
-        <div class="mt-10 w-full">
+        <div class="border-b-2 w-full"></div>
+        <div class="mt-2 w-full">
             <c:choose>
             <c:when test="${fn:length(twots)>0}">
             <c:forEach begin="0" end="${fn:length(twots)-1}" var="index">
                 <c:set var="twot" value="${twots[index]}"></c:set>
                 <c:set var="answercount" value="${answerCounts[index]}"></c:set>
                 <%@include file="twotpreview.jsp"%>
+                <div class="border-b w-full"></div>
             </c:forEach>
             </c:when>
             <c:otherwise>

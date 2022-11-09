@@ -14,8 +14,8 @@
 <body class="text-gray-300 bg-blue-900 h-screen w-screen">
 <div class="flex h-screen mx-auto w-4/5">
     <%@include file="leftsidebar.jsp" %>
-    <div class="w-full md:w-2/5">
-        <div>
+    <div class="md:border-x w-full md:w-3/5 mx-auto">
+        <div class="ml-2 mb-2">
             <span class="font-bold"><c:out value="${user.getnickname()}"/></span>
             <span class="font-light">@<c:out value="${user.getusername()}"/></span>
             <c:if test="${user.getid()==sessionScope.userid}">
@@ -33,27 +33,34 @@
                 <c:out value="${date.substring(8,10)}"/>/<c:out value="${date.substring(5,7)}"/>/<c:out value="${date.substring(0,4)}"/>
             </span>
         </div>
-        <span class="text-xl mt-2">Répondre :</span>
-        <form action="/answer" method="post">
-            <input type="hidden" name="originalid" value="${twot.getId()}">
-            <input type="hidden" name="userid" value="${user.getusername()}">
-            <textarea class="resize-none border-none bg-blue-700" name="text" placeholder="Donnez votre avis" required></textarea><br>
-            <button type="submit" class="rounded-lg bg-blue-700 p-2">Envoyer</button>
-        </form>
-        <span class="fond-bold text-xl">Réponses :</span>
-        <c:choose>
-            <c:when test="${fn:length(twots)>0}">
-                <c:forEach begin="0" end="${fn:length(twots)-1}" var="index">
-                    <c:set var="twot" value="${twots[index]}"></c:set>
-                    <%@include file="twotpreview.jsp"%>
-                </c:forEach>
-            </c:when>
-            <c:otherwise>
-                <p>
-                    Ce tweet n'as pas de réponses.
-                </p>
-            </c:otherwise>
-        </c:choose>
+        <div class="border-b-2 w-full"></div>
+        <div class="mx-2 mb-2">
+            <span class="text-xl mt-2">Répondre :</span>
+            <form action="/answer" method="post">
+                <input type="hidden" name="originalid" value="${twot.getId()}">
+                <input type="hidden" name="userid" value="${user.getusername()}">
+                <textarea class="w-full rounded-lg resize-none border-none bg-blue-700" name="text" placeholder="Donnez votre avis" required></textarea><br>
+                <button type="submit" class="rounded-lg bg-blue-700 p-2">Envoyer</button>
+            </form>
+        </div>
+        <div class="border-b-2 w-full"></div>
+        <div class="mt-2">
+            <span class="ml-2 fond-bold text-xl">Réponses :</span>
+            <c:choose>
+                <c:when test="${fn:length(twots)>0}">
+                    <c:forEach begin="0" end="${fn:length(twots)-1}" var="index">
+                        <c:set var="twot" value="${twots[index]}"></c:set>
+                        <%@include file="twotpreview.jsp"%>
+                        <div class="border-b w-full"></div>
+                    </c:forEach>
+                </c:when>
+                <c:otherwise>
+                    <p>
+                        Ce tweet n'as pas de réponses.
+                    </p>
+                </c:otherwise>
+            </c:choose>
+        </div>
         <button onclick="fadeOut()"><div id="overlay-back" style="position   : fixed;
                 top        : 0;
                 left       : 0;

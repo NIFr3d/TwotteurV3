@@ -52,4 +52,6 @@ public class Twot{
     public User getUser() {
         return this.user;
     }
+
+    public boolean isanswer(){return this.isanswer;}
 }

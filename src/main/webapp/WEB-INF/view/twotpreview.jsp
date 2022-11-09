@@ -4,38 +4,42 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ include file="taglibs.jsp" %>
-<div class="w-full" id="twot${twot.getId()}">
+<div class="w-full mt-2 ml-2" id="twot${twot.getId()}">
     <a href="../twot/${twot.getId()}" class="w-full">
-        <span class="font-bold"><c:out value="${user.getnickname()}"/></span>
-        <span class="font-light">@<c:out value="${user.getusername()}"/></span>
-        <%
-            Date nowplus1d=new Date(new Date().getTime() - TimeUnit.DAYS.toMillis( 1 ));
-            Twot twot=(Twot)pageContext.getAttribute("twot");
-            int cpre=twot.getDate().compareTo(nowplus1d);
-            String timedif="";
-            if(cpre==1){
-                long dif=twot.getDate().getTime()- new Date().getTime();
-                if(((dif/(1000*60*60))%24)==0) {
-                    timedif=String.valueOf(Math.abs(dif/(1000*60))%60)+"min";
-                }else{
-                    timedif=String.valueOf(Math.abs(dif/(1000*60*60))%24)+"h";
+        <c:if test="${twot.isanswer()}">
+            <p>Répond à </p>
+        </c:if>
+        <p>
+            <span class="font-bold"><c:out value="${user.getnickname()}"/></span>
+            <span class="font-light">@<c:out value="${user.getusername()}"/></span>
+            <%
+                Date nowplus1d=new Date(new Date().getTime() - TimeUnit.DAYS.toMillis( 1 ));
+                Twot twot=(Twot)pageContext.getAttribute("twot");
+                int cpre=twot.getDate().compareTo(nowplus1d);
+                String timedif="";
+                if(cpre==1){
+                    long dif=twot.getDate().getTime()- new Date().getTime();
+                    if(((dif/(1000*60*60))%24)==0) {
+                        timedif=String.valueOf(Math.abs(dif/(1000*60))%60)+"min";
+                    }else{
+                        timedif=String.valueOf(Math.abs(dif/(1000*60*60))%24)+"h";
+                    }
                 }
-            }
-        %>
-        <span class="ml-auto mr-2">
-        <c:set var="cpre"><%= cpre %></c:set>
-        <c:choose>
-            <c:when test="${cpre==1}">
-                <%= timedif %>
-            </c:when>
-            <c:otherwise>
-                <c:set var="dateE" value="${twot.getDate().toString()}"/>
-                <c:out value="${dateE.substring(8,10)}"/>/<c:out value="${dateE.substring(5,7)}"/>/<c:out value="${dateE.substring(0,4)}"/>
-            </c:otherwise>
-        </c:choose>
-        </span>
-        <br>
-        <c:out value="${twot.getText()}"/> <br>
+            %>
+            <span class="ml-auto mr-2">
+            <c:set var="cpre"><%= cpre %></c:set>
+            <c:choose>
+                <c:when test="${cpre==1}">
+                    <%= timedif %>
+                </c:when>
+                <c:otherwise>
+                    <c:set var="dateE" value="${twot.getDate().toString()}"/>
+                    <c:out value="${dateE.substring(8,10)}"/>/<c:out value="${dateE.substring(5,7)}"/>/<c:out value="${dateE.substring(0,4)}"/>
+                </c:otherwise>
+            </c:choose>
+            </span>
+        </p>
+        <p><c:out value="${twot.getText()}"/></p>
     </a>
     <div>
         <button class="" onclick="like(${twot.getId()})">
