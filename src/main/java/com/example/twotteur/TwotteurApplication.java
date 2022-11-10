@@ -9,10 +9,6 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 public class TwotteurApplication {
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(TwotteurApplication.class);
-    }
-
     public static void main(String[] args) {
         SpringApplication.run(TwotteurApplication.class, args);
     }
