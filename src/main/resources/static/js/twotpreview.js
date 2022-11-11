@@ -6,6 +6,7 @@ async function getanswto(twotid){
         let json = await response.json();
         document.getElementById("answto"+twotid).innerHTML="@"+json.user;
         document.getElementById("url"+twotid).href="../twot/"+json.original;
+        if(window.location.pathname=="/twot/"+json.original) document.getElementById("answtodiv"+twotid).classList.add("hidden");
     }
 }
 function inittwot(twotid){

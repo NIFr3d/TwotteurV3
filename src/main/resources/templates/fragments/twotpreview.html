@@ -6,41 +6,43 @@
 </head>
 <body>
 <div class="w-full mt-2 ml-2" th:id="'twot'+${twot.getId()}" th:fragment="twot">
-  <a th:if="${twot.isanswer()}" href="" th:id="'url'+${twot.getId()}" class="text-blue-500">Voir le twot original</a>
+    <div th:if="${twot.isanswer()}" th:id="'answtodiv'+${twot.getId()}">
+      <a href="" th:id="'url'+${twot.getId()}" class="text-blue-500">Voir le twot original</a>
+        <p th:if="${twot.isanswer()}">Répond à <span th:id="'answto'+${twot.getId()}"></span>
+            <script th:inline="javascript">
+                getanswto([[${twot.getId()}]]);
+                /*
+                <%
+              Date nowplus1d=new Date(new Date().getTime() - TimeUnit.DAYS.toMillis( 1 ));
+              Twot twot=(Twot)pageContext.getAttribute("twot");
+              int cpre=twot.getDate().compareTo(nowplus1d);
+              String timedif="";
+              if(cpre==1){
+              long dif=twot.getDate().getTime()- new Date().getTime();
+              if(((dif/(1000*60*60))%24)==0) {
+              timedif=String.valueOf(Math.abs(dif/(1000*60))%60)+"min";
+              }else{
+              timedif=String.valueOf(Math.abs(dif/(1000*60*60))%24)+"h";
+              }
+              }
+              %>
+              <span class="ml-auto mr-2">
+                    <c:set var="cpre"><%= cpre %></c:set>
+                    <c:choose>
+                        <c:when test="${cpre==1}">
+                            <%= timedif %>
+                        </c:when>
+                        <c:otherwise>
+                            <c:set var="dateE" value="${twot.getDate().toString()}"/>
+                            <c:out value="${dateE.substring(8,10)}"/>/<c:out value="${dateE.substring(5,7)}"/>/<c:out value="${dateE.substring(0,4)}"/>
+                        </c:otherwise>
+                    </c:choose>
+              </span>
+                 */
+            </script>
+        </p>
+    </div>
   <a th:href="'../twot/'+${twot.getId()}" class="w-full">
-      <p th:if="${twot.isanswer()}">Répond à <span th:id="'answto'+${twot.getId()}"></span>
-      <script th:inline="javascript">
-        getanswto([[${twot.getId()}]]);
-        /*
-        <%
-      Date nowplus1d=new Date(new Date().getTime() - TimeUnit.DAYS.toMillis( 1 ));
-      Twot twot=(Twot)pageContext.getAttribute("twot");
-      int cpre=twot.getDate().compareTo(nowplus1d);
-      String timedif="";
-      if(cpre==1){
-      long dif=twot.getDate().getTime()- new Date().getTime();
-      if(((dif/(1000*60*60))%24)==0) {
-      timedif=String.valueOf(Math.abs(dif/(1000*60))%60)+"min";
-      }else{
-      timedif=String.valueOf(Math.abs(dif/(1000*60*60))%24)+"h";
-      }
-      }
-      %>
-      <span class="ml-auto mr-2">
-            <c:set var="cpre"><%= cpre %></c:set>
-            <c:choose>
-                <c:when test="${cpre==1}">
-                    <%= timedif %>
-                </c:when>
-                <c:otherwise>
-                    <c:set var="dateE" value="${twot.getDate().toString()}"/>
-                    <c:out value="${dateE.substring(8,10)}"/>/<c:out value="${dateE.substring(5,7)}"/>/<c:out value="${dateE.substring(0,4)}"/>
-                </c:otherwise>
-            </c:choose>
-      </span>
-         */
-      </script>
-      </p>
     <p>
       <span class="font-bold" th:text="${user.getnickname()}"></span>
       <span class="font-light" th:text="'@'+${user.getusername()}"></span>

@@ -17,6 +17,12 @@
   <div th:insert="fragments/leftsidebar :: leftsidebar" th:remove="tag"></div>
   <div class="md:border-x w-full md:w-3/5 mx-auto">
     <div class="ml-2 mb-2">
+      <div th:if="${twot.isanswer()}" th:id="'answtodiv'+${twot.getId()}">
+        <a href="" th:id="'url'+${twot.getId()}" class="text-blue-500">Voir le twot original</a>
+        <p th:if="${twot.isanswer()}">Répond à <span th:id="'answto'+${twot.getId()}"></span>
+          <script th:inline="javascript">getanswto([[${twot.getId()}]]);</script>
+        </p>
+      </div>
       <span class="font-bold" th:text="${user.getnickname()}"></span>
       <span class="font-light" th:text="'@'+${user.getusername()}"></span>
       <div th:if="${user.getid()==session.userid}">
@@ -29,12 +35,8 @@
       </div>
       <p th:text="${twot.getText()}"></p>
       <p th:with="date=${twot.getDate().toString()}" class="text-l font-sm italic text-right">
-        <span th:text="${date.substring(11,13)}"></span>:
-        <span th:text="${date.substring(14,16)}"></span>:
-        <span th:text="${date.substring(17,19)}"></span>
-        <span th:text="${date.substring(8,10)}"></span>/
-        <span th:text="${date.substring(5,7)}"></span>/
-        <span th:text="${date.substring(0,4)}"></span>
+        <span th:text="${date.substring(11,13)}"></span>:<span th:text="${date.substring(14,16)}"></span>:<span th:text="${date.substring(17,19)}"></span>
+        <span th:text="${date.substring(8,10)}"></span>/<span th:text="${date.substring(5,7)}"></span>/<span th:text="${date.substring(0,4)}"></span>
       </p>
     </div>
     <div class="border-b-2 w-full"></div>
