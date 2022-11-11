@@ -8,10 +8,10 @@ public class AnswerAsso {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Twot originaltwot;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Twot answer;
 
     public AnswerAsso(){

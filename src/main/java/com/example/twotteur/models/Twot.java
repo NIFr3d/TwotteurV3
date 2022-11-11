@@ -18,7 +18,7 @@ public class Twot{
     @Column(nullable=false)
     private boolean isanswer=false;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private User user;
 
     @CreatedDate
