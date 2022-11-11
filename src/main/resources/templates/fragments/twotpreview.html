@@ -6,7 +6,7 @@
 </head>
 <body>
 <div class="w-full mt-2 ml-2" th:id="'twot'+${twot.getId()}" th:fragment="twot">
-  <a th:if="${twot.isanswer()}" href="" th:id="url${twot.getId()}" class="text-blue-500">Voir le twot original</a>
+  <a th:if="${twot.isanswer()}" href="" th:id="'url'+${twot.getId()}" class="text-blue-500">Voir le twot original</a>
   <a th:href="'../twot/'+${twot.getId()}" class="w-full">
       <p th:if="${twot.isanswer()}">Répond à <span th:id="'answto'+${twot.getId()}"></span>
       <script th:inline="javascript">
