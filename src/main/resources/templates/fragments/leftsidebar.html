@@ -2,7 +2,8 @@
 <html>
 <head>
 </head>
-<body th:fragment="leftsidebar">
+<body>
+<div class="text-center hidden md:block h-1/2 w-fit my-auto mr-4"  th:fragment="leftsidebar">
   <a href="../home"><button class="rounded-lg bg-blue-900 text-xl p-2" type=button>Accueil</button></a><br>
   <div th:if="${session.isLogged==true}">
     <a href="../messages"><button class="rounded-lg bg-blue-900 text-xl p-2" type=button>Messages</button></a><br>
@@ -52,5 +53,6 @@
       }
     </script>
   </div>
+</div>
 </body>
 </html>

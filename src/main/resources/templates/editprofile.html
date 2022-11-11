@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link rel="stylesheet" th:href="@{/css/tailwind.css}" />
+  <title>Edition du profil</title>
+</head>
+<body class="text-gray-300 bg-sky-900 h-screen w-screen">
+<div class="flex h-screen mx-auto w-4/5">
+  <div th:insert="fragments/leftsidebar :: leftsidebar" th:remove="tag"></div>
+  <div class="w-full md:w-3/5">
+    <form method="post" class="w-full md:mt-8">
+      <label>Pseudo</label><br>
+      <input type="text" name="nickname" class="border-4 rounded-lg bg-blue-900 w-full" th:value="${user.getnickname()}" required/><br>
+      <label>Biographie</label><br>
+      <textarea class="resize-none border-4 rounded-lg bg-blue-900 w-full" name="biography" th:text="${user.getBiography()}"></textarea><br>
+      <button type="submit" class="text-white bg-blue-700 rounded-lg">Sauvegarder</button>
+    </form>
+  </div>
+</div>
+</body>
+</html>

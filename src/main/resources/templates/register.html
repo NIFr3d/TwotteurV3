@@ -2,12 +2,13 @@
 <html>
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <link rel="stylesheet" th:href="@{/css/tailwind.css}" />
   <title>Twotteur - Enregistrement</title>
 </head>
 <body class="text-gray-300 bg-sky-900 h-screen w-screen">
 <div class="flex h-screen mx-auto w-3/5">
-  <div th:insert="fragments/leftsidebar :: leftsidebar" class="text-center hidden md:block h-1/2 w-fit my-auto mr-4"></div>
+  <div th:insert="fragments/leftsidebar :: leftsidebar" th:remove="tag"></div>
   <div class="w-full md:w-2/5 my-auto h-4/5">
     <form method="post">
       <label class="text-2xl">Email</label><br>

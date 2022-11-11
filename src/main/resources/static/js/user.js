@@ -1,39 +1,41 @@
-let xmlHttpReq = new XMLHttpRequest();
-function veriffollow(userid,categorie){
-    xmlHttpReq.open("GET","../doifollow/"+userid,false);
-    xmlHttpReq.send(null);
-    if(xmlHttpReq.responseText==1){
-        switch(categorie){
-            case 0:
-                document.getElementById("doifollow"+userid).innerHTML="Ne plus suivre";
-                break;
-            case 1:
-                document.getElementById("doifollow1"+userid).innerHTML="Ne plus suivre";
-                break;
-            case 2:
-                document.getElementById("doifollow2"+userid).innerHTML="Ne plus suivre";
-                break;
-        }
-    }
-
-
+function afficher_msg(id) {
+    $('#'+id+', #overlay-back').fadeIn(500);
 }
-async function getanswto(twotid){
-    let response = await fetch('../original/'+twotid);
-    if (response.ok) {
-        let json = await response.json();
-        document.getElementById("answto"+twotid).innerHTML="@"+json.user;
-        document.getElementById("url"+twotid).href="../twot/"+json.original;
+function fadeOut(){
+    $('.answerForm, #overlay-back').fadeOut(500);
+}
+function showfollowers(){
+    $('#followers, #overlay-back').fadeIn(500);
+}
+function showfollowed(){
+    $('#followed, #overlay-back').fadeIn(500);
+}
+function like(id){
+    xmlHttpReq.open("GET", "../like/"+id, false);
+    xmlHttpReq.send(null);
+    let compte=parseInt(document.getElementById("likecount"+id).innerHTML);
+    if(xmlHttpReq.responseText==1) {
+        document.getElementById("likecount"+id).innerHTML=compte+1;
+        document.getElementById("likeicon"+id).style.fill="red";
+    }
+    else if(xmlHttpReq.responseText==2) {
+        document.getElementById("likecount"+id).innerHTML=compte-1;
+        document.getElementById("likeicon"+id).style.fill="black";
     }
 }
-function inittwot(twotid){
-    xmlHttpReq.open("GET", "../countanswers/"+twotid, false);
+function deleteTwot(id){
+    xmlHttpReq.open("DELETE", "../twot", false);
+    var formdata =new FormData();
+    formdata.append("id",id);
+    xmlHttpReq.send(formdata);
+    if(xmlHttpReq.responseText==1) {
+        var div=document.getElementById("twot"+id);
+        div.parentNode.removeChild(div);
+    }
+}
+function follow(followid){
+    xmlHttpReq.open("GET","../follow/"+followid,false);
     xmlHttpReq.send(null);
-    document.getElementById("answercount"+twotid).innerHTML=xmlHttpReq.responseText;
-    xmlHttpReq.open("GET", "../countlikes/"+twotid, false);
-    xmlHttpReq.send(null);
-    document.getElementById("likecount"+twotid).innerHTML=xmlHttpReq.responseText;
-    xmlHttpReq.open("GET", "../didilike/"+twotid, false);
-    xmlHttpReq.send(null);
-    if(xmlHttpReq.responseText==1)document.getElementById("likeicon"+twotid).style.fill="red";
+    if(xmlHttpReq.responseText==1)document.getElementById("doifollow"+followid).innerHTML="Ne plus suivre";
+    if(xmlHttpReq.responseText==2)document.getElementById("doifollow"+followid).innerHTML="Suivre";
 }
