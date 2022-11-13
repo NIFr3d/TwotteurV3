@@ -4,22 +4,30 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body>
-<div class="w-full mt-2 ml-2" th:id="'twot'+${twot.getId()}" th:fragment="twot">
+<body th:fragment="twot">
+<div class="w-11/12 mt-2 mx-auto" th:id="'twot'+${twot.getId()}">
     <div th:if="${twot.isanswer()}" th:id="'answtodiv'+${twot.getId()}">
       <a href="" th:id="'url'+${twot.getId()}" class="text-blue-500">Voir le twot original</a>
         <p th:if="${twot.isanswer()}">Répond à <span th:id="'answto'+${twot.getId()}"></span>
             <script th:inline="javascript">getanswto([[${twot.getId()}]]);</script>
         </p>
     </div>
-    <a th:href="'../twot/'+${twot.getId()}" class="w-full">
-      <p>
-        <span class="font-bold" th:text="${user.getnickname()}"></span>
-        <span class="font-light" th:text="'@'+${user.getusername()}"></span>
-        <span class="float-right mr-2" th:id="'date'+${twot.getId()}"></span>
+    <p>
+    <span class="font-bold" th:text="${user.getnickname()}"></span>
+    <span class="font-light" th:text="'@'+${user.getusername()}"></span>
+    <span class="float-right mr-2" th:id="'date'+${twot.getId()}"></span>
+    <span class="float-right mr-2">
+      <button th:if="${user.getId()==session.userid}" th:onclick="'deleteTwot('+${twot.getId()}+')'" class="">
+          <svg width="24px" height="24px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path fill="white" d="M20 2h-4v-.85C16 .52 15.48 0 14.85 0h-5.7C8.52 0 8 .52 8 1.15V2H4c-1.1 0-2 .9-2 2 0 .74.4 1.38 1 1.73v14.02C3 22.09 4.91 24 7.25 24h9.5c2.34 0 4.25-1.91 4.25-4.25V5.73c.6-.35 1-.99 1-1.73 0-1.1-.9-2-2-2zm-1 17.75c0 1.24-1.01 2.25-2.25 2.25h-9.5C6.01 22 5 20.99 5 19.75V6h14v13.75z"/>
+              <path fill="white" d="M8 20.022c-.553 0-1-.447-1-1v-10c0-.553.447-1 1-1s1 .447 1 1v10c0 .553-.447 1-1 1zm8 0c-.553 0-1-.447-1-1v-10c0-.553.447-1 1-1s1 .447 1 1v10c0 .553-.447 1-1 1zm-4 0c-.553 0-1-.447-1-1v-10c0-.553.447-1 1-1s1 .447 1 1v10c0 .553-.447 1-1 1z"/>
+          </svg>
+      </button>
+    </span>
     </p>
-    <p th:text="${twot.getText()}"></p>
-  </a>
+    <a th:href="'../twot/'+${twot.getId()}" class="w-full">
+        <p th:text="${twot.getText()}"></p>
+    </a>
   <div>
     <button class="" th:onclick="'like('+${twot.getId()}+')'">
       <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -43,12 +51,6 @@
             </svg>
     <span th:id="'answercount'+${twot.getId()}">0</span>
     </button>
-      <button th:if="${user.getId()==session.userid}" th:onclick="'deleteTwot('+${twot.getId()}+')'" class="">
-        <svg width="24px" height="24px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path fill="white" d="M20 2h-4v-.85C16 .52 15.48 0 14.85 0h-5.7C8.52 0 8 .52 8 1.15V2H4c-1.1 0-2 .9-2 2 0 .74.4 1.38 1 1.73v14.02C3 22.09 4.91 24 7.25 24h9.5c2.34 0 4.25-1.91 4.25-4.25V5.73c.6-.35 1-.99 1-1.73 0-1.1-.9-2-2-2zm-1 17.75c0 1.24-1.01 2.25-2.25 2.25h-9.5C6.01 22 5 20.99 5 19.75V6h14v13.75z"/>
-          <path fill="white" d="M8 20.022c-.553 0-1-.447-1-1v-10c0-.553.447-1 1-1s1 .447 1 1v10c0 .553-.447 1-1 1zm8 0c-.553 0-1-.447-1-1v-10c0-.553.447-1 1-1s1 .447 1 1v10c0 .553-.447 1-1 1zm-4 0c-.553 0-1-.447-1-1v-10c0-.553.447-1 1-1s1 .447 1 1v10c0 .553-.447 1-1 1z"/>
-        </svg>
-      </button>
   </div>
 
 <form action="/answer" method="post" style="
