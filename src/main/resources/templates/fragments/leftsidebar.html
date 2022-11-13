@@ -3,10 +3,11 @@
 <head>
 </head>
 <body>
-<div class="text-center inset-x-0 absolute bottom-0 flex flex-row h-fit w-fit md:relative md:flex-col md:block md:h-1/2 md:w-2/5 mb-0 md:my-auto md:mr-4"  th:fragment="leftsidebar">
-  <a href="../home" class="h-fit">
+<div class="text-center inset-x-0 absolute bottom-0 md:relative md:h-1/2 md:w-1/3 mb-0 md:my-auto md:mr-4"  th:fragment="leftsidebar">
+  <div class="mx-auto w-fit flex flex-row md:flex-col">
+  <a href="../home" class="h-fit w-fit">
     <button class="rounded-lg bg-blue-900 text-xl p-2 inline-flex h-fit" type=button>
-      <svg class="mb-1" height="25px" width="25px" viewBox="0 0 251.479 251.479" fill="white">
+      <svg class="mb-1 h-12 w-12 md:h-6 md:w-6" viewBox="0 0 251.479 251.479" fill="white">
         <path d="M209.355,135.551c-4.143,0-7.5,3.358-7.5,7.5v76.109H49.634v-76.109c0-4.142-3.357-7.5-7.5-7.5c-4.143,0-7.5,3.358-7.5,7.5
             v83.609c0,4.142,3.357,7.5,7.5,7.5h167.221c4.143,0,7.5-3.358,7.5-7.5v-83.609C216.855,138.909,213.497,135.551,209.355,135.551z"
         />
@@ -16,28 +17,28 @@
       </svg>
       <span class="ml-2 hidden md:block">Accueil</span>
     </button>
-  </a><br>
+  </a>
   <div th:if="${session.isLogged==true}" th:remove="tag">
-      <a href="../messages" class="h-fit">
+      <a href="../messages" class="h-fit w-fit">
         <button class="rounded-lg bg-blue-900 text-xl p-2 inline-flex h-fit" type=button>
-          <svg class="mt-1" width="25px" height="25px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="white">
+          <svg class="mt-1 h-12 w-12 md:h-6 md:w-6" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="white">
             <path d="M20 2H4c-1.103 0-2 .894-2 1.992v12.016C2 17.106 2.897 18 4 18h3v4l6.351-4H20c1.103 0 2-.894 2-1.992V3.992A1.998 1.998 0 0 0 20 2z"/>
           </svg>
           <span class="ml-2 hidden md:block">Messages</span>
         </button>
-      </a><br>
-      <a href="../profile" class="h-fit">
+      </a>
+      <a href="../profile" class="h-fit w-fit">
         <button class="rounded-lg bg-blue-900 text-xl p-2 inline-flex h-fit" type=button>
-          <svg class="mt-1" width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg class="mt-1 h-12 w-12 md:h-6 md:w-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" clip-rule="evenodd" d="M16 9C16 11.2091 14.2091 13 12 13C9.79086 13 8 11.2091 8 9C8 6.79086 9.79086 5 12 5C14.2091 5 16 6.79086 16 9ZM14 9C14 10.1046 13.1046 11 12 11C10.8954 11 10 10.1046 10 9C10 7.89543 10.8954 7 12 7C13.1046 7 14 7.89543 14 9Z" fill="white"/>
             <path fill-rule="evenodd" clip-rule="evenodd" d="M12 1C5.92487 1 1 5.92487 1 12C1 18.0751 5.92487 23 12 23C18.0751 23 23 18.0751 23 12C23 5.92487 18.0751 1 12 1ZM3 12C3 14.0902 3.71255 16.014 4.90798 17.5417C6.55245 15.3889 9.14627 14 12.0645 14C14.9448 14 17.5092 15.3531 19.1565 17.4583C20.313 15.9443 21 14.0524 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12ZM12 21C9.84977 21 7.87565 20.2459 6.32767 18.9878C7.59352 17.1812 9.69106 16 12.0645 16C14.4084 16 16.4833 17.1521 17.7538 18.9209C16.1939 20.2191 14.1881 21 12 21Z" fill="white"/>
           </svg>
           <span class="ml-2 hidden md:block">Profil</span>
         </button>
-      </a><br>
-      <a href="../logout" class="h-fit">
+      </a>
+      <a href="../logout" class="h-fit w-fit">
         <button class="rounded-lg bg-blue-900 text-xl p-2 inline-flex h-fit" type=button>
-          <svg class="mt-1" fill="white" height="25px" width="25px" xmlns="http://www.w3.org/2000/svg"
+          <svg class="mt-1 h-12 w-12 md:h-6 md:w-6" fill="white" xmlns="http://www.w3.org/2000/svg"
                viewBox="0 0 320.002 320.002" style="enable-background:new 0 0 320.002 320.002;">
               <path d="M51.213,175.001h173.785c8.284,0,15-6.716,15-15c0-8.284-6.716-15-15-15H51.213l19.394-19.394
                   c5.858-5.858,5.858-15.355,0-21.213c-5.857-5.858-15.355-5.858-21.213,0L4.396,149.393c-0.351,0.351-0.683,0.719-0.997,1.103
@@ -59,12 +60,12 @@
           </svg>
           <span class="ml-2 hidden md:block">Se déconnecter</span>
         </button>
-      </a><br>
+      </a>
   </div>
   <div th:unless="${session.isLogged==true}" th:remove="tag">
-    <a href="../login" class="h-fit">
+    <a href="../login" class="h-fit w-fit">
       <button class="rounded-lg bg-blue-900 text-xl p-2 inline-flex h-fit" type=button>
-        <svg class="mt-1" xmlns="http://www.w3.org/2000/svg" height="25px" width="25px" fill="white"
+        <svg class="mt-1 h-12 w-12 md:h-6 md:w-6" xmlns="http://www.w3.org/2000/svg" fill="white"
              viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
 		<path d="M327.287,246.852l-74.931-76.595c-4.941-5.06-13.039-5.146-18.099-0.205c-5.06,4.941-5.146,13.056-0.205,18.099
 			l53.854,55.057H12.8C5.734,243.2,0,248.934,0,256c0,7.066,5.734,12.8,12.8,12.8h275.098l-53.845,55.057
@@ -75,11 +76,11 @@
         </svg>
         <span class="ml-2 hidden md:block">Se connecter</span>
       </button>
-    </a><br>
+    </a>
   </div>
   <div th:if="${session.isLogged==true}" th:remove="tag">
-    <button class="rounded-lg bg-blue-900 text-2xl p-2 inline-flex h-fit" onclick="twotter()" type=button>
-      <svg class="mt-1" width="25px" height="25px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="white">
+    <button class="rounded-lg bg-blue-900 text-2xl p-2 inline-flex h-fit w-fit" onclick="twotter()" type=button>
+      <svg class="mt-1 h-12 w-12 md:h-6 md:w-6" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="white">
         <polyline points="0 0 24 0 24 24 0 24" opacity="0"/>
         <path d="M8.08 20A11.07 11.07 0 0 0 19.52 9 8.09 8.09 0 0 0 21 6.16a.44.44 0 0 0-.62-.51 1.88 1.88 0 0 1-2.16-.38 3.89 3.89 0 0 0-5.58-.17A4.13 4.13 0 0 0 11.49 9C8.14 9.2 5.84 7.61 4 5.43a.43.43 0 0 0-.75.24 9.68 9.68 0 0 0 4.6 10.05A6.73 6.73 0 0 1 3.38 18a.45.45 0 0 0-.14.84A11 11 0 0 0 8.08 20"/>
       </svg>
@@ -122,6 +123,7 @@
         hide();
       }
     </script>
+  </div>
   </div>
 </div>
 </body>
