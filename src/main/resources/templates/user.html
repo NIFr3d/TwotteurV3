@@ -13,7 +13,7 @@
 <body class="text-gray-300 bg-sky-900 h-screen w-screen">
 <div class="flex h-screen mx-auto w-full">
     <div th:insert="fragments/leftsidebar :: leftsidebar" th:remove="tag"></div>
-    <div class="md:border-x w-11/12 md:w-3/5 mx-auto md:ml-4 md:max-w-xl">
+    <div class="md:border-x w-11/12 md:w-3/5 mx-auto md:ml-4 md:max-w-lg">
         <div class="mt-2 md:ml-2">
             <span class="text-xl font-bold" th:text="${user.getnickname()}">nickname </span>
             <span class="text-l font-sm" th:text="${user.getusername()}">@username</span>
