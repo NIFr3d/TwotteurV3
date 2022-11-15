@@ -3,13 +3,23 @@ var currentcontact="";
 let xmlHttpReq = new XMLHttpRequest();
 function showConv(contact){
     currentcontact=contact;
+    document.getElementById("contactlist").classList.add("hidden");
+    conv.classList.add("w-full");
+    conv.classList.remove("hidden");
     var notifdiv=document.getElementById("notif"+contact);
     if(!notifdiv.classList.contains("hidden")) notifdiv.classList.add("hidden");
     conv.innerHTML="" +
-        "<div class='w-full h-full flex flex-col'>" +
-        "<div class='text-xl text-center relative' style='height:4%'>@"+contact+ "</div>" +
-        "<div class='overflow-y-scroll relative border-l-2 border-blue-800' style='height:90%' id='msghisto'></div>" +
-        "<div class='text-center w-full border-t-2 border-blue-800' style='height:6%'>"+
+        "<div class='w-full h-full flex flex-col md:mt-8 mt-2'>" +
+        "<div class='bold text-2xl relative h-fit inline-flex'>" +
+        "<button class='float-left' onclick='hideConv()'><svg class='h-8 md:h-6 w-8 md:h-6' fill='white' xmlns='http://www.w3.org/2000/svg'" +
+        "viewBox='0 0 52.502 52.502' style='enable-background:new 0 0 52.502 52.502;' xml:space='preserve'>" +
+        "<path d='M51.718,50.857l-1.341-2.252C40.075,31.295,25.975,32.357,22.524,32.917v13.642L0,23.995L22.524,1.644v13.43" +
+        "c0.115,0,0.229-0.001,0.344-0.001c12.517,0,18.294,5.264,18.542,5.496c13.781,11.465,10.839,27.554,10.808,27.715L51.718,50.857z" +
+        " M25.505,30.735c5.799,0,16.479,1.923,24.993,14.345c0.128-4.872-0.896-15.095-10.41-23.012c-0.099-0.088-5.935-5.364-18.533-4.975" +
+        "l-1.03,0.03V6.447L2.832,24.001l17.692,17.724V31.311l0.76-0.188C21.338,31.109,22.947,30.735,25.505,30.735z'/></svg></button>"+
+        "<span class='w-full text-center'>@"+contact+ "</span></div>" +
+        "<div class='mt-2 overflow-y-scroll relative md:h-5/6 h-3/4' id='msghisto'></div>" +
+        "<div class='text-center w-full h-fit'>"+
         "<input id='input' class='bg-blue-900 border-2 rounded-lg w-3/5' type='text'/>"+
         "<button class='w-1/5 border-2 m-2' onclick='envoyermsg(\""+contact+"\")'>Envoyer</button>"+
         "</div>"+
@@ -95,4 +105,11 @@ function envoyermsg(contact){
         document.getElementById("input").value="";
         convdiv.scrollTop=convdiv.scrollHeight;
     }
+}
+function hideConv(){
+    currentcontact="";
+    conv.innerHTML="<div class=\"mt-32 ml-6 text-xl\">Cliquez sur un contact pour commencer une conversation !</div>"
+    document.getElementById("contactlist").classList.remove("hidden");
+    conv.classList.remove("w-full");
+    conv.classList.add("hidden");
 }
