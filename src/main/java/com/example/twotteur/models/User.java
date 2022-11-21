@@ -27,6 +27,9 @@ public class User{
     @Column(nullable = false)
     private String nickname;
 
+    @Column(nullable = false)
+    private String picture;
+
     @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
@@ -41,6 +44,7 @@ public class User{
         this.username=username;
         this.password=password;
         this.nickname=username;
+        this.picture="../img/profilepics/default.png";
     }
 
     public User() {
@@ -54,6 +58,8 @@ public class User{
 
     public String getBiography(){return this.biography;}
     public Date getCreatedat(){return this.createdat;}
+
+    public String getPicture(){return this.picture;}
 
     public long getid(){return this.id;}
 
