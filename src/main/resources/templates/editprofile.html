@@ -16,23 +16,27 @@
         <textarea class="resize-none border-4 rounded-lg bg-blue-900 w-full" name="biography" th:text="${user.getBiography()}"></textarea><br>
         <label>Photo de profil</label><br>
         <input type="file" name="profilePic" accept="image/*" onchange="loadFile(event)" class="border-4 rounded-lg bg-blue-900 w-full" id="fileInput"/><br>
-        <canvas id="output2" width="200" height="200" class="hidden b-2 bg-white mt-2"></canvas>
+        <textarea class="hidden" name="base64" id="base64" value=""></textarea>
+        <canvas id="output2" height="200" width="200" class="hidden b-2 bg-white mt-2"></canvas>
         <input type="range" min="20" max="" value=”100″ id="rectSize" class="hidden">
-        <img id="output" width="200" height="200" class="hidden" /><br>
+        <img id="output" class="hidden" /><br>
         <script>
           var loadFile = function(event) {
             var output = document.getElementById('output');
             output.src = URL.createObjectURL(event.target.files[0]);
+              console.log(document.getElementById("fileInput").files[0]);
             output.onload = function() {
               URL.revokeObjectURL(output.src)
+                var h=200;
+                var w=output.width*(h/output.height);
                 var output2 = document.getElementById('output2');
-                output2.width=output2.width;
+                output2.width=w;
                 output2.classList.remove("hidden");
                 document.getElementById("rectSize").classList.remove("hidden");
                 var ctx=output2.getContext("2d");
-                ctx.drawImage(document.getElementById("output"), 0, 0,200,200);
-                var x=100;
-                var y=100;
+                ctx.drawImage(document.getElementById("output"), 0, 0,w,h);
+                var x=h/2;
+                var y=h/2;
                 var r=50;
                 var dragging=false;
                 var dragx=0;
@@ -53,7 +57,7 @@
                 document.getElementById("rectSize").addEventListener("input",function(e){
                   r=e.target.value;
                   ctx.clearRect(0, 0, output2.width, output2.height);
-                  ctx.drawImage(document.getElementById("output"), 0, 0,200,200);
+                  ctx.drawImage(document.getElementById("output"), 0, 0,w,h);
                   ctx.beginPath();
                   ctx.arc(x,y,r,0,2*Math.PI);
                   ctx.stroke();
@@ -68,8 +72,8 @@
                     if(x<r){
                       x=r;
                     }
-                    if(x>200-r){
-                      x=200-r;
+                    if(x>w-r){
+                      x=w-r;
                     }
                     if(y<r){
                       y=r;
@@ -78,7 +82,7 @@
                       y=200-r;
                     }
                     ctx.clearRect(0, 0, output2.width, output2.height);
-                    ctx.drawImage(document.getElementById("output"), 0, 0,200,200);
+                    ctx.drawImage(document.getElementById("output"), 0, 0,w,h);
                     ctx.beginPath();
                     ctx.arc(x,y,r,0,2*Math.PI);
                     ctx.stroke();
@@ -88,8 +92,7 @@
                     canvas2.height=2*r;
                     var ctx2 = canvas2.getContext("2d");
                     ctx2.putImageData(imageData,0,0);
-                    document.getElementById("fileInput").value.file=canvas2.toDataURL("image/png");
-
+                    document.getElementById("base64").value=canvas2.toDataURL("image/png");
                   }
                 });
                 output2.addEventListener("mouseup",function(e){

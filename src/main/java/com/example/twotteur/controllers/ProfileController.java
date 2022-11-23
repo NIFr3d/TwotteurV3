@@ -2,11 +2,9 @@ package com.example.twotteur.controllers;
 
 import com.example.twotteur.models.Twot;
 import com.example.twotteur.models.User;
-import com.example.twotteur.services.FileUploadUtil;
 import com.example.twotteur.services.FollowService;
 import com.example.twotteur.services.TwotService;
 import com.example.twotteur.services.UserService;
-import org.aspectj.util.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,10 +12,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpSession;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -73,7 +74,7 @@ public class ProfileController {
 
     @PostMapping(value="/editprofile")
     public RedirectView editprofilepost(@RequestParam("nickname") String nickname, @RequestParam("biography") String biography,
-                                        @RequestParam("profilePic")MultipartFile[] files, HttpSession session) throws IOException {
+                                        @RequestParam("base64") String base64,HttpSession session) throws IOException {
         boolean isLogged=false;
         if(session.getAttribute("isLogged") != null) isLogged=(boolean)session.getAttribute("isLogged");
         if(isLogged) {
@@ -82,11 +83,15 @@ public class ProfileController {
                 User user = userService.getUserById(id).get();
                 user.setbiography(biography);
                 user.setnickname(nickname);
-                files[0].getOriginalFilename();
-                if (!files[0].getOriginalFilename().equals("")) {
-                    user.setpicture("../img/profilepics/"+user.getusername()+".png");
-                    FileUploadUtil.saveFile("profilepictures", user.getusername()+".png", files[0]);
-
+                if(base64.length()>0){
+                    String base64data = base64.split(",")[1];
+                    byte[] imageBytes = javax.xml.bind.DatatypeConverter.parseBase64Binary(base64data);
+                    user.setpicture("../images/"+user.getusername()+".png");
+                    ByteArrayInputStream bis = new ByteArrayInputStream(imageBytes);
+                    BufferedImage image = ImageIO.read(bis);
+                    bis.close();
+                    File outputfile = new File("profilepictures/"+user.getusername()+".png");
+                    ImageIO.write(image, "png", outputfile);
                 }
                 userService.update(user);
             }
