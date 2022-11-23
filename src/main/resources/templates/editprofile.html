@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <link rel="stylesheet" th:href="@{/css/tailwind.css}" />
-  <title>Edition du profil</title>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/tailwind.css}" />
+    <title>Edition du profil</title>
 </head>
 <body class="text-gray-300 bg-sky-900 h-screen w-screen">
 <div class="flex h-screen mx-auto w-4/5">
@@ -17,18 +16,58 @@
         <textarea class="resize-none border-4 rounded-lg bg-blue-900 w-full" name="biography" th:text="${user.getBiography()}"></textarea><br>
         <label>Photo de profil</label><br>
         <input type="file" name="profilePicture" accept="image/*" onchange="loadFile(event)" class="border-4 rounded-lg bg-blue-900 w-full" /><br>
-        <canvas id="output" width="200" height="200" class="hidden"></canvas>
-        <img id="output2" width="200" height="200" class="hidden" /><br>
+        <canvas id="output2" width="200" height="200" class="hidden"></canvas>
+        <img id="output" width="200" height="200" class="hidden" /><br>
         <script>
           var loadFile = function(event) {
-            var output = document.getElementById('output2');
+            var output = document.getElementById('output');
             output.src = URL.createObjectURL(event.target.files[0]);
             output.onload = function() {
               URL.revokeObjectURL(output.src)
-                var output2 = document.getElementById('output');
+                var output2 = document.getElementById('output2');
+                output2.width=output2.width;
                 output2.classList.remove("hidden");
                 var ctx=output2.getContext("2d");
-                ctx.drawImage(document.getElementById("output2"), 0, 0);
+                ctx.drawImage(document.getElementById("output"), 0, 0,200,200);
+                var x=100;
+                var y=100;
+                var r=100;
+                var dragging=false;
+                var dragx=0;
+                var dragy=0;
+                ctx.beginPath();
+                ctx.arc(x,y,r,0,2*Math.PI);
+                ctx.stroke();
+                output2.addEventListener("mousedown",function(e){
+                  var rect = output2.getBoundingClientRect();
+                  var x2=e.clientX-rect.left;
+                  var y2=e.clientY-rect.top;
+                  if(Math.sqrt((x2-x)*(x2-x)+(y2-y)*(y2-y))<r){
+                    dragging=true;
+                    dragx=x2-x;
+                    dragy=y2-y;
+                  }
+                });
+                output2.addEventListener("mousemove",function(e){
+                  if(dragging){
+                    var rect = output2.getBoundingClientRect();
+                    var x2=e.clientX-rect.left;
+                    var y2=e.clientY-rect.top;
+                    x=x2-dragx;
+                    y=y2-dragy;
+                    //doit supprimer le cercle avant de le redessiner
+                      ctx.clearRect(0, 0, output2.width, output2.height);
+                      ctx.drawImage(document.getElementById("output"), 0, 0,200,200);
+                    ctx.beginPath();
+                    ctx.arc(x,y,r,0,2*Math.PI);
+                    ctx.stroke();
+                  }
+                });
+                output2.addEventListener("mouseup",function(e){
+                  dragging=false;
+                });
+
+
             }
           };
         </script>
