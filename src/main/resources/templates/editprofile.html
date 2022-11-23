@@ -16,7 +16,7 @@
         <textarea class="resize-none border-4 rounded-lg bg-blue-900 w-full" name="biography" th:text="${user.getBiography()}"></textarea><br>
         <label>Photo de profil</label><br>
         <input type="file" name="profilePicture" accept="image/*" onchange="loadFile(event)" class="border-4 rounded-lg bg-blue-900 w-full" /><br>
-        <canvas id="output2" width="200" height="200" class="hidden"></canvas>
+        <canvas id="output2" width="200" height="200" class="hidden b-2 bg-white mt-2"></canvas>
         <input type="range" min="20" max="" value=”100″ id="rectSize" class="hidden">
         <img id="output" width="200" height="200" class="hidden" /><br>
         <script>
