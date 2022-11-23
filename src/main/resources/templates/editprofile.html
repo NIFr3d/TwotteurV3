@@ -17,6 +17,7 @@
         <label>Photo de profil</label><br>
         <input type="file" name="profilePicture" accept="image/*" onchange="loadFile(event)" class="border-4 rounded-lg bg-blue-900 w-full" /><br>
         <canvas id="output2" width="200" height="200" class="hidden"></canvas>
+        <input type="range" min="20" max="" value=”100″ id="rectSize" class="hidden">
         <img id="output" width="200" height="200" class="hidden" /><br>
         <script>
           var loadFile = function(event) {
@@ -27,11 +28,12 @@
                 var output2 = document.getElementById('output2');
                 output2.width=output2.width;
                 output2.classList.remove("hidden");
+                document.getElementById("rectSize").classList.remove("hidden");
                 var ctx=output2.getContext("2d");
                 ctx.drawImage(document.getElementById("output"), 0, 0,200,200);
                 var x=100;
                 var y=100;
-                var r=100;
+                var r=50;
                 var dragging=false;
                 var dragx=0;
                 var dragy=0;
@@ -48,16 +50,36 @@
                     dragy=y2-y;
                   }
                 });
+                document.getElementById("rectSize").addEventListener("input",function(e){
+                  r=e.target.value;
+                  ctx.clearRect(0, 0, output2.width, output2.height);
+                  ctx.drawImage(document.getElementById("output"), 0, 0,200,200);
+                  ctx.beginPath();
+                  ctx.arc(x,y,r,0,2*Math.PI);
+                  ctx.stroke();
+                });
                 output2.addEventListener("mousemove",function(e){
                   if(dragging){
                     var rect = output2.getBoundingClientRect();
                     var x2=e.clientX-rect.left;
                     var y2=e.clientY-rect.top;
+                    console.log(x2,y2);
                     x=x2-dragx;
                     y=y2-dragy;
-                    //doit supprimer le cercle avant de le redessiner
-                      ctx.clearRect(0, 0, output2.width, output2.height);
-                      ctx.drawImage(document.getElementById("output"), 0, 0,200,200);
+                    if(x<r){
+                      x=r;
+                    }
+                    if(x>200-r){
+                      x=200-r;
+                    }
+                    if(y<r){
+                      y=r;
+                    }
+                    if(y>200-r){
+                      y=200-r;
+                    }
+                    ctx.clearRect(0, 0, output2.width, output2.height);
+                    ctx.drawImage(document.getElementById("output"), 0, 0,200,200);
                     ctx.beginPath();
                     ctx.arc(x,y,r,0,2*Math.PI);
                     ctx.stroke();
