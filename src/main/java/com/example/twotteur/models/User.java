@@ -44,7 +44,7 @@ public class User{
         this.username=username;
         this.password=password;
         this.nickname=username;
-        this.picture="../img/profilepics/default.png";
+        this.picture="../images/default.png";
     }
 
     public User() {
@@ -68,5 +68,8 @@ public class User{
     }
     public void setnickname(String nickname){
         this.nickname=nickname;
+    }
+    public void setpicture(String picture){
+        this.picture=picture;
     }
 }

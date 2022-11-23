@@ -9,13 +9,13 @@
 <div class="flex h-screen mx-auto w-4/5">
   <div th:insert="fragments/leftsidebar :: leftsidebar" th:remove="tag"></div>
   <div class="w-full md:w-3/5">
-    <form method="post" class="w-full md:mt-8 md:max-w-lg">
+    <form method="post" class="w-full md:mt-8 md:max-w-lg" enctype="multipart/form-data">
         <label>Pseudo</label><br>
         <input type="text" name="nickname" class="border-4 rounded-lg bg-blue-900 w-full" th:value="${user.getnickname()}" required/><br>
         <label>Biographie</label><br>
         <textarea class="resize-none border-4 rounded-lg bg-blue-900 w-full" name="biography" th:text="${user.getBiography()}"></textarea><br>
         <label>Photo de profil</label><br>
-        <input type="file" name="profilePicture" accept="image/*" onchange="loadFile(event)" class="border-4 rounded-lg bg-blue-900 w-full" /><br>
+        <input type="file" name="profilePic" accept="image/*" onchange="loadFile(event)" class="border-4 rounded-lg bg-blue-900 w-full" id="fileInput"/><br>
         <canvas id="output2" width="200" height="200" class="hidden b-2 bg-white mt-2"></canvas>
         <input type="range" min="20" max="" value=”100″ id="rectSize" class="hidden">
         <img id="output" width="200" height="200" class="hidden" /><br>
@@ -63,7 +63,6 @@
                     var rect = output2.getBoundingClientRect();
                     var x2=e.clientX-rect.left;
                     var y2=e.clientY-rect.top;
-                    console.log(x2,y2);
                     x=x2-dragx;
                     y=y2-dragy;
                     if(x<r){
@@ -83,6 +82,14 @@
                     ctx.beginPath();
                     ctx.arc(x,y,r,0,2*Math.PI);
                     ctx.stroke();
+                    var imageData = ctx.getImageData(x-r,y-r,2*r,2*r);
+                    var canvas2 = document.createElement("canvas");
+                    canvas2.width=2*r;
+                    canvas2.height=2*r;
+                    var ctx2 = canvas2.getContext("2d");
+                    ctx2.putImageData(imageData,0,0);
+                    document.getElementById("fileInput").value.file=canvas2.toDataURL("image/png");
+
                   }
                 });
                 output2.addEventListener("mouseup",function(e){
