@@ -10,7 +10,7 @@
     <script th:src="@{/js/twotpreview.js}"></script>
     <script th:src="@{/js/user.js}"></script>
 </head>
-<body class="text-gray-300 bg-sky-900 h-screen w-screen">
+<body class="text-gray-300 bg-blue-900 h-screen w-screen">
 <div class="flex h-screen mx-auto w-full">
     <div th:insert="fragments/leftsidebar :: leftsidebar" th:remove="tag"></div>
     <div class="md:border-x w-11/12 md:w-3/5 mx-auto md:ml-4 md:max-w-lg">
@@ -21,7 +21,7 @@
                 </div>
                 <div class="w-full ml-2">
                     <span class="text-xl font-bold" th:text="${user.getnickname()}">nickname </span>
-                    <span class="text-l font-sm" th:text="${user.getusername()}">@username</span>
+                    <span class="text-l font-s italic pl-1" th:text="${user.getusername()}">@username</span>
                     <div th:unless="${(session.userid==user.getId()) or (session.isLogged==null)}">
                             <button th:onclick="'follow(' + ${user.getId()} + ')'" th:id="'doifollow'+${user.getId()}" type="button" class="float-right rounded-lg p-2 border-2 border-blue-700 hover:bg-blue-700">Suivre</button>
                             <script th:inline="javascript">
@@ -51,14 +51,14 @@
             </div>
             <span class="text-xl font-sm">Biographie :</span><br>
             <p th:if="${user.getBiography()!=null}">
-                <span class="text-l" th:text="${user.getBiography()}"></span>
+                <span class="text-sm pl-2" th:text="${user.getBiography()}"></span>
             </p>
             <p th:unless="${user.getBiography()!=null}">
                 <span class="text-m italic">Cet utilisateur n'as pas encore remplis sa biographie.</span>
             </p>
 
-            <button onclick="showfollowed()" class="underline" th:text="${user.getnickname()+' suit'}"></button>
-            <button onclick="showfollowers()" class="underline" th:text="${user.getnickname()+' est suivi par'}"></button><br>
+            <button onclick="showfollowed()" class="underline pt-5 pl-1" th:text="${user.getnickname()+' suit'}"></button>
+            <button onclick="showfollowers()" class="underline pt-5 pl-4" th:text="${user.getnickname()+' est suivi par'}"></button><br>
             <div id="followed" style="
             position:fixed;
             top:10%;
@@ -115,7 +115,7 @@
                     <span>Aucun follower.</span>
                 </div>
             </div>
-            <p th:with="date=${user.getCreatedat().toString()}" class="text-l font-sm italic text-right">A rejoint twotteur le
+            <p th:with="date=${user.getCreatedat().toString()}" class="text-l font-sm italic text-right pr-2 pt-2">A rejoint twotteur le
                 <span th:text="${date.substring(8,10)}"></span>/<span th:text="${date.substring(5,7)}"></span>/<span th:text="${date.substring(0,4)}"></span>
             </p>
         </div>
@@ -126,7 +126,7 @@
                 <div class="border-b w-full"></div>
             </div>
         </div>
-        <p class="mt-2 w-full" th:unless="${twots.size()>0}">
+        <p class="mt-2 w-full pl-2" th:unless="${twots.size()>0}">
             Cet utilisateur n'as pas encore twotté.
         </p>
             <button onclick="fadeOut()"><div id="overlay-back" style="position   : fixed;

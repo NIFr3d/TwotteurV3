@@ -5,22 +5,22 @@
     <link rel="stylesheet" th:href="@{/css/tailwind.css}" />
     <title>Edition du profil</title>
 </head>
-<body class="text-gray-300 bg-sky-900 h-screen w-screen">
+<body class="text-gray-300 bg-blue-900 h-screen w-screen">
 <div class="flex h-screen mx-auto w-4/5">
   <div th:insert="fragments/leftsidebar :: leftsidebar" th:remove="tag"></div>
   <div class="w-full md:w-3/5">
     <form method="post" class="w-full md:mt-8 md:max-w-lg" enctype="multipart/form-data">
-        <label>Pseudo</label><br>
-        <input type="text" name="nickname" class="border-4 rounded-lg bg-blue-900 w-full" th:value="${user.getnickname()}" required/><br>
-        <label>Biographie</label><br>
-        <textarea class="resize-none border-4 rounded-lg bg-blue-900 w-full" name="biography" th:text="${user.getBiography()}"></textarea><br>
-        <label>Photo de profil</label><br>
-        <input type="file" name="profilePic" accept="image/*" onchange="loadFile(event)" class="border-4 rounded-lg bg-blue-900 w-full" id="fileInput"/><br>
+        <label class="font-bold">Pseudo</label><br>
+        <input type="text" name="nickname" class="border-2 rounded-lg bg-blue-900 w-full mb-4 mt-1 pl-1" th:value="${user.getnickname()}" required/><br>
+        <label class="font-bold">Biographie</label><br>
+        <textarea class="resize-none border-2 rounded-lg bg-blue-900 w-full mb-4 mt-1 pl-1" name="biography" th:text="${user.getBiography()}"></textarea><br>
+        <label class="font-bold">Photo de profil</label><br>
+        <input type="file" name="profilePic" accept="image/*" onchange="loadFile(event)" class="border-2 rounded-lg bg-blue-900 w-full mt-1 pl-1" id="fileInput"/><br>
         <textarea class="hidden" name="base64" id="base64" value=""></textarea>
         <canvas id="output2" height="200" width="200" class="hidden b-2 bg-white mt-2"></canvas>
         <input type="range" min="20" max="" value=”100″ id="rectSize" class="hidden">
         <img id="output" class="hidden" /><br>
-      <button type="submit" class="text-white bg-blue-700 rounded-lg mt-2">Sauvegarder</button>
+      <button type="submit" class="text-white border-2 bg-blue-900 rounded-lg mt-2 pl-2 pr-2">Sauvegarder</button>
     </form>
   </div>
 </div>
