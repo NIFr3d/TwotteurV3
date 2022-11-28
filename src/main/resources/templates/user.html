@@ -50,7 +50,7 @@
                 </div>
             </div>
             <span class="text-xl font-sm">Biographie :</span><br>
-            <p th:if="${user.getBiography()!=null}">
+            <p th:if="${user.getBiography()!=null}" class=" truncate">
                 <span class="text-sm pl-2" th:text="${user.getBiography()}"></span>
             </p>
             <p th:unless="${user.getBiography()!=null}">
