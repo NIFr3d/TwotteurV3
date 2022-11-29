@@ -12,13 +12,13 @@
   <div class="md:w-2/5 my-auto h-4/5 w-4/5 mx-auto md:ml-8">
     <form method="post">
       <label class="text-2xl">Email</label><br>
-      <input class="border-2 text-2xl rounded-lg bg-blue-900 mb-2 mt-1" type="email" name="email" required/><br>
+      <input class="border-2 text-2xl rounded-lg bg-blue-900 mb-2 mt-1 pl-2 pb-1" type="email" name="email" required/><br>
       <label class="text-2xl">Pseudo</label><br>
-      <input class="border-2 text-2xl rounded-lg bg-blue-900 mb-2 mt-1" type="text" name="username" required/><br>
+      <input class="border-2 text-2xl rounded-lg bg-blue-900 mb-2 mt-1 pl-2 pb-1" type="text" name="username" required/><br>
       <label class="text-2xl">Mot de passe</label><br>
-      <input class="border-2 text-2xl rounded-lg mb-2 bg-blue-900 mb-2 mt-1" type="password" name="password" required/><br>
+      <input class="border-2 text-2xl rounded-lg mb-2 bg-blue-900 mb-2 mt-1 pl-2 " type="password" name="password" required/><br>
       <label class="text-2xl">Confirmer le mot de passe</label><br>
-      <input class="border-2 text-2xl rounded-lg mb-2 bg-blue-900 mb-2 mt-1" type="password" name="password2" required/><br>
+      <input class="border-2 text-2xl rounded-lg mb-2 bg-blue-900 mb-2 mt-1 pl-2 " type="password" name="password2" required/><br>
       <span th:if="${(param.e != null) and (param.e[0]=='0')}">Veuillez entrer 2 fois le même mot de passe !<br></span>
       <span th:if="${(param.e != null) and (param.e[0]=='1')}">Un compte est déjà associé à cet email !<br></span>
       <span th:if="${(param.e != null) and (param.e[0]=='2')}">Pseudo déjà utilisé !<br></span>
