@@ -4,11 +4,11 @@ function showfollowers(){
 function showfollowed(){
     $('#followed, #overlay-back').fadeIn(500);
 }
-function follow(followid){
+function follow(followid,categorie){
     xmlHttpReq.open("GET","../follow/"+followid,false);
     xmlHttpReq.send(null);
-    if(xmlHttpReq.responseText==1)document.getElementById("doifollow"+followid).innerHTML="Ne plus suivre";
-    if(xmlHttpReq.responseText==2)document.getElementById("doifollow"+followid).innerHTML="Suivre";
+    if(xmlHttpReq.responseText==1) document.getElementById("doifollow"+categorie+followid).innerHTML="Ne plus suivre";
+    if(xmlHttpReq.responseText==2) document.getElementById("doifollow"+categorie+followid).innerHTML="Suivre";
 }
 function veriffollow(userid,categorie){
     xmlHttpReq.open("GET","../doifollow/"+userid,false);

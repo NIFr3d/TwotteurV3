@@ -1,7 +1,1 @@
-rendre le bouton ne plus suivre et le bouton suivre fonctionnel dans la preview des suivi ou des suiveurs
-
-crop la biographie dans la preview des suivi ou des suiveurs
-
 fonction de retweet et proposition de tweet en fonction de qui on suit
-
-responsivité de l'affichage des suivi et des suiveurs (boutton biographie etc)
