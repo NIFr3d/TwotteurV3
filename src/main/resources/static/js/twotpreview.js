@@ -18,7 +18,10 @@ function inittwot(twotid){
     document.getElementById("likecount"+twotid).innerHTML=xmlHttpReq.responseText;
     xmlHttpReq.open("GET", "../didilike/"+twotid, false);
     xmlHttpReq.send(null);
-    if(xmlHttpReq.responseText==1)document.getElementById("likeicon"+twotid).style.fill="red";
+    if(xmlHttpReq.responseText==1){
+        document.getElementById("likeicon"+twotid).style.fill="red";
+        document.getElementById("likeicon"+twotid).style.stroke="red";
+    }
 }
 function deleteTwot(id){
     xmlHttpReq.open("DELETE", "../twot", false);
@@ -37,10 +40,12 @@ function like(id){
     if(xmlHttpReq.responseText==1) {
         document.getElementById("likecount"+id).innerHTML=compte+1;
         document.getElementById("likeicon"+id).style.fill="red";
+        document.getElementById("likeicon"+id).style.stroke="red";
     }
     else if(xmlHttpReq.responseText==2) {
         document.getElementById("likecount"+id).innerHTML=compte-1;
-        document.getElementById("likeicon"+id).style.fill="black";
+        document.getElementById("likeicon"+id).style.fill="transparent";
+        document.getElementById("likeicon"+id).style.stroke="black";
     }
 }
 function afficher_msg(id) {
