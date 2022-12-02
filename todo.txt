@@ -1,4 +1,5 @@
 - fonction de retweet
 - page d accueil : algorithme de recommandation
 - fonction de recherche
-- finir affichage en JS
+- finir affichage des tweets en JS
+- finir le CSS pour la réponse à un tweet et le tweet depuis la sidebar
