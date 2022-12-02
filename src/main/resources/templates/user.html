@@ -123,21 +123,8 @@
         </div>
         <div class="border-b-2 w-full"></div>
         <div th:if="${twots.size()>0}">
-            <div th:each="twot : ${twots}">
-                <script th:inline="javascript">
-                    var twotid = [[${twot.getId()}]];
-                    $.ajax({
-                        url: "/smalltwot/" + twotid,
-                        type: "GET",
-                        success: function (data) {
-                            $("#twots").append(data);
-                        }
-                    });
-
-                </script>
-            </div>
+            <div id="twots"></div>
         </div>
-        <div id="twots"></div>
         <p class="mt-2 w-full pl-2" th:unless="${twots.size()>0}">
             Cet utilisateur n'as pas encore twotté.
         </p>
@@ -155,4 +142,17 @@
     </div>
 </div>
 </body>
+<script th:inline="javascript">
+    var twots=[[${twots}]];
+    twots.forEach(function(twot){
+        $.ajax({
+            url: "/smalltwot/" + twot,
+            type: "GET",
+            success: function (data) {
+                $("#twots").append(data);
+            }
+        });
+    });
+    $('#loading_gif').hide();
+</script>
 </html>

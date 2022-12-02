@@ -20,6 +20,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -36,10 +37,13 @@ public class ProfileController {
     @GetMapping(value="/user/{username}")
     public String userProfile(@PathVariable String username, Model model){
         if(userService.getUserByusername(username).isPresent()){
-            List<Twot> twots=twotService.getTwots(userService.getUserByusername(username).get());
+            List<Long> twots=new ArrayList<>();
             model.addAttribute("user",userService.getUserByusername(username).get());
             model.addAttribute("followers",followService.getfollowers(userService.getUserByusername(username).get()));
             model.addAttribute("followeds",followService.getfollowed(userService.getUserByusername(username).get()));
+            for(Twot twot : twotService.getTwots(userService.getUserByusername(username).get())){
+                twots.add(twot.getId());
+            }
             model.addAttribute("twots",twots);
             return "user";
         }
