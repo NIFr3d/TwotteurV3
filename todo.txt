@@ -1,1 +1,4 @@
-fonction de retweet et proposition de tweet en fonction de qui on suit
+- fonction de retweet
+- page d accueil : algorithme de recommandation
+- fonction de recherche
+- finir affichage en JS

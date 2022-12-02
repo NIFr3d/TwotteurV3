@@ -12,8 +12,8 @@
 <body class="text-gray-300 bg-blue-900 h-screen w-screen">
 <div class="flex h-screen mx-auto w-full">
   <div th:insert="fragments/leftsidebar :: leftsidebar" th:remove="tag"></div>
-  <div class="md:border-x w-11/12 md:w-3/5 mx-auto md:ml-4 md:max-w-lg">
-    <div class="w-11/12 mx-auto mb-2 mt-2">
+  <div class="w-full md:w-3/5 mx-auto md:ml-4 md:max-w-lg overflow-y-scroll">
+    <div class="p-2 w-full border-x">
       <div th:if="${twot.isanswer()}" th:id="'answtodiv'+${twot.getId()}">
         <a href="" th:id="'url'+${twot.getId()}" class="text-blue-500">Voir le twot original</a>
         <p th:if="${twot.isanswer()}">Répond à <span th:id="'answto'+${twot.getId()}"></span>
@@ -44,7 +44,7 @@
       </div>
     </div>
     <div class="border-b-2 w-full"></div>
-    <div class="mx-2 mb-2">
+    <div class="p-2 border-x">
       <span class="text-xl mt-2">Répondre :</span>
       <form action="/answer" method="post">
         <input type="hidden" name="originalid" th:value="${twot.getId()}">
@@ -54,10 +54,10 @@
       </form>
     </div>
     <div class="border-b-2 w-full"></div>
-    <div class="mt-2 w-full" th:if="${twots.size()>0}">
-      <div th:each="twot : ${twots}">
-        <div th:include="fragments/twotpreview :: twot" th:remove="tag"></div>
-        <div class="border-b w-full"></div>
+    <div th:if="${twots.size()>0}">
+      <div id="answers"></div>
+      <div class="w-full">
+        <img id="loading_gif" src="../img/loading-gif.gif" class="mx-auto w-20 h-20"/>
       </div>
     </div>
     <p class="mt-2 w-11/12 mx-auto" th:unless="${twots.size()>0}">
@@ -75,5 +75,18 @@
                 display    : none;"></div></button>
   </div>
 </div>
+<script th:inline="javascript">
+  var twots=[[${twots}]];
+  twots.forEach(function(twot){
+    $.ajax({
+      url: "/smalltwot/" + twot,
+      type: "GET",
+      success: function (data) {
+        $("#answers").append(data);
+      }
+    });
+  });
+  $('#loading_gif').hide();
+</script>
 </body>
 </html>

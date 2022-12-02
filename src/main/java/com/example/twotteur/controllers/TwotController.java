@@ -11,6 +11,8 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpSession;
 import java.net.http.HttpRequest;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class TwotController {
@@ -37,10 +39,23 @@ public class TwotController {
     @GetMapping(value="/twot/{id}")
     public String fullTwot(@PathVariable long id,Model model){
         model.addAttribute("twot",twotService.getTwotById(id));
-        model.addAttribute("twots",twotService.getAnswersByTwotId(id));
+        List<Long> twots = new ArrayList<>();
+        for(Twot twot : twotService.getAnswersByTwotId(id)){
+            twots.add(twot.getId());
+        }
+        model.addAttribute("twots",twots);
         if(twotService.getUserByTwotId(id).isPresent()) {
             model.addAttribute("user", twotService.getUserByTwotId(id).get());
         }
         return "twotfull";
+    }
+
+    @GetMapping(value="/smalltwot/{id}")
+    public String smallTwot(@PathVariable long id,Model model){
+        model.addAttribute("twot",twotService.getTwotById(id));
+        if(twotService.getUserByTwotId(id).isPresent()) {
+            model.addAttribute("user", twotService.getUserByTwotId(id).get());
+        }
+        return "smalltwot";
     }
 }

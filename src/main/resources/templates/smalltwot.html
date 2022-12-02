@@ -1,13 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body th:fragment="twot">
-<div class="w-11/12 mt-2 mx-auto" th:id="'twot'+${twot.getId()}">
+<div class="w-full p-2 md:border-x" th:id="'twot'+${twot.getId()}">
     <div th:if="${twot.isanswer()}" th:id="'answtodiv'+${twot.getId()}">
-      <a href="" th:id="'url'+${twot.getId()}" class="text-blue-500">Voir le twot original</a>
+        <a href="" th:id="'url'+${twot.getId()}" class="text-blue-500">Voir le twot original</a>
         <p th:if="${twot.isanswer()}">Répond à <span th:id="'answto'+${twot.getId()}"></span>
             <script th:inline="javascript">getanswto([[${twot.getId()}]]);</script>
         </p>
@@ -18,10 +11,10 @@
         </div>
         <div class="w-full ml-2">
             <p>
-            <span class="font-bold" th:text="${user.getnickname()}"></span>
-            <span class="font-light" th:text="'@'+${user.getusername()}"></span>
-            <span class="float-right mr-2" th:id="'date'+${twot.getId()}"></span>
-            <span class="float-right mr-2">
+                <span class="font-bold" th:text="${user.getnickname()}"></span>
+                <span class="font-light" th:text="'@'+${user.getusername()}"></span>
+                <span class="float-right mr-2" th:id="'date'+${twot.getId()}"></span>
+                <span class="float-right mr-2">
               <button th:if="${user.getId()==session.userid}" th:onclick="'deleteTwot('+${twot.getId()}+')'" class="">
                   <svg width="24px" height="24px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path fill="white" d="M20 2h-4v-.85C16 .52 15.48 0 14.85 0h-5.7C8.52 0 8 .52 8 1.15V2H4c-1.1 0-2 .9-2 2 0 .74.4 1.38 1 1.73v14.02C3 22.09 4.91 24 7.25 24h9.5c2.34 0 4.25-1.91 4.25-4.25V5.73c.6-.35 1-.99 1-1.73 0-1.1-.9-2-2-2zm-1 17.75c0 1.24-1.01 2.25-2.25 2.25h-9.5C6.01 22 5 20.99 5 19.75V6h14v13.75z"/>
@@ -33,30 +26,30 @@
             <a th:href="'../twot/'+${twot.getId()}" class="w-full">
                 <p th:text="${twot.getText()}"></p>
             </a>
-          <div>
-            <button class="mr-2 mt-1" th:onclick="'like('+${twot.getId()}+')'">
-              <svg x="0px" y="0px" fill="transparent" stroke="black" stroke-width="3px" viewBox="-2 0 48.743 48.743" style="enable-background:new 0 0 471.701 471.701;" xml:space="preserve" width="20" height="20">
+            <div>
+                <button class="mr-2 mt-1" th:onclick="'like('+${twot.getId()}+')'">
+                    <svg x="0px" y="0px" fill="transparent" stroke="black" stroke-width="3px" viewBox="-2 0 48.743 48.743" style="enable-background:new 0 0 471.701 471.701;" xml:space="preserve" width="20" height="20">
                         <path th:id="'likeicon'+${twot.getId()}" d="M34.199,3.83c-3.944,0-7.428,1.98-9.51,4.997c0,0-0.703,1.052-1.818,1.052c-1.114,0-1.817-1.052-1.817-1.052
                             c-2.083-3.017-5.565-4.997-9.51-4.997C5.168,3.83,0,8.998,0,15.376c0,1.506,0.296,2.939,0.82,4.258
                             c3.234,10.042,17.698,21.848,22.051,22.279c4.354-0.431,18.816-12.237,22.052-22.279c0.524-1.318,0.82-2.752,0.82-4.258
                             C45.743,8.998,40.575,3.83,34.199,3.83z"/>
 
                     </svg>
-              <span th:id="'likecount'+${twot.getId()}">0</span>
-            </button>
-            <button class="text-left" th:onclick="'afficher_msg('+${twot.getId()}+')'">
-            <svg x="0px" y="0px"
-                 viewBox="0 0 230 230" style="enable-background:new 0 0 230 230;" xml:space="preserve" width="20" height="20">
+                    <span th:id="'likecount'+${twot.getId()}">0</span>
+                </button>
+                <button class="text-left" th:onclick="'afficher_msg('+${twot.getId()}+')'">
+                    <svg x="0px" y="0px"
+                         viewBox="0 0 230 230" style="enable-background:new 0 0 230 230;" xml:space="preserve" width="20" height="20">
                     <path d="M230,222.087V7.913H0v179h174.813L230,222.087z M15,22.913h200v171.826l-35.814-22.826H15V22.913z M62.75,112.08h104.5v15
                         H62.75V112.08z M62.75,67.747h104.5v15H62.75V67.747z"/>
                     </svg>
-            <span class="ml-1" th:id="'answercount'+${twot.getId()}">0</span>
-            </button>
-          </div>
+                    <span class="ml-1" th:id="'answercount'+${twot.getId()}">0</span>
+                </button>
+            </div>
         </div>
     </div>
 
-<form action="/answer" method="post" style="
+    <form action="/answer" method="post" style="
             position:fixed;
             top:10%;
             left:30%;
@@ -65,15 +58,14 @@
             z-index:100;
             display:none;
             " th:id="${twot.getId()}" class="answerForm w-1/5">
-<input type="hidden" name="originalid" th:value="${twot.getId()}">
-<input type="hidden" name="userid" th:value="${user.getusername()}">
-<textarea class="resize-none border-none w-full bg-blue-700" name="text" placeholder="Donnez votre avis" required></textarea><br>
-<button type="submit" class="rounded-lg bg-blue-700 w-1/5 p-2 mx-auto">Répondre</button>
-</form>
-<script th:inline="javascript">
-    inittwot([[${twot.getId()}]]);
-    initdate([[${twot.getId()}]],[[${twot.getDate().toString()}]]);
-</script>
+        <input type="hidden" name="originalid" th:value="${twot.getId()}">
+        <input type="hidden" name="userid" th:value="${user.getusername()}">
+        <textarea class="resize-none border-none w-full bg-blue-700" name="text" placeholder="Donnez votre avis" required></textarea><br>
+        <button type="submit" class="rounded-lg bg-blue-700 w-1/5 p-2 mx-auto">Répondre</button>
+    </form>
+    <script th:inline="javascript">
+        inittwot([[${twot.getId()}]]);
+        initdate([[${twot.getId()}]],[[${twot.getDate().toString()}]]);
+    </script>
 </div>
-</body>
-</html>
+<div class="border-b w-full"></div>

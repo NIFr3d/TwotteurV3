@@ -13,8 +13,8 @@
 <body class="text-gray-300 bg-blue-900 h-screen w-screen">
 <div class="flex h-screen mx-auto w-full">
     <div th:insert="fragments/leftsidebar :: leftsidebar" th:remove="tag"></div>
-    <div class="md:border-x w-11/12 md:w-3/5 mx-auto md:ml-4 md:max-w-lg">
-        <div class="mt-2 md:ml-2">
+    <div class="w-full md:w-3/5 mx-auto md:ml-4 md:max-w-lg h-screen overflow-y-scroll">
+        <div class="p-2 md:border-x">
             <div class="flex flex-row">
                 <div>
                     <img th:src="${user.getPicture()}" class="w-12 h-10 rounded-full"/>
@@ -114,12 +114,22 @@
             </p>
         </div>
         <div class="border-b-2 w-full"></div>
-        <div class="mt-2 w-full" th:if="${twots.size()>0}">
+        <div th:if="${twots.size()>0}">
             <div th:each="twot : ${twots}">
-                <div th:include="fragments/twotpreview :: twot" th:remove="tag"></div>
-                <div class="border-b w-full"></div>
+                <script th:inline="javascript">
+                    var twotid = [[${twot.getId()}]];
+                    $.ajax({
+                        url: "/smalltwot/" + twotid,
+                        type: "GET",
+                        success: function (data) {
+                            $("#twots").append(data);
+                        }
+                    });
+
+                </script>
             </div>
         </div>
+        <div id="twots"></div>
         <p class="mt-2 w-full pl-2" th:unless="${twots.size()>0}">
             Cet utilisateur n'as pas encore twotté.
         </p>
