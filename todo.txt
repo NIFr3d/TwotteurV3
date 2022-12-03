@@ -1,5 +1,7 @@
+Backend :
 - fonction de retweet
 - page d accueil : algorithme de recommandation
-- styles fonction de recherche
 - finir affichage des tweets en JS
+Frontend :
 - finir le CSS pour la réponse à un tweet et le tweet depuis la sidebar
+- styles fonction de recherche
