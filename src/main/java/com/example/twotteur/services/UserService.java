@@ -47,6 +47,23 @@ public class UserService {
         return (userRepository.countUserByEmailAndPassword(email,password)>0);
     }
 
+    public List<User> getUsersBySearch(String search){
+        List<User> byUsername=userRepository.findByUsernameContaining(search);
+        List<User> byNickname=userRepository.findByNicknameContaining(search);
+        List<User> result=new ArrayList<>();
+        result.addAll(byUsername);
+        result.addAll(byNickname);
+        for(int i=0;i<result.size();i++){
+            for(int j=i+1;j<result.size();j++){
+                if(result.get(i).getId()==result.get(j).getId()){
+                    result.remove(j);
+                    j--;
+                }
+            }
+        }
+        return result;
+    }
+
     public void update(User user) {
         userRepository.save(user);
     }
