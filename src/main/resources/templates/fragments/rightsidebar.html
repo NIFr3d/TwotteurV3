@@ -5,7 +5,7 @@
 <body>
 <div class="hidden md:block md:mr-8 md:mt-8" th:fragment="rightsidebar">
     <input id="search-input" type="text" class="rounded-lg bg-blue-800 p-2 text-l" placeholder="Rechercher">
-    <div class="hidden" id="search-result-list"></div>
+    <div class="hidden rounded-lg bg-blue-800 text-l" id="search-result-list"></div>
     <script>
         var searchInput = document.getElementById("search-input");
         var searchResultList = document.getElementById("search-result-list");
@@ -16,10 +16,7 @@
                 searchResultList.innerHTML = "";
                 searchResultList.classList.remove("hidden"); // On affiche la liste des résultats
                 var searchResult = document.createElement("div"); // On crée un élément div
-                searchResult.classList.add("bg-blue-800");
-                searchResult.classList.add("rounded-lg");
                 searchResult.classList.add("p-2");
-                searchResult.classList.add("text-l");
                 searchResult.innerHTML = "Résultats de la recherche pour " + searchInput.value+" :";
                 // récupération des résultats avec fetch
                 fetch("/search?s=" + searchInput.value)
@@ -30,17 +27,17 @@
                         if(data.length>0) {
                             data.forEach(function (user) { // Pour chaque utilisateur, on l'ajoute a la liste des résultats
                                 var searchResult = document.createElement("div");
-                                searchResult.classList.add("bg-blue-800");
                                 searchResult.classList.add("p-2");
-                                searchResult.classList.add("text-l");
+                                if (data.indexOf(user) < data.length - 1) {
+                                    searchResult.classList.add("border-b");
+                                    searchResult.classList.add("border-gray-400");
+                                }
                                 searchResult.innerHTML = "<a href='/user/" + user.username + "'>" + user.nickname + " @" + user.username + "</a>";
                                 searchResultList.appendChild(searchResult);
                             });
                         }else{
                             var searchResult = document.createElement("div");
-                            searchResult.classList.add("bg-blue-800");
                             searchResult.classList.add("p-2");
-                            searchResult.classList.add("text-l");
                             searchResult.innerHTML = "Aucun résultat";
                             searchResultList.appendChild(searchResult);
                         }
