@@ -2,7 +2,7 @@ Backend :
 - fonction de retweet
 - page d accueil : algorithme de recommandation
 - finir affichage des tweets en JS
-- redirect sur la bonne page après un tweet
+- ordonner les tweets par date sur le profil
 Frontend :
 - finir le CSS pour la réponse à un tweet et le tweet depuis la sidebar
 - inclure rightsidebar sur les pages nécessaires

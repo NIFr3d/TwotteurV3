@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.net.http.HttpRequest;
 import java.util.ArrayList;
@@ -23,18 +25,18 @@ public class TwotController {
     private UserService userService;
 
     @PostMapping(value = "/twot")
-    public RedirectView newTwot(@RequestParam("id") long id,@RequestParam("text") String text){
+    public RedirectView newTwot(@RequestParam("id") long id,@RequestParam("text") String text, HttpServletRequest request){
         twotService.newTweet(userService.getUserById(id).get(),text);
-        return new RedirectView("/home"); //TODO: redirect sur la page d'où on vient
+        return new RedirectView(request.getHeader("Referer"));
     }
 
 
     @PostMapping(value="/answer")
-    public RedirectView answer(@RequestParam("userid") String userid, @RequestParam("originalid") long originalid, @RequestParam("text") String text){
+    public RedirectView answer(@RequestParam("userid") String userid, @RequestParam("originalid") long originalid, @RequestParam("text") String text, HttpServletRequest request){
         if(userService.getUserByusername(userid).isPresent() && twotService.getTwotById(originalid).isPresent()) {
             twotService.newAnswer(userService.getUserByusername(userid).get(), text, twotService.getTwotById(originalid).get());
         }
-        return new RedirectView("/home"); //TODO: redirect sur la page d'où on vient
+        return new RedirectView(request.getHeader("referer"));
     }
 
     @GetMapping(value="/twot/{id}")
