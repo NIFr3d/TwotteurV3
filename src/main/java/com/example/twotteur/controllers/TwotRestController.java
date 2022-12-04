@@ -40,12 +40,14 @@ public class TwotRestController {
 
     @DeleteMapping(value="/twot")
     public int deleteTwot(@RequestParam("id") long id, HttpSession session){
-        boolean isLogged=false;
-        if(session.getAttribute("isLogged") != null) isLogged=(boolean)session.getAttribute("isLogged");
-        if(isLogged) {
-            if (twotService.getTwotById(id).getUser().getId() == (long) session.getAttribute("userid")) {
-                twotService.deleteTwotById(id);
-                return 1;
+        if(twotService.getTwotById(id).isPresent()) {
+            boolean isLogged = false;
+            if (session.getAttribute("isLogged") != null) isLogged = (boolean) session.getAttribute("isLogged");
+            if (isLogged) {
+                if (twotService.getTwotById(id).get().getUser().getId() == (long) session.getAttribute("userid")) {
+                    twotService.deleteTwotById(id);
+                    return 1;
+                }
             }
         }
         return 0;

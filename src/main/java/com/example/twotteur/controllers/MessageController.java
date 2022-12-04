@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ public class MessageController {
     private FollowService followService;
 
     @GetMapping("/messages")
-    public String messagePage(HttpSession session, Model model){
+    public ModelAndView messagePage(HttpSession session, Model model){
         boolean isLogged=false;
         List<User> contacts=new ArrayList<>();
         if(session.getAttribute("isLogged") != null) isLogged=(boolean)session.getAttribute("isLogged");
@@ -41,6 +42,6 @@ public class MessageController {
         }
         model.addAttribute("contacts",contacts);
         model.addAttribute("wstoken",session.getAttribute("wstoken"));
-        return "messages";
+        return new ModelAndView("messages");
     }
 }

@@ -53,13 +53,16 @@ public class TwotService {
         answerAssoRepository.save(new AnswerAsso(twot,newtwot));
     }
 
-    public Twot getTwotById(long id){
-        return twotRepository.getReferenceById(id);
+    public Optional<Twot> getTwotById(long id){
+
+        return twotRepository.findById(id);
     }
     public List<Twot> getAnswersByTwotId(long id) {
         List<Twot> twots=new ArrayList<>();
-        for(AnswerAsso answer:answerAssoRepository.findByOriginaltwot(getTwotById(id))){
-            twots.add(answer.getanswer());
+        if(getTwotById(id).isPresent()) {
+            for (AnswerAsso answer : answerAssoRepository.findByOriginaltwot(getTwotById(id).get())) {
+                twots.add(answer.getanswer());
+            }
         }
         return twots;
     }
@@ -125,29 +128,32 @@ public class TwotService {
 
 
     public void deleteTwotById(long id) {
-        Twot twot=getTwotById(id);
-        List<Twot> toDelete=new ArrayList<>();
-        toDelete.add(twot);
-        List<AnswerAsso> toTreat=new ArrayList<>();
-        for(AnswerAsso answerAsso:answerAssoRepository.findByOriginaltwot(twot)){
-            toTreat.add(answerAsso);
-        }
-        while(toTreat.size()>0){
-            List<AnswerAsso> newtreat=new ArrayList<>();
-            for(AnswerAsso answerAsso:toTreat){
-                newtreat.addAll(answerAssoRepository.findByOriginaltwot(answerAsso.getanswer()));
-                toDelete.add(answerAsso.getanswer());
+        if(getTwotById(id).isPresent()) {
+            Twot twot = getTwotById(id).get();
+            List<Twot> toDelete = new ArrayList<>();
+            toDelete.add(twot);
+            List<AnswerAsso> toTreat = new ArrayList<>();
+            for (AnswerAsso answerAsso : answerAssoRepository.findByOriginaltwot(twot)) {
+                toTreat.add(answerAsso);
             }
-            toTreat=newtreat;
-        }
-        for(int i=1;i<=toDelete.size();i++){
-            Twot deletetwot=toDelete.get(toDelete.size()-i);
-            if(answerAssoRepository.findByAnswer(deletetwot).isPresent()) answerAssoRepository.delete(answerAssoRepository.findByAnswer(deletetwot).get());
-            List<LikeAsso> deletelikes=likeRepository.getByTwot(deletetwot);
-            for(LikeAsso like:deletelikes){
-                likeRepository.delete(like);
+            while (toTreat.size() > 0) {
+                List<AnswerAsso> newtreat = new ArrayList<>();
+                for (AnswerAsso answerAsso : toTreat) {
+                    newtreat.addAll(answerAssoRepository.findByOriginaltwot(answerAsso.getanswer()));
+                    toDelete.add(answerAsso.getanswer());
+                }
+                toTreat = newtreat;
             }
-            twotRepository.delete(deletetwot);
+            for (int i = 1; i <= toDelete.size(); i++) {
+                Twot deletetwot = toDelete.get(toDelete.size() - i);
+                if (answerAssoRepository.findByAnswer(deletetwot).isPresent())
+                    answerAssoRepository.delete(answerAssoRepository.findByAnswer(deletetwot).get());
+                List<LikeAsso> deletelikes = likeRepository.getByTwot(deletetwot);
+                for (LikeAsso like : deletelikes) {
+                    likeRepository.delete(like);
+                }
+                twotRepository.delete(deletetwot);
+            }
         }
     }
 }

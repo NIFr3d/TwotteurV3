@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.imageio.ImageIO;
@@ -35,7 +36,7 @@ public class ProfileController {
     private FollowService followService;
 
     @GetMapping(value="/user/{username}")
-    public String userProfile(@PathVariable String username, Model model){
+    public ModelAndView userProfile(@PathVariable String username, Model model){
         if(userService.getUserByusername(username).isPresent()){
             List<Long> twots=new ArrayList<>();
             model.addAttribute("user",userService.getUserByusername(username).get());
@@ -45,9 +46,9 @@ public class ProfileController {
                 twots.add(twot.getId());
             }
             model.addAttribute("twots",twots);
-            return "user";
+            return new ModelAndView("user");
         }
-        return "error";
+        return new ModelAndView("redirect:/error?e=404");
     }
 
     @GetMapping(value="/profile")
@@ -59,21 +60,21 @@ public class ProfileController {
             String username = userService.getUserById(id).get().getusername();
             return new RedirectView("/user/" + username);
         }
-        return new RedirectView("/error");
+        return new RedirectView("/error?e=403");
     }
 
     @GetMapping(value="/editprofile")
-    public String editprofile(HttpSession session,Model model){
+    public ModelAndView editprofile(HttpSession session,Model model){
         boolean isLogged=false;
         if(session.getAttribute("isLogged") != null) isLogged=(boolean)session.getAttribute("isLogged");
         if(isLogged) {
             long id = (long) session.getAttribute("userid");
             if (userService.getUserById(id).isPresent()) {
                 model.addAttribute("user", userService.getUserById(id).get());
-                return "editprofile";
+                return new ModelAndView("editprofile");
             }
         }
-        return "error";
+        return new ModelAndView("redirect:/error?e=403");
     }
 
     @PostMapping(value="/editprofile")
