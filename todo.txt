@@ -4,7 +4,16 @@ Backend :
 - finir affichage des tweets en JS
 - ordonner les tweets par date sur le profil
 Frontend :
-- finir le CSS pour la réponse à un tweet et le tweet depuis la sidebar
+- finir le CSS pour le tweet depuis la page d'accueil
 - inclure rightsidebar sur les pages nécessaires
 - styles fonction de recherche
 - styles page d'erreur
+
+
+
+Normal que la messagerie soit pas responsive au niveau du "Cliquez sur un contact" ?
+Depuis le profil, normal qu'on ai que la date du twot original d'affichée et pas celle des réponses ?
+Bug d'une réponse à un tweet qui peut aller dans les like négatif si on reload la page
+
+Barre d'affichage, potentiel problème d'affichage en double si on tape plusieur fois la même chose rapidement
+

@@ -11,10 +11,10 @@
     <script th:src="@{/js/user.js}"></script>
 </head>
 <body class="text-gray-300 bg-blue-900 h-screen w-screen">
-<div class="flex h-screen mx-auto w-full">
+<div class="flex h-screen mx-auto w-full mt-3">
     <div th:insert="fragments/leftsidebar :: leftsidebar" th:remove="tag"></div>
     <div class="w-full md:w-3/5 mx-auto md:ml-4 md:max-w-lg h-screen overflow-y-scroll">
-        <div class="p-2 md:border-x">
+        <div class="p-2 md:border-x md:border-t" >
             <div class="flex flex-row">
                 <div>
                     <img th:src="${user.getPicture()}" class="w-12 h-10 rounded-full"/>
