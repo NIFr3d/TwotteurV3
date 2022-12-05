@@ -13,7 +13,9 @@
         <form class="border-2 rounded-lg mt-2 w-full px-2 " action="../twot" method="post" th:if="${session.isLogged==true}">
             <textarea class="w-full rounded-lg resize-none bg-blue-900 pl-1 mt-2 mb-3 border-2" name="text" placeholder="Quoi de neuf ?" required></textarea>
             <input type="hidden" name="id" th:value="${session.userid}" />
-            <button type="submit" class="rounded-lg bg-blue-900 w-fit mb-2 border-2 px-2 py-1 hover:bg-blue-700">Twoter</button>
+            <div class="w-full justify-items-center">
+                <button type="submit" class="rounded-lg w-fit bg-blue-900 mb-2 my-auto border-2 px-2 py-1 hover:bg-blue-700">Twoter</button>
+            </div>
         </form>
     </div>
     <div th:insert="fragments/rightsidebar :: rightsidebar" th:remove="tag"></div>

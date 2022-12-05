@@ -8,12 +8,12 @@ Frontend :
 - inclure rightsidebar sur les pages nécessaires
 - styles page d'erreur
 - fix les width/height des pages pour éviter que le contenu ne dépasse
+- afficher le nombre de like et réponse sur le fulltwot
 
 
-
-Normal que la messagerie soit pas responsive au niveau du "Cliquez sur un contact" ?
 Depuis le profil, normal qu'on ai que la date du twot original d'affichée et pas celle des réponses ?
+
 Bug d'une réponse à un tweet qui peut aller dans les like négatif si on reload la page
 
-Barre d'affichage, potentiel problème d'affichage en double si on tape plusieurs fois la même chose rapidement
+
 
