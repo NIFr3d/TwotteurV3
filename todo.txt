@@ -11,9 +11,7 @@ Frontend :
 - afficher le nombre de like et réponse sur le fulltwot
 
 
-Depuis le profil, normal qu'on ai que la date du twot original d'affichée et pas celle des réponses ?
-
-Bug d'une réponse à un tweet qui peut aller dans les like négatif si on reload la page
+vérifier bugs sur l'inclusion en JS des tweets
 
 
 
