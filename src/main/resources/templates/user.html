@@ -10,9 +10,9 @@
     <script th:src="@{/js/user.js}"></script>
 </head>
 <body class="text-gray-300 bg-blue-900 h-screen w-screen">
-<div class="flex h-screen mx-auto w-full mt-3">
+<div class="flex h-screen mx-auto w-full pt-3 overflow-hidden">
     <div th:insert="fragments/leftsidebar :: leftsidebar" th:remove="tag"></div>
-    <div class="w-full md:w-3/5 mx-auto md:ml-4 md:max-w-lg h-screen overflow-y-scroll">
+    <div class="w-full md:w-3/5 md:pl-4 md:max-w-lg h-screen overflow-y-scroll">
         <div class="p-2 md:border-x md:border-t" >
             <div class="flex flex-row">
                 <div>
@@ -138,7 +138,7 @@
                 z-index    : 5;
                 display    : none;"></div></button>
         </div>
-    </div>
+    <div th:insert="fragments/rightsidebar :: rightsidebar" th:remove="tag"></div>
 </div>
 </body>
 <script th:inline="javascript">

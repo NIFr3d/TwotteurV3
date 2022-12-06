@@ -5,7 +5,6 @@ Backend :
 - ordonner les tweets par date sur le profil
 Frontend :
 - finir le CSS pour le tweet depuis la page d'accueil
-- inclure rightsidebar sur les pages nécessaires
 - styles page d'erreur
 - fix les width/height des pages pour éviter que le contenu ne dépasse
 - afficher le nombre de like et réponse sur le fulltwot

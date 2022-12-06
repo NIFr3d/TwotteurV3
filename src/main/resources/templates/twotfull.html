@@ -9,9 +9,9 @@
   <script th:src="@{/js/twotfull.js}"></script>
 </head>
 <body class="text-gray-300 bg-blue-900 h-screen w-screen">
-<div class="flex h-screen mx-auto w-full">
+<div class="flex h-screen mx-auto w-full overflow-hidden">
   <div th:insert="fragments/leftsidebar :: leftsidebar" th:remove="tag"></div>
-  <div class="w-full md:w-3/5 mx-auto md:ml-4 md:max-w-lg overflow-y-scroll">
+  <div class="w-full md:w-3/5 md:pl-4 md:max-w-lg overflow-y-auto">
     <div class="p-2 w-full border-x">
       <div th:if="${twot.isanswer()}" th:id="'answtodiv'+${twot.getId()}">
         <a href="" th:id="'url'+${twot.getId()}" class="text-blue-500">Voir le twot original</a>
@@ -73,6 +73,7 @@
                 z-index    : 5;
                 display    : none;"></div></button>
   </div>
+  <div th:insert="fragments/rightsidebar :: rightsidebar" th:remove="tag"></div>
 </div>
 <script th:inline="javascript">
   var twots=[[${twots}]];
