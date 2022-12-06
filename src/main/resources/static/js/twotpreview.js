@@ -22,6 +22,14 @@ function inittwot(twotid){
         document.getElementById("likeicon"+twotid).style.fill="red";
         document.getElementById("likeicon"+twotid).style.stroke="red";
     }
+    xmlHttpReq.open("GET", "../didirt/"+twotid, false);
+    xmlHttpReq.send(null);
+    if(xmlHttpReq.responseText==1){
+        document.getElementById("retwotbutton"+twotid).style.stroke="green";
+    }
+    xmlHttpReq.open("GET", "../countretwots/"+twotid, false);
+    xmlHttpReq.send(null);
+    document.getElementById("retwotcount"+twotid).innerHTML=xmlHttpReq.responseText;
 }
 function deleteTwot(id){
     xmlHttpReq.open("DELETE", "../twot", false);
@@ -90,4 +98,21 @@ function initdate(id,javadate){
         }
     }
     document.getElementById("date"+id).innerHTML=affichage;
+}
+function retwotmenu(id){
+    document.getElementById("retwotmenu"+id).classList.toggle("hidden");
+}
+function simpleretwot(id){
+    document.getElementById("retwotmenu"+id).classList.toggle("hidden");
+    xmlHttpReq.open("GET", "../simpleretwot/"+id, false);
+    xmlHttpReq.send(null);
+    let compte=parseInt(document.getElementById("retwotcount"+id).innerHTML);
+    if(xmlHttpReq.responseText==1) {
+        document.getElementById("retwotcount"+id).innerHTML=compte+1;
+        document.getElementById("retwotbutton"+id).style.stroke="green";
+    }
+    else if(xmlHttpReq.responseText==2) {
+        document.getElementById("retwotcount"+id).innerHTML=compte-1;
+        document.getElementById("retwotbutton"+id).style.stroke="black";
+    }
 }

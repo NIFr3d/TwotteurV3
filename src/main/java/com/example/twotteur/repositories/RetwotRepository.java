@@ -5,6 +5,7 @@ import com.example.twotteur.models.Twot;
 import com.example.twotteur.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import java.util.Optional;
 
 import java.util.List;
 
@@ -13,5 +14,7 @@ public interface RetwotRepository extends JpaRepository<Retwot, Long>  {
     int countRetwotsByTwot(Twot twot);
 
     List<Retwot> findRetwotsByUser(User user);
+
+    Optional<Retwot> findByTwotAndUser(Twot twot, User user);
 }
 

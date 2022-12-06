@@ -1,6 +1,7 @@
 package com.example.twotteur.controllers;
 
 import com.example.twotteur.models.Twot;
+import com.example.twotteur.services.RetwotService;
 import com.example.twotteur.services.TwotService;
 import com.example.twotteur.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,9 @@ public class TwotRestController {
     private TwotService twotService;
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private RetwotService retwotService;
 
     @GetMapping(value="/countanswers/{id}")
     public int countAnswer(@PathVariable long id){
@@ -77,5 +81,39 @@ public class TwotRestController {
             result="{\"user\":\""+twot.getUser().getusername()+"\",\"original\":\""+twot.getId()+"\"}";
         }
         return result;
+    }
+
+    @GetMapping("/simpleretwot/{id}")
+    public int simpleretwot(@PathVariable long id,HttpSession session) {
+        boolean isLogged = false;
+        if (session.getAttribute("isLogged") != null) isLogged = (boolean) session.getAttribute("isLogged");
+        if (isLogged) {
+            long userid = (long) session.getAttribute("userid");
+            if (retwotService.userAlreadyRT(id, userid)) {
+                if (retwotService.removeRT(id, userid)) return 2;
+            } else {
+                if (retwotService.addRT(id, userid)) return 1;
+            }
+        }
+        return 0;
+    }
+
+    @GetMapping("/didirt/{id}")
+    public int didirt(@PathVariable long id,HttpSession session) {
+        boolean isLogged = false;
+        if (session.getAttribute("isLogged") != null) isLogged = (boolean) session.getAttribute("isLogged");
+        if (isLogged) {
+            long userid = (long) session.getAttribute("userid");
+            if (retwotService.userAlreadyRT(id, userid)) return 1;
+        }
+        return 0;
+    }
+
+    @GetMapping("/countretwots/{id}")
+    public int countRetwots(@PathVariable long id){
+        if(twotService.getTwotById(id).isPresent()){
+            return retwotService.getRetwotCount(twotService.getTwotById(id).get());
+        }
+        return 0;
     }
 }

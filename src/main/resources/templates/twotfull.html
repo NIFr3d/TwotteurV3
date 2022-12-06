@@ -23,7 +23,7 @@
         <div>
           <img th:src="${user.getPicture()}" class="w-12 h-10 rounded-full"/>
         </div>
-        <div class="w-full ml-2">
+        <div class="w-full pl-2">
           <span class="font-bold" th:text="${user.getnickname()}"></span>
           <span class="font-light" th:text="'@'+${user.getusername()}"></span>
           <span th:if="${user.getid()==session.userid}" class="float-right mt-2">
@@ -39,8 +39,42 @@
             <span th:text="${date.substring(11,13)}"></span>:<span th:text="${date.substring(14,16)}"></span>:<span th:text="${date.substring(17,19)}"></span>
             <span th:text="${date.substring(8,10)}"></span>/<span th:text="${date.substring(5,7)}"></span>/<span th:text="${date.substring(0,4)}"></span>
           </p>
+
         </div>
       </div>
+    </div>
+    <div class="inline-block p-2 border-x w-full items-center">
+      <span th:id="'likecount'+${twot.getId()}">0</span><span> J'aime</span>
+      <span th:id="'retwotcount'+${twot.getId()}">0</span><span> Retwots</span>
+      <span th:id="'answercount'+${twot.getId()}">0</span><span> Réponses</span>
+    </div>
+    <div class="p-2 border-x border-t relative">
+      <button class="mr-2 mt-1" th:onclick="'like('+${twot.getId()}+')'">
+        <svg class="w-8 h-8" fill="transparent" stroke="black" stroke-width="3px" viewBox="-2 0 48.743 48.743" style="enable-background:new 0 0 471.701 471.701;" xml:space="preserve">
+                <path th:id="'likeicon'+${twot.getId()}" d="M34.199,3.83c-3.944,0-7.428,1.98-9.51,4.997c0,0-0.703,1.052-1.818,1.052c-1.114,0-1.817-1.052-1.817-1.052
+                    c-2.083-3.017-5.565-4.997-9.51-4.997C5.168,3.83,0,8.998,0,15.376c0,1.506,0.296,2.939,0.82,4.258
+                    c3.234,10.042,17.698,21.848,22.051,22.279c4.354-0.431,18.816-12.237,22.052-22.279c0.524-1.318,0.82-2.752,0.82-4.258
+                    C45.743,8.998,40.575,3.83,34.199,3.83z"/>
+              </svg>
+      </button>
+      <button class="mr-2 mt-1" th:onclick="'retwotmenu('+${twot.getId()}+')'">
+        <svg class="w-8 h-8" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+          <g th:id="'retwotbutton'+${twot.getId()}" fill="none" fill-rule="evenodd" stroke="black" stroke-linecap="round" stroke-linejoin="round" transform="translate(1 4)">
+            <path d="m12.5 9.5 3 3 3-3"/>
+            <path d="m8.5.5h3c2.209139 0 4 1.790861 4 4v8"/>
+            <path d="m6.5 3.5-3-3-3 3"/>
+            <path d="m10.5 12.5h-3c-2.209139 0-4-1.790861-4-4v-8"/>
+          </g>
+        </svg>
+      </button>
+      <div class="absolute w-fit bg-blue-900 border border-gray-400 rounded-lg p-2 hidden" th:id="'retwotmenu'+${twot.getId()}">
+        <button th:onclick="'simpleretwot('+${twot.getId()}+')'">Retwoter</button><br>
+        <div class="border-b border-gray-400"></div>
+        <button th:onclick="'retwotcomment('+${twot.getId()}+')'">Retwoter avec commentaire</button>
+      </div>
+      <script th:inline="javascript">
+        inittwot([[${twot.getId()}]]);
+      </script>
     </div>
     <div class="border-b-2 w-full"></div>
     <div class="p-2 border-x">
