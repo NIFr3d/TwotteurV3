@@ -1,7 +1,9 @@
 package com.example.twotteur.controllers;
 
 import com.example.twotteur.models.Twot;
+import com.example.twotteur.models.Retwot;
 import com.example.twotteur.services.RetwotService;
+import com.example.twotteur.services.TwotRetwotService;
 import com.example.twotteur.services.TwotService;
 import com.example.twotteur.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,9 @@ public class TwotRestController {
 
     @Autowired
     private RetwotService retwotService;
+
+    @Autowired
+    private TwotRetwotService trtService;
 
     @GetMapping(value="/countanswers/{id}")
     public int countAnswer(@PathVariable long id){
@@ -115,5 +120,39 @@ public class TwotRestController {
             return retwotService.getRetwotCount(twotService.getTwotById(id).get());
         }
         return 0;
+    }
+
+    @GetMapping("/getprevious/{user}/{type}/{id}")
+    public String getPrevious(@PathVariable long id,@PathVariable long user,@PathVariable String type) {
+        String result = "";
+        if (userService.getUserById(user).isPresent()){
+            if (type.equals("twot")) {
+                if (twotService.getTwotById(id).isPresent()) {
+                    Object rsl=trtService.getPreviousFromUser(userService.getUserById(user).get(),twotService.getTwotById(id).get());
+                    result=convert(rsl);
+                }
+            } else if (type.equals("retwot")) {
+                if (retwotService.getById(id).isPresent()) {
+                    Object rsl=trtService.getPreviousFromUser(userService.getUserById(user).get(),retwotService.getById(id).get());
+                    result=convert(rsl);
+                }
+            }
+        }
+        return result;
+    }
+
+    private String convert(Object obj){
+        String result="";
+        try{
+            Twot twot=(Twot)obj;
+            result="{type:twot,id:"+twot.getId()+"}";
+        }catch(Exception e){
+            try{
+                Retwot retwot=(Retwot)obj;
+                result="{type:retwot,id:"+retwot.getId()+"}";
+            }catch(Exception e2){
+            }
+        }
+        return result;
     }
 }
