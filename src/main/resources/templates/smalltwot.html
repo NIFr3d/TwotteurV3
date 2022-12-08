@@ -1,4 +1,5 @@
-<div class="w-full p-2 md:border-x" th:id="'twot'+${twot.getId()}" th:fragment="twot">
+<div class="w-full p-2 md:border-x" th:id="'twot'+${twot.getId()}" >
+    <div th:fragment="twot">
     <div th:if="${twot.isanswer()}" th:id="'answtodiv'+${twot.getId()}">
         <a href="" th:id="'url'+${twot.getId()}" class="text-blue-500">Voir le twot original</a>
         <p th:if="${twot.isanswer()}">Répond à <span th:id="'answto'+${twot.getId()}"></span>
@@ -80,5 +81,6 @@
         inittwot([[${twot.getId()}]]);
         initdate([[${twot.getId()}]],[[${twot.getDate().toString()}]]);
     </script>
+    </div>
 </div>
 <div class="border-b w-full"></div>
