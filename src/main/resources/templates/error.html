@@ -10,28 +10,27 @@
   <div th:insert="fragments/leftsidebar :: leftsidebar" th:remove="tag"></div>
   <div class="w-full md:w-3/5">
     <div class="flex flex-col justify-center md:justify-start items-start h-full">
-      <h1 class="text-4xl font-bold text-orange-600 md:mt-48" th:text="${'Erreur '+#request.getParameter('e')}"></h1>
-      <!-- Switch sur le code d'erreur -->
-        <div th:switch="${#request.getParameter('e')}">
+      <h1 class="text-4xl font-bold text-orange-600 md:mt-48" th:text="${'Erreur '+status}"></h1>
+        <div th:switch="${status}">
             <!-- Cas 404 -->
             <div th:case="404">
-            <h2 class="text-2xl font-bold text-orange-600 mt-4">Page non trouvée</h2>
-            <p class="text-xl font-bold text-orange-600">La page que vous avez demandée n'existe pas.</p>
+                <h2 class="text-2xl font-bold text-orange-600 mt-4">Page non trouvée</h2>
+                <p class="text-xl font-bold text-orange-600">La page que vous avez demandée n'existe pas.</p>
             </div>
             <!-- Cas 403 -->
             <div th:case="403">
-            <h2 class="text-2xl font-bold text-orange-600 mt-4">Accès refusé</h2>
-            <p class="text-xl font-bold text-orange-600">Vous n'avez pas les droits pour accéder à cette page.</p>
+                <h2 class="text-2xl font-bold text-orange-600 mt-4">Accès refusé</h2>
+                <p class="text-xl font-bold text-orange-600">Vous n'avez pas les droits pour accéder à cette page.</p>
             </div>
             <!-- Cas 500 -->
             <div th:case="500">
-            <h2 class="text-2xl font-bold text-orange-600 mt-4">Erreur interne</h2>
-            <p class="text-xl font-bold text-orange-600">Une erreur interne est survenue.</p>
+                <h2 class="text-2xl font-bold text-orange-600 mt-4">Erreur interne</h2>
+                <p class="text-xl font-bold text-orange-600">Une erreur interne est survenue.</p>
             </div>
             <!-- Cas par défaut -->
             <div th:case="*">
-            <h2 class="text-2xl font-bold text-orange-600 mt-4">Erreur</h2>
-            <p class="text-xl font-bold text-orange-600">Une erreur est survenue.</p>
+                <h2 class="text-2xl font-bold text-orange-600 mt-4">Erreur</h2>
+                <p class="text-xl font-bold text-orange-600">Une erreur est survenue.</p>
             </div>
         </div>
     </div>

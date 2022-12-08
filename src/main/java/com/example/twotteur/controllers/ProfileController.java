@@ -36,45 +36,57 @@ public class ProfileController {
     private FollowService followService;
 
     @GetMapping(value="/user/{username}")
-    public ModelAndView userProfile(@PathVariable String username, Model model){
+    public ModelAndView userProfile(@PathVariable String username){
+        ModelAndView mav=new ModelAndView();
         if(userService.getUserByusername(username).isPresent()){
             List<Long> twots=new ArrayList<>();
-            model.addAttribute("user",userService.getUserByusername(username).get());
-            model.addAttribute("followers",followService.getfollowers(userService.getUserByusername(username).get()));
-            model.addAttribute("followeds",followService.getfollowed(userService.getUserByusername(username).get()));
+            mav.addObject("user",userService.getUserByusername(username).get());
+            mav.addObject("followers",followService.getfollowers(userService.getUserByusername(username).get()));
+            mav.addObject("followeds",followService.getfollowed(userService.getUserByusername(username).get()));
             for(Twot twot : twotService.getTwots(userService.getUserByusername(username).get())){
                 twots.add(twot.getId());
             }
-            model.addAttribute("twots",twots);
-            return new ModelAndView("user");
+            mav.addObject("twots",twots);
+            mav.setViewName("user");
+        }else{
+            mav.addObject("status",404);
+            mav.setViewName("error");
         }
-        return new ModelAndView("redirect:/error?e=404");
+        return mav;
     }
 
     @GetMapping(value="/profile")
-    public RedirectView profile(HttpSession session){
+    public ModelAndView profile(HttpSession session){
+        ModelAndView mav=new ModelAndView();
         boolean isLogged=false;
         if(session.getAttribute("isLogged") != null) isLogged=(boolean)session.getAttribute("isLogged");
         if(isLogged) {
             long id = (long) session.getAttribute("userid");
             String username = userService.getUserById(id).get().getusername();
-            return new RedirectView("/user/" + username);
+            mav= new ModelAndView("redirect:/user/"+username);
+        }else{
+            mav.addObject("status",403);
+            mav.setViewName("error");
         }
-        return new RedirectView("/error?e=403");
+        return mav;
     }
 
     @GetMapping(value="/editprofile")
-    public ModelAndView editprofile(HttpSession session,Model model){
+    public ModelAndView editprofile(HttpSession session){
+        ModelAndView mav=new ModelAndView();
         boolean isLogged=false;
         if(session.getAttribute("isLogged") != null) isLogged=(boolean)session.getAttribute("isLogged");
         if(isLogged) {
             long id = (long) session.getAttribute("userid");
             if (userService.getUserById(id).isPresent()) {
-                model.addAttribute("user", userService.getUserById(id).get());
-                return new ModelAndView("editprofile");
+                mav.addObject("user", userService.getUserById(id).get());
+                mav.setViewName("editprofile");
             }
+        }else{
+            mav.addObject("status",403);
+            mav.setViewName("error");
         }
-        return new ModelAndView("redirect:/error?e=403");
+        return mav;
     }
 
     @PostMapping(value="/editprofile")

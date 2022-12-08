@@ -1,7 +1,7 @@
 Backend :
 - fonction de retweet avec texte
 - affichage des retweets sur le profil
-- page d accueil : algorithme de recommandation
+- page d'accueil : algorithme de recommandation
 - finir affichage des tweets en JS
 - ordonner les tweets par date sur le profil
 Frontend :
@@ -10,7 +10,7 @@ Frontend :
 - fix les width/height des pages pour éviter que le contenu ne dépasse
 
 
-vérifier bugs sur l'inclusion en JS des tweets
+Vérifier bugs sur l'inclusion en JS des tweets
 
 
 

@@ -40,31 +40,39 @@ public class TwotController {
     }
 
     @GetMapping(value="/twot/{id}")
-    public ModelAndView fullTwot(@PathVariable long id, Model model){
+    public ModelAndView fullTwot(@PathVariable long id){
+        ModelAndView mav=new ModelAndView();
         if(twotService.getTwotById(id).isPresent()) {
-            model.addAttribute("twot", twotService.getTwotById(id).get());
+            mav.addObject("twot", twotService.getTwotById(id).get());
             List<Long> twots = new ArrayList<>();
             for (Twot twot : twotService.getAnswersByTwotId(id)) {
                 twots.add(twot.getId());
             }
-            model.addAttribute("twots", twots);
+            mav.addObject("twots", twots);
             if (twotService.getUserByTwotId(id).isPresent()) {
-                model.addAttribute("user", twotService.getUserByTwotId(id).get());
+                mav.addObject("user", twotService.getUserByTwotId(id).get());
             }
-            return new ModelAndView("twotfull");
+            mav.setViewName("twotfull");
+        }else{
+            mav.addObject("status",404);
+            mav.setViewName("error");
         }
-        return new ModelAndView("redirect:/error?e=404");
+        return mav;
     }
 
     @GetMapping(value="/smalltwot/{id}")
-    public ModelAndView smallTwot(@PathVariable long id,Model model){
+    public ModelAndView smallTwot(@PathVariable long id){
+        ModelAndView mav=new ModelAndView();
         if(twotService.getTwotById(id).isPresent()) {
-            model.addAttribute("twot", twotService.getTwotById(id).get());
+            mav.addObject("twot", twotService.getTwotById(id).get());
             if (twotService.getUserByTwotId(id).isPresent()) {
-                model.addAttribute("user", twotService.getUserByTwotId(id).get());
+                mav.addObject("user", twotService.getUserByTwotId(id).get());
             }
-            return new ModelAndView("smalltwot");
+            mav.setViewName("smalltwot");
+        }else{
+            mav.addObject("status",404);
+            mav.setViewName("error");
         }
-        return new ModelAndView("redirect:/error?e=404");
+        return mav;
     }
 }

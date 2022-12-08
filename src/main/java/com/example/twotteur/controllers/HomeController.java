@@ -22,11 +22,6 @@ public class HomeController {
         return new RedirectView("home");
     }
 
-    @GetMapping(value="/error")
-    public String error(){
-        return "error";
-    }
-
     @GetMapping("test")
     public String test(Model model, HttpSession session) {
         model.addAttribute("wstoken",session.getAttribute("wstoken"));
