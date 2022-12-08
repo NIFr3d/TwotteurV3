@@ -121,10 +121,8 @@
             </p>
         </div>
         <div class="border-b-2 w-full"></div>
-        <div th:if="${twots.size()>0}">
-            <div id="twots"></div>
-        </div>
-        <p class="mt-2 w-full pl-2" th:unless="${twots.size()>0}">
+        <div id="twots"></div>
+        <p class="mt-2 w-full pl-2 hidden" id="notwots">
             Cet utilisateur n'as pas encore twotté.
         </p>
             <button onclick="fadeOut()"><div id="overlay-back" style="position   : fixed;
@@ -142,16 +140,53 @@
 </div>
 </body>
 <script th:inline="javascript">
-    var twots=[[${twots}]];
-    twots.forEach(function(twot){
-        $.ajax({
-            url: "/smalltwot/" + twot,
-            type: "GET",
-            success: function (data) {
-                $("#twots").append(data);
+    $('#loading_gif').hide();
+    var last;
+    var count=0;
+    async function init(){
+        await $.ajax({
+            url:"/getprevious/"+[[${user.getId()}]]+"/last/0",
+            type:"GET",
+            success:function(data){
+                appendTwot(data);
             }
         });
-    });
-    $('#loading_gif').hide();
+        while(count<10){
+            count++;
+            await loadMore();
+        }
+    }
+    init();
+    async function loadMore(){
+        await $.ajax({
+            url:"/getprevious/"+[[${user.getId()}]]+"/"+last.Type+"/"+last.Id,
+            type:"GET",
+            success:function(data){
+                appendTwot(data);
+            }
+        })
+    }
+    async function appendTwot(data){
+        data=JSON.parse(data);
+        last=data;
+        if(data.Type=="twot"){
+            await $.ajax({
+                url: "/smalltwot/" + data.Id,
+                type: "GET",
+                success: function (data) {
+                    $("#twots").append(data);
+                }
+            });
+        }
+        else if(data.Type=="retwot"){
+            await $.ajax({
+                url: "/retwot/" + data.Id,
+                type: "GET",
+                success: function (data) {
+                    $("#twots").append(data);
+                }
+            });
+        }
+    }
 </script>
 </html>

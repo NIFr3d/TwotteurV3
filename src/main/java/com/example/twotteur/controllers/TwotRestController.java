@@ -123,7 +123,7 @@ public class TwotRestController {
     }
 
     @GetMapping("/getprevious/{user}/{type}/{id}")
-    public String getPrevious(@PathVariable long id,@PathVariable long user,@PathVariable String type) {
+    public String getPrevious(@PathVariable long user,@PathVariable String type,@PathVariable long id) {
         String result = "";
         if (userService.getUserById(user).isPresent()){
             if (type.equals("twot")) {
@@ -136,20 +136,24 @@ public class TwotRestController {
                     Object rsl=trtService.getPreviousFromUser(userService.getUserById(user).get(),retwotService.getById(id).get());
                     result=convert(rsl);
                 }
+            } else if(type.equals("last")){
+                Object rsl=trtService.getPreviousFromUser(userService.getUserById(user).get(),null);
+                result=convert(rsl);
             }
         }
         return result;
     }
 
+
     private String convert(Object obj){
         String result="";
         try{
             Twot twot=(Twot)obj;
-            result="{type:twot,id:"+twot.getId()+"}";
+            result="{\"Type\":\"twot\",\"Id\":"+twot.getId()+"}";
         }catch(Exception e){
             try{
                 Retwot retwot=(Retwot)obj;
-                result="{type:retwot,id:"+retwot.getId()+"}";
+                result="{\"Type\":\"retwot\",\"Id\":"+retwot.getId()+"}";
             }catch(Exception e2){
             }
         }

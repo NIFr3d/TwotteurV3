@@ -50,4 +50,6 @@ public class Retwot {
     public User getUser() {
         return this.user;
     }
+
+    public Twot getTwot(){ return this.twot; }
 }

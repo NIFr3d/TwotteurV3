@@ -1,12 +1,11 @@
 Backend :
 - fonction de retweet avec texte
-- affichage des retweets sur le profil
 - page d'accueil : algorithme de recommandation
 - finir affichage des tweets en JS
-- ordonner les tweets par date sur le profil
 Frontend :
 - finir le CSS pour le tweet depuis la page d'accueil
 - améliorer le CSS pour les tweets de réponse
+- améliorer le CSS pour les retweets
 - fix les width/height des pages pour éviter que le contenu ne dépasse
 
 

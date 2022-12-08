@@ -3,6 +3,7 @@ package com.example.twotteur.controllers;
 import com.example.twotteur.models.Twot;
 import com.example.twotteur.models.User;
 import com.example.twotteur.services.FollowService;
+import com.example.twotteur.services.TwotRetwotService;
 import com.example.twotteur.services.TwotService;
 import com.example.twotteur.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,8 @@ public class ProfileController {
     private UserService userService;
     @Autowired
     private TwotService twotService;
+    @Autowired
+    private TwotRetwotService trtService;
 
     @Autowired
     private FollowService followService;
@@ -43,10 +46,6 @@ public class ProfileController {
             mav.addObject("user",userService.getUserByusername(username).get());
             mav.addObject("followers",followService.getfollowers(userService.getUserByusername(username).get()));
             mav.addObject("followeds",followService.getfollowed(userService.getUserByusername(username).get()));
-            for(Twot twot : twotService.getTwots(userService.getUserByusername(username).get())){
-                twots.add(twot.getId());
-            }
-            mav.addObject("twots",twots);
             mav.setViewName("user");
         }else{
             mav.addObject("status",404);

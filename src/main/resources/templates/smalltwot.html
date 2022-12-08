@@ -1,4 +1,4 @@
-<div class="w-full p-2 md:border-x" th:id="'twot'+${twot.getId()}">
+<div class="w-full p-2 md:border-x" th:id="'twot'+${twot.getId()}" th:fragment="twot">
     <div th:if="${twot.isanswer()}" th:id="'answtodiv'+${twot.getId()}">
         <a href="" th:id="'url'+${twot.getId()}" class="text-blue-500">Voir le twot original</a>
         <p th:if="${twot.isanswer()}">Répond à <span th:id="'answto'+${twot.getId()}"></span>
