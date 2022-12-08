@@ -152,6 +152,7 @@
             }
         });
         while(count<10){
+            if(last.Type=="last") break;
             count++;
             await loadMore();
         }
@@ -186,6 +187,8 @@
                     $("#twots").append(data);
                 }
             });
+        }else if(data.Type=="last" && count==0){
+            $("#notwots").removeClass("hidden");
         }
     }
 </script>

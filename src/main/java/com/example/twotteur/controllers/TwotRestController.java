@@ -155,6 +155,7 @@ public class TwotRestController {
                 Retwot retwot=(Retwot)obj;
                 result="{\"Type\":\"retwot\",\"Id\":"+retwot.getId()+"}";
             }catch(Exception e2){
+                result="{\"Type\":\"last\"}";
             }
         }
         return result;

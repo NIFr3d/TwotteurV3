@@ -28,6 +28,8 @@ public class TwotRetwotService {
                 result=lastRetwot.getId();
             }else if(lastRetwot==null && lastTwot!=null){
                 result=lastTwot;
+            }else if(lastRetwot==null && lastTwot==null){
+                result=null;
             }else if(lastTwot.getDate().after(lastRetwot.getDate())) {
                 result=lastTwot;
             }else {
@@ -46,6 +48,8 @@ public class TwotRetwotService {
                 result=lastRetwot.getId();
             }else if(lastRetwot==null && lastTwot!=null){
                 result=lastTwot;
+            }else if(lastRetwot==null && lastTwot==null) {
+                result = null;
             }
             else if(lastTwot.getDate().after(lastRetwot.getDate())) {
                 result=lastTwot;
