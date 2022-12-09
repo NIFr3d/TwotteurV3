@@ -1,8 +1,7 @@
 Backend :
-- fonction de retweet avec texte
 - page d'accueil : algorithme de recommandation
-- finir affichage des tweets en JS (page fulltwot et bouton "voir plus")
 Frontend :
+- fix l'affichage des retweets
 - finir le CSS pour le tweet depuis la page d'accueil
 - améliorer le CSS pour les tweets de réponse
 - améliorer le CSS pour les retweets

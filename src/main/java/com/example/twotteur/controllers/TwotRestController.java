@@ -102,6 +102,20 @@ public class TwotRestController {
         }
         return 0;
     }
+    @PostMapping("/retwot")
+    public int retwot(@RequestParam("id") long id, @RequestParam("text") String text, HttpSession session){
+        boolean isLogged=false;
+        if(session.getAttribute("isLogged") != null) isLogged=(boolean)session.getAttribute("isLogged");
+        if(isLogged){
+            long userid=(long)session.getAttribute("userid");
+            if (retwotService.userAlreadyRT(id, userid)) {
+                if (retwotService.removeRT(id, userid)) return 2;
+            } else {
+                if (retwotService.addRTWithText(id, userid,text)) return 1;
+            }
+        }
+        return 0;
+    }
 
     @GetMapping("/didirt/{id}")
     public int didirt(@PathVariable long id,HttpSession session) {

@@ -116,3 +116,41 @@ function simpleretwot(id){
         document.getElementById("retwotbutton"+id).style.stroke="black";
     }
 }
+function retwotWithText(id){
+    document.getElementById("retwotmenu"+id).classList.toggle("hidden");
+    var div=document.createElement("div");
+    div.classList.add("answerForm");
+    div.classList.add("border-2");
+    div.classList.add("p-2");
+    div.classList.add("rounded-lg");
+    div.classList.add("mt-2");
+    div.classList.add("w-4/5");
+    div.classList.add("md:w-1/3");
+    div.classList.add("bg-blue-900");
+    div.classList.add("top-1/4");
+    div.classList.add("left-auto");
+    div.classList.add("md:left-1/3");
+    div.style.position="fixed";
+    div.style.zIndex="100";
+    div.innerHTML="<form id='retwotform"+id+"'>"+
+    "<input type=\"hidden\" name=\"id\" value=\""+id+"\"/>"+
+    "<textarea name=\"text\" placeholder=\"Ajouter un commentaire\" maxlength=\"140\" class='resize-none w-full bg-blue-900 border-2 pl-1 rounded-lg'></textarea><br>"+
+    "<button type='button' onclick='submitRetwot("+id+")' class='rounded-lg border-2 bg-blue-900 w-fit px-2 py-1 my-auto mt-2 hover:bg-blue-700'>Retwoter</button>"+
+    "</form>";
+    document.body.appendChild(div);
+    afficher_msg("retwotform"+id);
+}
+function submitRetwot(id){
+    var form=document.getElementById("retwotform"+id);
+    var formdata =new FormData(form);
+    xmlHttpReq.open("POST", "../retwot", false);
+    xmlHttpReq.send(formdata);
+    if(xmlHttpReq.responseText==1) {
+        var div=document.getElementById("retwotform"+id);
+        div.parentNode.remove();
+        fadeOut();
+        let compte=parseInt(document.getElementById("retwotcount"+id).innerHTML);
+        document.getElementById("retwotcount"+id).innerHTML=compte+1;
+        document.getElementById("retwotbutton"+id).style.stroke="green";
+    }
+}
