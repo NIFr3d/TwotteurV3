@@ -57,15 +57,20 @@ public class TwotService {
 
         return twotRepository.findById(id);
     }
-    public List<Twot> getAnswersByTwotId(long id) {
-        List<Twot> twots=new ArrayList<>();
-        if(getTwotById(id).isPresent()) {
-            for (AnswerAsso answer : answerAssoRepository.findByOriginaltwot(getTwotById(id).get())) {
-                twots.add(answer.getanswer());
-            }
+    public Twot getPreviousAnswerFromTwot(Twot original,Twot previousAnswer){
+        Twot result;
+        if(previousAnswer==null){
+            AnswerAsso rslt=answerAssoRepository.findFirstByOriginaltwotOrderByCreatedatDesc(original);
+            if(rslt!=null) result=rslt.getanswer();
+            else result=null;
+        }else{
+            AnswerAsso rslt=answerAssoRepository.findFirstByOriginaltwotAndCreatedatBeforeOrderByCreatedatDesc(original,previousAnswer.getDate());
+            if(rslt!=null )result=rslt.getanswer();
+            else result=null;
         }
-        return twots;
+        return result;
     }
+
     public Optional<User> getUserByTwotId(long id){
         Optional<User> user=Optional.empty();
         if(twotRepository.findById(id).isPresent()) user=Optional.of(twotRepository.findById(id).get().getUser());

@@ -144,6 +144,21 @@ public class TwotRestController {
         return result;
     }
 
+    @GetMapping("/getanswer/{id}/{previous}")
+    public String getAnswer(@PathVariable long id,@PathVariable long previous){
+        String result="{\"answer\":\"\"}";
+        if(twotService.getTwotById(id).isPresent()){
+            if(previous==-1){
+                Twot answer=twotService.getPreviousAnswerFromTwot(twotService.getTwotById(id).get(),null);
+                if(answer!=null) result="{\"answer\":\""+answer.getId()+"\"}";
+            }else if(twotService.getTwotById(previous).isPresent()){
+                Twot answer=twotService.getPreviousAnswerFromTwot(twotService.getTwotById(id).get(),twotService.getTwotById(previous).get());
+                if(answer!=null) result="{\"answer\":\""+answer.getId()+"\"}";
+            }
+        }
+        return result;
+    }
+
 
     private String convert(Object obj){
         String result="";

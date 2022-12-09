@@ -122,6 +122,7 @@
         </div>
         <div class="border-b-2 w-full"></div>
         <div id="twots"></div>
+        <button class="w-full p-2 bg-blue-700 text-white" onclick="load10()" id="loadmore">Charger plus</button>
         <p class="mt-2 w-full pl-2 hidden" id="notwots">
             Cet utilisateur n'as pas encore twotté.
         </p>
@@ -156,6 +157,9 @@
             count++;
             await loadMore();
         }
+        if(last.Type=="last"){
+            $("#loadmore").addClass("hidden");
+        }
     }
     init();
     async function loadMore(){
@@ -189,6 +193,15 @@
             });
         }else if(data.Type=="last" && count==0){
             $("#notwots").removeClass("hidden");
+        }
+    }
+    async function load10(){
+        for(var i=0;i<10;i++){
+            if(last.Type=="last") break;
+            await loadMore();
+        }
+        if(last.Type=="last"){
+            $("#loadmore").addClass("hidden");
         }
     }
 </script>

@@ -43,11 +43,6 @@ public class TwotController {
         ModelAndView mav=new ModelAndView();
         if(twotService.getTwotById(id).isPresent()) {
             mav.addObject("twot", twotService.getTwotById(id).get());
-            List<Long> twots = new ArrayList<>();
-            for (Twot twot : twotService.getAnswersByTwotId(id)) {
-                twots.add(twot.getId());
-            }
-            mav.addObject("twots", twots);
             if (twotService.getUserByTwotId(id).isPresent()) {
                 mav.addObject("user", twotService.getUserByTwotId(id).get());
             }

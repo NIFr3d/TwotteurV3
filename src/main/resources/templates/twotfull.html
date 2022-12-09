@@ -88,13 +88,14 @@
       </form>
     </div>
     <div class="border-b-2 w-full"></div>
-    <div th:if="${twots.size()>0}">
+    <div>
       <div id="answers"></div>
       <div class="w-full">
         <img id="loading_gif" src="../img/loading-gif.gif" class="mx-auto w-20 h-20"/>
       </div>
+      <button class="w-full p-2 bg-blue-700 text-white" onclick="load10()" id="loadmore">Charger plus</button>
     </div>
-    <p class="mt-2 w-11/12 mx-auto" th:unless="${twots.size()>0}">
+    <p class="mt-2 w-11/12 mx-auto hidden" id="noanswer">
       Ce twot n'as pas encore de réponses.
     </p>
     <button onclick="fadeOut()"><div id="overlay-back" style="position   : fixed;
@@ -111,17 +112,60 @@
   <div th:insert="fragments/rightsidebar :: rightsidebar" th:remove="tag"></div>
 </div>
 <script th:inline="javascript">
-  var twots=[[${twots}]];
-  twots.forEach(function(twot){
-    $.ajax({
-      url: "/smalltwot/" + twot,
-      type: "GET",
-      success: function (data) {
-        $("#answers").append(data);
+  $('#loading_gif').hide();
+  var last;
+  var count=0;
+  async function appendAnswer(data){
+    data=JSON.parse(data);
+    last=data;
+    if(data.answer!=""){
+      await $.ajax({
+        url: "/smalltwot/" + data.answer,
+        type: "GET",
+        success: function (data) {
+          $("#answers").append(data);
+        }
+      });
+    }else if(data.answer=="" && count==0){
+      $("#noanswer").removeClass("hidden");
+    }
+  }
+  async function loadMore(){
+    await $.ajax({
+      url:"/getanswer/"+[[${twot.getId()}]]+"/"+last.answer,
+      type:"GET",
+      success:function(data){
+        appendAnswer(data);
+      }
+    })
+  }
+  async function init(){
+    await $.ajax({
+      url:"/getanswer/"+[[${twot.getId()}]]+"/-1",
+      type:"GET",
+      success:function(data){
+        appendAnswer(data);
       }
     });
-  });
-  $('#loading_gif').hide();
+    while(count<10){
+      if(last.answer=="") break;
+      count++;
+      await loadMore();
+    }
+    if(last.answer==""){
+      $("#loadmore").addClass("hidden");
+    }
+  }
+  async function load10(){
+    for(var i=0;i<10;i++){
+      if(last.answer=="") break;
+      await loadMore();
+    }
+    if(last.answer==""){
+      $("#loadmore").addClass("hidden");
+    }
+  }
+  init();
 </script>
 </body>
 </html>

@@ -1,6 +1,9 @@
 package com.example.twotteur.models;
 
+import org.springframework.data.annotation.CreatedDate;
+
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 public class AnswerAsso {
@@ -14,12 +17,18 @@ public class AnswerAsso {
     @ManyToOne
     private Twot answer;
 
+    @CreatedDate
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
+    private Date createdat=new Date();
+
     public AnswerAsso(){
 
     }
     public AnswerAsso(Twot originaltwot,Twot answer){
         this.originaltwot=originaltwot;
         this.answer=answer;
+        this.createdat=new Date();
     }
     public Twot getanswer(){
         return this.answer;

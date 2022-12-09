@@ -14,9 +14,8 @@ import java.util.Optional;
 public interface TwotRepository extends JpaRepository<Twot, Long>  {
     List<Twot> findTwotsByUser(User user);
     Optional<Twot> findById(long id);
-
-
     Twot findFirstByUserOrderByCreatedatDesc(User user);
-
     Twot findFirstByUserAndCreatedatBeforeOrderByCreatedatDesc(User user, Date lastDate);
+
+
 }
