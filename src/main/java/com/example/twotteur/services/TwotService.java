@@ -1,13 +1,7 @@
 package com.example.twotteur.services;
 
-import com.example.twotteur.models.AnswerAsso;
-import com.example.twotteur.models.LikeAsso;
-import com.example.twotteur.models.Twot;
-import com.example.twotteur.models.User;
-import com.example.twotteur.repositories.AnswerAssoRepository;
-import com.example.twotteur.repositories.LikeRepository;
-import com.example.twotteur.repositories.TwotRepository;
-import com.example.twotteur.repositories.UserRepository;
+import com.example.twotteur.models.*;
+import com.example.twotteur.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +23,9 @@ public class TwotService {
 
     @Autowired
     private AnswerAssoRepository answerAssoRepository;
+
+    @Autowired
+    private RetwotRepository retwotRepository;
 
     public List<Twot> getTwots(User user){
         List<Twot> twots=new ArrayList<>();
@@ -156,6 +153,10 @@ public class TwotService {
                 List<LikeAsso> deletelikes = likeRepository.getByTwot(deletetwot);
                 for (LikeAsso like : deletelikes) {
                     likeRepository.delete(like);
+                }
+                List<Retwot> deleteretwots = retwotRepository.findByTwot(deletetwot);
+                for (Retwot retwot : deleteretwots) {
+                    retwotRepository.delete(retwot);
                 }
                 twotRepository.delete(deletetwot);
             }
