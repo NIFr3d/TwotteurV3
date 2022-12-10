@@ -1,14 +1,16 @@
 Backend :
 - page d'accueil : algorithme de recommandation
+- bouton delete de retwot
 Frontend :
-- fix l'affichage des retweets
 - finir le CSS pour le tweet depuis la page d'accueil
 - améliorer le CSS pour les tweets de réponse
 - améliorer le CSS pour les retweets
 - fix les width/height des pages pour éviter que le contenu ne dépasse
 
 
-Vérifier bugs sur l'inclusion en JS des tweets
+Vérifier bugs sur l'inclusion en JS des tweets sur Firefox
+Vérifier bugs de la page de profil (depuis l'ajout des RT)
+
 
 
 

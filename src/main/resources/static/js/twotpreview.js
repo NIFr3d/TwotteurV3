@@ -4,32 +4,50 @@ async function getanswto(twotid){
     let response = await fetch('../original/'+twotid);
     if (response.ok) {
         let json = await response.json();
-        document.getElementById("answto"+twotid).innerHTML="@"+json.user;
-        document.getElementById("url"+twotid).href="../twot/"+json.original;
-        if(window.location.pathname=="/twot/"+json.original) document.getElementById("answtodiv"+twotid).classList.add("hidden");
+        Array.from(document.getElementsByClassName("answto"+twotid)).forEach(function(element) {
+            element.innerHTML="@"+json.user;
+        });
+        Array.from(document.getElementsByClassName("url"+twotid)).forEach(function(element) {
+            element.href="../twot/"+json.original;
+        });
+        if(window.location.pathname=="/twot/"+json.original){
+            Array.from(document.getElementsByClassName("answtodiv"+twotid)).forEach(function(element) {
+                element.classList.add("hidden");
+            });
+        }
     }
 }
 function inittwot(twotid){
     xmlHttpReq.open("GET", "../countanswers/"+twotid, false);
     xmlHttpReq.send(null);
-    document.getElementById("answercount"+twotid).innerHTML=xmlHttpReq.responseText;
+    Array.from(document.getElementsByClassName("answercount"+twotid)).forEach(function(element) {
+        element.innerHTML=xmlHttpReq.responseText;
+    });
     xmlHttpReq.open("GET", "../countlikes/"+twotid, false);
     xmlHttpReq.send(null);
-    document.getElementById("likecount"+twotid).innerHTML=xmlHttpReq.responseText;
+    Array.from(document.getElementsByClassName("likecount"+twotid)).forEach(function(element) {
+        element.innerHTML=xmlHttpReq.responseText;
+    });
     xmlHttpReq.open("GET", "../didilike/"+twotid, false);
     xmlHttpReq.send(null);
     if(xmlHttpReq.responseText==1){
-        document.getElementById("likeicon"+twotid).style.fill="red";
-        document.getElementById("likeicon"+twotid).style.stroke="red";
+        Array.from(document.getElementsByClassName("likeicon"+twotid)).forEach(function (element) {
+            element.style.fill="red";
+            element.style.stroke="red";
+        });
     }
     xmlHttpReq.open("GET", "../didirt/"+twotid, false);
     xmlHttpReq.send(null);
     if(xmlHttpReq.responseText==1){
-        document.getElementById("retwotbutton"+twotid).style.stroke="green";
+        Array.from(document.getElementsByClassName("retwotbutton"+twotid)).forEach(function (element) {
+            element.style.stroke="green";
+        });
     }
     xmlHttpReq.open("GET", "../countretwots/"+twotid, false);
     xmlHttpReq.send(null);
-    document.getElementById("retwotcount"+twotid).innerHTML=xmlHttpReq.responseText;
+    Array.from(document.getElementsByClassName("retwotcount"+twotid)).forEach(function(element) {
+        element.innerHTML=xmlHttpReq.responseText;
+    });
 }
 function deleteTwot(id){
     xmlHttpReq.open("DELETE", "../twot", false);
@@ -37,23 +55,32 @@ function deleteTwot(id){
     formdata.append("id",id);
     xmlHttpReq.send(formdata);
     if(xmlHttpReq.responseText==1) {
-        var div=document.getElementById("twot"+id);
-        div.parentNode.removeChild(div);
+        Array.from(document.getElementsByClassName("twot"+id)).forEach(function(element) {
+            element.remove();
+        });
     }
 }
 function like(id){
     xmlHttpReq.open("GET", "../like/"+id, false);
     xmlHttpReq.send(null);
-    let compte=parseInt(document.getElementById("likecount"+id).innerHTML);
+    let compte=parseInt(document.getElementsByClassName("likecount"+id)[0].innerHTML);
     if(xmlHttpReq.responseText==1) {
-        document.getElementById("likecount"+id).innerHTML=compte+1;
-        document.getElementById("likeicon"+id).style.fill="red";
-        document.getElementById("likeicon"+id).style.stroke="red";
+        Array.from(document.getElementsByClassName("likecount"+id)).forEach(function(element) {
+            element.innerHTML=compte+1;
+        });
+        Array.from(document.getElementsByClassName("likeicon"+id)).forEach(function (element) {
+            element.style.fill="red";
+            element.style.stroke="red";
+        });
     }
     else if(xmlHttpReq.responseText==2) {
-        document.getElementById("likecount"+id).innerHTML=compte-1;
-        document.getElementById("likeicon"+id).style.fill="transparent";
-        document.getElementById("likeicon"+id).style.stroke="black";
+        Array.from(document.getElementsByClassName("likecount"+id)).forEach(function(element) {
+            element.innerHTML=compte-1;
+        });
+        Array.from(document.getElementsByClassName("likeicon"+id)).forEach(function (element) {
+            element.style.fill="transparent";
+            element.style.stroke="black";
+        });
     }
 }
 function afficher_msg(id) {
@@ -97,27 +124,47 @@ function initdate(id,javadate){
             else affichage="Hier";
         }
     }
-    document.getElementById("date"+id).innerHTML=affichage;
+    Array.from(document.getElementsByClassName("date"+id)).forEach(function(element) {
+        element.innerHTML=affichage;
+    });
 }
 function retwotmenu(id){
-    document.getElementById("retwotmenu"+id).classList.toggle("hidden");
+    if(document.getElementsByClassName("retwotbutton"+id)[0].style.stroke=="green"){
+        simpleretwot(id);
+    }else{
+        Array.from(document.getElementsByClassName("retwotmenu"+id)).forEach(function(element) {
+            element.classList.toggle("hidden");
+        });
+    }
 }
 function simpleretwot(id){
-    document.getElementById("retwotmenu"+id).classList.toggle("hidden");
+    Array.from(document.getElementsByClassName("retwotmenu"+id)).forEach(function(element) {
+        element.classList.add("hidden");
+    });
     xmlHttpReq.open("GET", "../simpleretwot/"+id, false);
     xmlHttpReq.send(null);
-    let compte=parseInt(document.getElementById("retwotcount"+id).innerHTML);
+    let compte=parseInt(document.getElementsByClassName("retwotcount"+id)[0].innerHTML);
     if(xmlHttpReq.responseText==1) {
-        document.getElementById("retwotcount"+id).innerHTML=compte+1;
-        document.getElementById("retwotbutton"+id).style.stroke="green";
+        Array.from(document.getElementsByClassName("retwotcount"+id)).forEach(function(element) {
+            element.innerHTML=compte+1;
+        });
+        Array.from(document.getElementsByClassName("retwotbutton"+id)).forEach(function (element) {
+            element.style.stroke="green";
+        });
     }
     else if(xmlHttpReq.responseText==2) {
-        document.getElementById("retwotcount"+id).innerHTML=compte-1;
-        document.getElementById("retwotbutton"+id).style.stroke="black";
+        Array.from(document.getElementsByClassName("retwotcount"+id)).forEach(function(element) {
+            element.innerHTML=compte-1;
+        });
+        Array.from(document.getElementsByClassName("retwotbutton"+id)).forEach(function (element) {
+            element.style.stroke="black";
+        });
     }
 }
 function retwotWithText(id){
-    document.getElementById("retwotmenu"+id).classList.toggle("hidden");
+    Array.from(document.getElementsByClassName("retwotmenu"+id)).forEach(function(element) {
+        element.classList.add("hidden");
+    });
     var div=document.createElement("div");
     div.classList.add("answerForm");
     div.classList.add("border-2");
@@ -149,8 +196,12 @@ function submitRetwot(id){
         var div=document.getElementById("retwotform"+id);
         div.parentNode.remove();
         fadeOut();
-        let compte=parseInt(document.getElementById("retwotcount"+id).innerHTML);
-        document.getElementById("retwotcount"+id).innerHTML=compte+1;
-        document.getElementById("retwotbutton"+id).style.stroke="green";
+        let compte=parseInt(document.getElementsByClassName("retwotcount"+id)[0].innerHTML);
+        Array.from(document.getElementsByClassName("retwotcount"+id)).forEach(function(element) {
+            element.innerHTML=compte+1;
+        });
+        Array.from(document.getElementsByClassName("retwotbutton"+id)).forEach(function (element) {
+            element.style.stroke="green";
+        });
     }
 }
