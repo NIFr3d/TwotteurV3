@@ -58,12 +58,4 @@ public class RetwotService {
         }
         return false;
     }
-    public boolean addRTWithText(long id,long userid,String text){
-        Optional<Retwot> retwot=retwotRepository.findByTwotAndUser(twotRepository.findById(id).get(),userRepository.findById(userid).get());
-        if(!retwot.isPresent()) {
-            retwotRepository.save(new Retwot(userRepository.findById(userid).get(),text, twotRepository.findById(id).get()));
-            return true;
-        }
-        return false;
-    }
 }

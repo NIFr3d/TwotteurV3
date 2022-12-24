@@ -1,6 +1,6 @@
 Backend :
 - page d'accueil : algorithme de recommandation
-- bouton delete de retwot
+- finir les quotes twot (supprimer les boutons du twot original et l'afficher depuis twotfull)
 Frontend :
 - finir le CSS pour le tweet depuis la page d'accueil
 - améliorer le CSS pour les tweets de réponse

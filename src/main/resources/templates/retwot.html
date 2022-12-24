@@ -1,19 +1,5 @@
 <div class="w-full p-2 md:border-x">
-    <div th:if="${retwot.getText()==null}">
-        <h1 th:text="${user.getnickname()+' a retwoté'}" class="font-bold"></h1>
-    </div>
-    <div th:if="${retwot.getText()!=null}" class="flex flex-row">
-        <div class="mt-2">
-            <img th:src="${user.getPicture()}" class="w-12 h-10 rounded-full"/>
-        </div>
-        <div class="w-full ml-2">
-            <p>
-                <span class="font-bold" th:text="${user.getnickname()}"></span>
-                <span class="font-light" th:text="'@'+${user.getusername()}"></span>
-            </p>
-            <p th:text="${retwot.getText()}"></p>
-        </div>
-    </div>
+    <h1 th:text="${user.getnickname()+' a retwoté'}" class="font-bold"></h1>
     <div th:insert="smalltwot :: twot" class="pl-8 pt-4"></div>
 </div>
 <div class="border-b w-full"></div>

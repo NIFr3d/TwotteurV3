@@ -108,10 +108,9 @@ public class TwotRestController {
         if(session.getAttribute("isLogged") != null) isLogged=(boolean)session.getAttribute("isLogged");
         if(isLogged){
             long userid=(long)session.getAttribute("userid");
-            if (retwotService.userAlreadyRT(id, userid)) {
-                if (retwotService.removeRT(id, userid)) return 2;
-            } else {
-                if (retwotService.addRTWithText(id, userid,text)) return 1;
+            if(twotService.getTwotById(id).isPresent() && userService.getUserById(userid).isPresent()){
+                twotService.newQuoteTweet(userService.getUserById(userid).get(),text,twotService.getTwotById(id).get());
+                return 1;
             }
         }
         return 0;

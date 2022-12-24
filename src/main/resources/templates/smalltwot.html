@@ -65,7 +65,26 @@
             </div>
         </div>
     </div>
-
+    <div th:if="${twot.isretwot()}">
+        <div id="originalQuote" class="pl-4"></div>
+        <script th:inline="javascript">
+            async function loadOriginal(){
+                let response = await fetch('../original/'+[[${twot.getId()}]]);
+                if (response.ok) {
+                    let json = await response.json();
+                    var original = json.original;
+                    await $.ajax({
+                        url: "/smalltwot/" + original,
+                        type: "GET",
+                        success: function (data) {
+                            $("#originalQuote").append(data);
+                        }
+                    });
+                }
+            }
+            loadOriginal();
+        </script>
+    </div>
     <form action="/answer" method="post" style="
             position:fixed;
             height:auto;

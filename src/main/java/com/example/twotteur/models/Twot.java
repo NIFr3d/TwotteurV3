@@ -18,6 +18,9 @@ public class Twot{
     @Column(nullable=false)
     private boolean isanswer=false;
 
+    @Column(nullable=false)
+    private boolean isretwot=false;
+
     @ManyToOne
     private User user;
 
@@ -44,6 +47,11 @@ public class Twot{
         this.text=text;
         this.isanswer=isanswer;
     }
+    public Twot(boolean isretwot,User user,String text){
+        this.user=user;
+        this.text=text;
+        this.isretwot=isretwot;
+    }
 
     public long getId(){
         return this.id;
@@ -54,4 +62,5 @@ public class Twot{
     }
 
     public boolean isanswer(){return this.isanswer;}
+    public boolean isretwot(){return this.isretwot;}
 }

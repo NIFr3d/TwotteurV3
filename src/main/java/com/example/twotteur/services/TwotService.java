@@ -40,12 +40,16 @@ public class TwotService {
         }
         return ids;
     }
-
     public void newTweet(User user, String text) {
         twotRepository.save(new Twot(user,text,false));
     }
     public void newAnswer(User user,String text,Twot twot){
         Twot newtwot=new Twot(user,text,true);
+        twotRepository.save(newtwot);
+        answerAssoRepository.save(new AnswerAsso(twot,newtwot));
+    }
+    public void newQuoteTweet(User user,String text,Twot twot){
+        Twot newtwot=new Twot(true,user,text);
         twotRepository.save(newtwot);
         answerAssoRepository.save(new AnswerAsso(twot,newtwot));
     }

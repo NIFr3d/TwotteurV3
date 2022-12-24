@@ -11,9 +11,6 @@ public class Retwot {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column
-    private String text;
-
     @ManyToOne
     private User user;
 
@@ -32,17 +29,9 @@ public class Retwot {
         this.twot=twot;
     }
 
-    public Retwot(User user, String text,Twot twot){
-        this.user=user;
-        this.text=text;
-        this.twot=twot;
-    }
 
     public long getId(){
         return this.id;
-    }
-    public String getText(){
-        return this.text;
     }
     public Date getDate(){
         return this.createdat;
