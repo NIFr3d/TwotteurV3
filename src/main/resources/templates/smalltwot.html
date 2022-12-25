@@ -27,6 +27,26 @@
             <a th:href="'../twot/'+${twot.getId()}" class="w-full">
                 <p th:text="${twot.getText()}"></p>
             </a>
+            <div th:if="${twot.isretwot()}">
+                <div th:id="${'originalQuote'+twot.getId()}" class="pl-4"></div>
+                <script th:inline="javascript">
+                    async function loadOriginal(){
+                        let response = await fetch('../originalfromretwot/'+[[${twot.getId()}]]);
+                        if (response.ok) {
+                            let json = await response.json();
+                            var original = json.original;
+                            await $.ajax({
+                                url: "/smalltwot/" + original,
+                                type: "GET",
+                                success: function (data) {
+                                    $("#originalQuote"+[[${twot.getId()}]]).append(data);
+                                }
+                            });
+                        }
+                    }
+                    loadOriginal();
+                </script>
+            </div>
             <div class="relative">
                 <button class="mr-2 mt-1" th:onclick="'like('+${twot.getId()}+')'">
                     <svg x="0px" y="0px" fill="transparent" stroke="black" stroke-width="3px" viewBox="-2 0 48.743 48.743" style="enable-background:new 0 0 471.701 471.701;" xml:space="preserve" width="20" height="20">
@@ -64,26 +84,6 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div th:if="${twot.isretwot()}">
-        <div id="originalQuote" class="pl-4"></div>
-        <script th:inline="javascript">
-            async function loadOriginal(){
-                let response = await fetch('../original/'+[[${twot.getId()}]]);
-                if (response.ok) {
-                    let json = await response.json();
-                    var original = json.original;
-                    await $.ajax({
-                        url: "/smalltwot/" + original,
-                        type: "GET",
-                        success: function (data) {
-                            $("#originalQuote").append(data);
-                        }
-                    });
-                }
-            }
-            loadOriginal();
-        </script>
     </div>
     <form action="/answer" method="post" style="
             position:fixed;

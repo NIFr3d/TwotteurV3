@@ -87,6 +87,15 @@ public class TwotRestController {
         }
         return result;
     }
+    @GetMapping("/originalfromretwot/{id}")
+    public String originalByRetwotId(@PathVariable long id) {
+        String result = "";
+        if (twotService.getOriginalByRetwot(id).isPresent()) {
+            Twot twot= twotService.getOriginalByRetwot(id).get();
+            result="{\"original\":\""+twot.getId()+"\"}";
+        }
+        return result;
+    }
 
     @GetMapping("/simpleretwot/{id}")
     public int simpleretwot(@PathVariable long id,HttpSession session) {

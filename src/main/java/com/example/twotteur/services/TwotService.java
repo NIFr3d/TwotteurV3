@@ -11,21 +11,18 @@ import java.util.Optional;
 
 @Service
 public class TwotService {
-
     @Autowired
     private TwotRepository twotRepository;
-
     @Autowired
     private LikeRepository likeRepository;
-
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private AnswerAssoRepository answerAssoRepository;
-
     @Autowired
     private RetwotRepository retwotRepository;
+    @Autowired
+    private RetwotAssoRepository retwotAssoRepository;
 
     public List<Twot> getTwots(User user){
         List<Twot> twots=new ArrayList<>();
@@ -51,7 +48,7 @@ public class TwotService {
     public void newQuoteTweet(User user,String text,Twot twot){
         Twot newtwot=new Twot(true,user,text);
         twotRepository.save(newtwot);
-        answerAssoRepository.save(new AnswerAsso(twot,newtwot));
+        retwotAssoRepository.save(new RetwotAsso(twot,newtwot));
     }
 
     public Optional<Twot> getTwotById(long id){
@@ -86,6 +83,15 @@ public class TwotService {
             }
         }
 
+        return result;
+    }
+    public Optional<Twot> getOriginalByRetwot(long id){
+        Optional<Twot> result=Optional.empty();
+        if(twotRepository.findById(id).isPresent()){
+            if(retwotAssoRepository.findByRetwot(twotRepository.findById(id).get()).isPresent()){
+                result=Optional.of(retwotAssoRepository.findByRetwot(twotRepository.findById(id).get()).get().getoriginal());
+            }
+        }
         return result;
     }
 
