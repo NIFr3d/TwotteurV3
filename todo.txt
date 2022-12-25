@@ -1,6 +1,7 @@
 Backend :
 - page d'accueil : algorithme de recommandation
 - finir les quotes twot (supprimer les boutons du twot original et l'afficher depuis twotfull)
+- ajouter des sécurités (ex : que ce passe-t-il si on supprime un compte utilisateur ? Ces tweets sont-ils supprimés ? Sinon, sont-ils toujours accessibles ?)
 Frontend :
 - finir le CSS pour le tweet depuis la page d'accueil
 - améliorer le CSS pour les tweets de réponse

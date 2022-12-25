@@ -59,6 +59,7 @@ public class TwotController {
         ModelAndView mav=new ModelAndView();
         if(twotService.getTwotById(id).isPresent()) {
             mav.addObject("twot", twotService.getTwotById(id).get());
+            mav.addObject("isLastRT",twotService.isLastRT(twotService.getTwotById(id).get()));
             if (twotService.getUserByTwotId(id).isPresent()) {
                 mav.addObject("user", twotService.getUserByTwotId(id).get());
             }

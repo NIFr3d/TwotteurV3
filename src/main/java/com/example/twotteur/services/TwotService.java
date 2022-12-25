@@ -172,4 +172,8 @@ public class TwotService {
             }
         }
     }
+
+    public boolean isLastRT(Twot twot) {
+        return(!retwotAssoRepository.findByOriginaltwot(twot).isPresent());
+    }
 }

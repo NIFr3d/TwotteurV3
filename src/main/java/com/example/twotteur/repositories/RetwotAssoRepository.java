@@ -11,5 +11,6 @@ import java.util.Optional;
 public interface RetwotAssoRepository extends JpaRepository<RetwotAsso, Long> {
 
     Optional<RetwotAsso> findByRetwot(Twot twot);
+    Optional<RetwotAsso> findByOriginaltwot(Twot twot);
 }
 
