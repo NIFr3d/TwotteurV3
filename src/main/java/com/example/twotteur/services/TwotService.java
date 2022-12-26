@@ -156,10 +156,24 @@ public class TwotService {
                 }
                 toTreat = newtreat;
             }
+            List<RetwotAsso> toTreat2 = new ArrayList<>();
+            for (RetwotAsso retwotAsso : retwotAssoRepository.getRetwotAssosByOriginaltwot(twot)){
+                toTreat2.add(retwotAsso);
+            }
+            while (toTreat2.size() > 0) {
+                List<RetwotAsso> newtreat = new ArrayList<>();
+                for (RetwotAsso retwotAsso : toTreat2) {
+                    newtreat.addAll(retwotAssoRepository.getRetwotAssosByOriginaltwot(retwotAsso.getretwot()));
+                    toDelete.add(retwotAsso.getretwot());
+                }
+                toTreat2 = newtreat;
+            }
             for (int i = 1; i <= toDelete.size(); i++) {
                 Twot deletetwot = toDelete.get(toDelete.size() - i);
                 if (answerAssoRepository.findByAnswer(deletetwot).isPresent())
                     answerAssoRepository.delete(answerAssoRepository.findByAnswer(deletetwot).get());
+                if (retwotAssoRepository.findByRetwot(deletetwot).isPresent())
+                    retwotAssoRepository.delete(retwotAssoRepository.findByRetwot(deletetwot).get());
                 List<LikeAsso> deletelikes = likeRepository.getByTwot(deletetwot);
                 for (LikeAsso like : deletelikes) {
                     likeRepository.delete(like);
