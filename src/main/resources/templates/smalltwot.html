@@ -28,7 +28,7 @@
                 <p th:text="${twot.getText()}"></p>
             </a>
             <div th:if="${twot.isretwot() && isLastRT}">
-                <div th:id="${'originalQuote'+twot.getId()}" class="pl-4"></div>
+                <div th:id="${'originalQuote'+twot.getId()}" class="border-t"></div>
                 <script th:inline="javascript">
                     async function loadOriginal(){
                         let response = await fetch('../originalfromretwot/'+[[${twot.getId()}]]);
