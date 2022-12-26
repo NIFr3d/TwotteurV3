@@ -1,7 +1,6 @@
 Backend :
 - page d'accueil : algorithme de recommandation
 - finir les quotes twot (l'afficher depuis twotfull, améliorer l'affichage)
-- résoudre bug des quotes rt : seul le dernier rt est affiché (ex : si on rt un rt, le premier rt n'affiche pas l'original)
 - ajouter des sécurités (ex : que ce passe-t-il si on supprime un compte utilisateur ? Ces tweets sont-ils supprimés ? Sinon, sont-ils toujours accessibles ?)
 Frontend :
 - finir le CSS pour le tweet depuis la page d'accueil

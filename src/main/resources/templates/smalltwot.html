@@ -27,7 +27,7 @@
             <a th:href="'../twot/'+${twot.getId()}" class="w-full">
                 <p th:text="${twot.getText()}"></p>
             </a>
-            <div th:if="${twot.isretwot()}">
+            <div th:if="${twot.isretwot() && isLastRT}">
                 <div th:id="${'originalQuote'+twot.getId()}" class="pl-4"></div>
                 <script th:inline="javascript">
                     async function loadOriginal(){
@@ -36,7 +36,7 @@
                             let json = await response.json();
                             var original = json.original;
                             await $.ajax({
-                                url: "/smalltwot/" + original,
+                                url: "/smalltwotnort/" + original,
                                 type: "GET",
                                 success: function (data) {
                                     $("#originalQuote"+[[${twot.getId()}]]).append(data);

@@ -59,7 +59,23 @@ public class TwotController {
         ModelAndView mav=new ModelAndView();
         if(twotService.getTwotById(id).isPresent()) {
             mav.addObject("twot", twotService.getTwotById(id).get());
-            mav.addObject("isLastRT",twotService.isLastRT(twotService.getTwotById(id).get()));
+            mav.addObject("isLastRT",true);
+            if (twotService.getUserByTwotId(id).isPresent()) {
+                mav.addObject("user", twotService.getUserByTwotId(id).get());
+            }
+            mav.setViewName("smalltwot");
+        }else{
+            mav.addObject("status",404);
+            mav.setViewName("error");
+        }
+        return mav;
+    }
+    @GetMapping(value="/smalltwotnort/{id}")
+    public ModelAndView smallTwotNoRT(@PathVariable long id){
+        ModelAndView mav=new ModelAndView();
+        if(twotService.getTwotById(id).isPresent()) {
+            mav.addObject("twot", twotService.getTwotById(id).get());
+            mav.addObject("isLastRT",false);
             if (twotService.getUserByTwotId(id).isPresent()) {
                 mav.addObject("user", twotService.getUserByTwotId(id).get());
             }
