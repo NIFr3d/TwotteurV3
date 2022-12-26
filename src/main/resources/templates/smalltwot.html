@@ -12,8 +12,10 @@
         </div>
         <div class="w-full ml-2">
             <p>
+                <a th:href="${'../user/'+user.getusername()}">
                 <span class="font-bold" th:text="${user.getnickname()}"></span>
                 <span class="font-light" th:text="'@'+${user.getusername()}"></span>
+                </a>
                 <span th:class="'date'+${twot.getId()}+' float-right mr-2'"></span>
                 <span class="float-right mr-2">
               <button th:if="${user.getId()==session.userid}" th:onclick="'deleteTwot('+${twot.getId()}+')'" class="">

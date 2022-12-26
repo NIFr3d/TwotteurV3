@@ -139,7 +139,7 @@ public class TwotRestController {
     @GetMapping("/countretwots/{id}")
     public int countRetwots(@PathVariable long id){
         if(twotService.getTwotById(id).isPresent()){
-            return retwotService.getRetwotCount(twotService.getTwotById(id).get());
+            return retwotService.getRetwotCount(twotService.getTwotById(id).get())+twotService.getRetwotCount(twotService.getTwotById(id).get());
         }
         return 0;
     }

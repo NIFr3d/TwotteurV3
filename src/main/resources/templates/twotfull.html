@@ -25,8 +25,10 @@
           <img th:src="${user.getPicture()}" class="w-12 h-10 rounded-full"/>
         </div>
         <div class="w-full pl-2">
+          <a th:href="${'../user/'+user.getusername()}">
           <span class="font-bold" th:text="${user.getnickname()}"></span>
           <span class="font-light" th:text="'@'+${user.getusername()}"></span>
+          </a>
           <span th:if="${user.getid()==session.userid}" class="float-right mt-2">
             <button th:onclick="'deleteFullTwot('+${twot.getId()}+')'" class="">
               <svg width="24px" height="24px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -36,6 +38,26 @@
             </button>
           </span>
           <p th:text="${twot.getText()}"></p>
+          <div th:if="${twot.isretwot()}">
+            <div th:id="${'originalQuote'+twot.getId()}" class="border-t"></div>
+            <script th:inline="javascript">
+              async function loadOriginal(){
+                let response = await fetch('../originalfromretwot/'+[[${twot.getId()}]]);
+                if (response.ok) {
+                  let json = await response.json();
+                  var original = json.original;
+                  await $.ajax({
+                    url: "/smalltwotnort/" + original,
+                    type: "GET",
+                    success: function (data) {
+                      $("#originalQuote"+[[${twot.getId()}]]).append(data);
+                    }
+                  });
+                }
+              }
+              loadOriginal();
+            </script>
+          </div>
           <p th:with="date=${twot.getDate().toString()}" class="text-l font-sm italic text-right">
             <span th:text="${date.substring(11,13)}"></span>:<span th:text="${date.substring(14,16)}"></span>:<span th:text="${date.substring(17,19)}"></span>
             <span th:text="${date.substring(8,10)}"></span>/<span th:text="${date.substring(5,7)}"></span>/<span th:text="${date.substring(0,4)}"></span>

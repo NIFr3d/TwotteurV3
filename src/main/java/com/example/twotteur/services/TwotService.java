@@ -186,4 +186,8 @@ public class TwotService {
             }
         }
     }
+
+    public int getRetwotCount(Twot twot) {
+        return retwotAssoRepository.getRetwotAssosByOriginaltwot(twot).size();
+    }
 }
