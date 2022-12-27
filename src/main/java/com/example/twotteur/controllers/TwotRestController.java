@@ -2,13 +2,12 @@ package com.example.twotteur.controllers;
 
 import com.example.twotteur.models.Twot;
 import com.example.twotteur.models.Retwot;
-import com.example.twotteur.services.RetwotService;
-import com.example.twotteur.services.TwotRetwotService;
-import com.example.twotteur.services.TwotService;
-import com.example.twotteur.services.UserService;
+import com.example.twotteur.models.User;
+import com.example.twotteur.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @RestController
 public class TwotRestController {
@@ -22,6 +21,9 @@ public class TwotRestController {
 
     @Autowired
     private TwotRetwotService trtService;
+
+    @Autowired
+    private FollowService followService;
 
     @GetMapping(value="/countanswers/{id}")
     public int countAnswer(@PathVariable long id){
@@ -161,6 +163,33 @@ public class TwotRestController {
             } else if(type.equals("last")){
                 Object rsl=trtService.getPreviousFromUser(userService.getUserById(user).get(),null);
                 result=convert(rsl);
+            }
+        }
+        return result;
+    }
+    @GetMapping("/getprevioustimeline/{type}/{id}")
+    public String getPreviousTimeline(@PathVariable String type,@PathVariable long id, HttpSession session) {
+        String result = "";
+        boolean isLogged=false;
+        if (session.getAttribute("isLogged") != null) isLogged = (boolean) session.getAttribute("isLogged");
+        if (isLogged) {
+            long userid = (long) session.getAttribute("userid");
+            if (userService.getUserById(userid).isPresent()){
+                List<User> following=followService.getfollowed(userService.getUserById(userid).get());
+                if (type.equals("twot")) {
+                    if (twotService.getTwotById(id).isPresent()) {
+                        Object rsl=trtService.getPreviousFromUsers(following,twotService.getTwotById(id).get());
+                        result=convert(rsl);
+                    }
+                } else if (type.equals("retwot")) {
+                    if (retwotService.getById(id).isPresent()) {
+                        Object rsl=trtService.getPreviousFromUsers(following,retwotService.getById(id).get());
+                        result=convert(rsl);
+                    }
+                } else if(type.equals("last")){
+                    Object rsl=trtService.getPreviousFromUsers(following,null);
+                    result=convert(rsl);
+                }
             }
         }
         return result;

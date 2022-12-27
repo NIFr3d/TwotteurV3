@@ -23,5 +23,9 @@ public interface RetwotRepository extends JpaRepository<Retwot, Long>  {
     Retwot findFirstByUserAndCreatedatBeforeOrderByCreatedatDesc(User user, Date lastDate);
 
     List<Retwot> findByTwot(Twot twot);
+
+    Retwot findFirstByUserIsInOrderByCreatedatDesc(List<User> users);
+
+    Retwot findFirstByUserIsInAndCreatedatBeforeOrderByCreatedatDesc(List<User> users, Date lastDate);
 }
 

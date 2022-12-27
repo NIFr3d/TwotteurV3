@@ -17,5 +17,7 @@ public interface TwotRepository extends JpaRepository<Twot, Long>  {
     Twot findFirstByUserOrderByCreatedatDesc(User user);
     Twot findFirstByUserAndCreatedatBeforeOrderByCreatedatDesc(User user, Date lastDate);
 
+    Twot findFirstByUserIsInOrderByCreatedatDesc(List<User> users);
 
+    Twot findFirstByUserIsInAndCreatedatBeforeOrderByCreatedatDesc(List<User> users, Date lastDate);
 }

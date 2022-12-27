@@ -4,21 +4,95 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/css/tailwind.css}" />
-    <title>Twotteur</title>
+    <title>Twotteur - Accueil</title>
+    <script th:src="@{/js/twotpreview.js}"></script>
+    <script th:src="@{/js/jquery-3.6.1.min.js}"></script>
 </head>
 <body class="text-gray-300 bg-blue-900 h-screen w-screen">
 <div class="flex h-screen w-full">
     <div th:insert="fragments/leftsidebar :: leftsidebar" th:remove="tag"></div>
     <div class="w-full md:p-4 md:mt-8 md:w-2/5 md:max-w-lg">
-        <form class="border-2 rounded-lg mt-2 w-full px-2 " action="../twot" method="post" th:if="${session.isLogged==true}">
-            <textarea class="w-full rounded-lg resize-none bg-blue-900 pl-1 mt-2 mb-3 border-2" name="text" placeholder="Quoi de neuf ?" required></textarea>
-            <input type="hidden" name="id" th:value="${session.userid}" />
-            <div class="w-full justify-items-center">
-                <button type="submit" class="rounded-lg w-fit bg-blue-900 mb-2 my-auto border-2 px-2 py-1 hover:bg-blue-700">Twoter</button>
-            </div>
-        </form>
+        <div class="">
+            <form class="border-2 rounded-lg mt-2 w-full px-2 " action="../twot" method="post" th:if="${session.isLogged==true}">
+                <textarea class="w-full rounded-lg resize-none bg-blue-900 pl-1 mt-2 mb-3 border-2" name="text" placeholder="Quoi de neuf ?" required></textarea>
+                <input type="hidden" name="id" th:value="${session.userid}" />
+                <div class="w-full justify-items-center">
+                    <button type="submit" class="rounded-lg w-fit bg-blue-900 mb-2 my-auto border-2 px-2 py-1 hover:bg-blue-700">Twoter</button>
+                </div>
+            </form>
+        </div>
+        <div id="twots"></div>
+        <div class="w-full">
+            <img id="loading_gif" src="../img/loading-gif.gif" class="mx-auto w-20 h-20"/>
+        </div>
+        <button class="w-full p-2 bg-blue-700 text-white" onclick="load10()" id="loadmore">Charger plus</button>
     </div>
     <div th:insert="fragments/rightsidebar :: rightsidebar" th:remove="tag"></div>
 </div>
 </body>
+<script>
+    $('#loading_gif').hide();
+    var last;
+    var count=0;
+    async function init(){
+        await $.ajax({
+            url:"/getprevioustimeline/last/0",
+            type:"GET",
+            success:function(data){
+                appendTwot(data);
+            }
+        });
+        while(count<10){
+            if(last.Type=="last") break;
+            count++;
+            await loadMore();
+        }
+        if(last.Type=="last"){
+            $("#loadmore").addClass("hidden");
+        }
+    }
+    init();
+    async function loadMore(){
+        await $.ajax({
+            url:"/getprevioustimeline/"+last.Type+"/"+last.Id,
+            type:"GET",
+            success:function(data){
+                appendTwot(data);
+            }
+        })
+    }
+    async function appendTwot(data){
+        data=JSON.parse(data);
+        last=data;
+        if(data.Type=="twot"){
+            await $.ajax({
+                url: "/smalltwot/" + data.Id,
+                type: "GET",
+                success: function (data) {
+                    $("#twots").append(data);
+                }
+            });
+        }
+        else if(data.Type=="retwot"){
+            await $.ajax({
+                url: "/retwot/" + data.Id,
+                type: "GET",
+                success: function (data) {
+                    $("#twots").append(data);
+                }
+            });
+        }else if(data.Type=="last" && count==0){
+            $("#notwots").removeClass("hidden");
+        }
+    }
+    async function load10(){
+        for(var i=0;i<10;i++){
+            if(last.Type=="last") break;
+            await loadMore();
+        }
+        if(last.Type=="last"){
+            $("#loadmore").addClass("hidden");
+        }
+    }
+</script>
 </html>

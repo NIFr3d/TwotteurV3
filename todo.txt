@@ -1,6 +1,6 @@
 Backend :
-- page d'accueil : algorithme de recommandation
 - ajouter des sécurités (ex : que ce passe-t-il si on supprime un compte utilisateur ? Ces tweets sont-ils supprimés ? Sinon, sont-ils toujours accessibles ?)
+- vérifier l'absence de bugs sur l'algorithme de recommandation de la page d'accueil
 Frontend :
 - finir le CSS pour le tweet depuis la page d'accueil
 - améliorer le CSS pour les tweets de réponse
