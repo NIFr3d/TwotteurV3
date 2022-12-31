@@ -1,5 +1,3 @@
-let xmlHttpReq = new XMLHttpRequest();
-
 async function getanswto(twotid){
     let response = await fetch('../original/'+twotid);
     if (response.ok) {
@@ -18,6 +16,7 @@ async function getanswto(twotid){
     }
 }
 function inittwot(twotid){
+    var xmlHttpReq = new XMLHttpRequest();
     xmlHttpReq.open("GET", "../countanswers/"+twotid, false);
     xmlHttpReq.send(null);
     Array.from(document.getElementsByClassName("answercount"+twotid)).forEach(function(element) {
@@ -50,6 +49,7 @@ function inittwot(twotid){
     });
 }
 function deleteTwot(id){
+    var xmlHttpReq = new XMLHttpRequest();
     xmlHttpReq.open("DELETE", "../twot", false);
     var formdata =new FormData();
     formdata.append("id",id);
@@ -61,6 +61,7 @@ function deleteTwot(id){
     }
 }
 function like(id){
+    var xmlHttpReq = new XMLHttpRequest();
     xmlHttpReq.open("GET", "../like/"+id, false);
     xmlHttpReq.send(null);
     let compte=parseInt(document.getElementsByClassName("likecount"+id)[0].innerHTML);
@@ -114,8 +115,8 @@ function initdate(id,javadate){
     var now=new Date();
     var timedif=now.getTime()-jsdate.getTime();
     if(timedif>86400000){
-        if(jsdate.getUTCDate()<10) affichage=jsdate.getMonth()+"/0"+jsdate.getUTCDate();
-        else affichage=jsdate.getMonth()+"/"+jsdate.getUTCDate();
+        if(jsdate.getUTCDate()<10) affichage="0"+jsdate.getUTCDate()+"/"+jsdate.getMonth();
+        else affichage=jsdate.getUTCDate()+"/"+jsdate.getMonth();
     }else{
         if(timedif<3600000){
             affichage=Math.round(Math.abs(timedif/(1000*60))%60)+"min";
@@ -138,6 +139,7 @@ function retwotmenu(id){
     }
 }
 function simpleretwot(id){
+    var xmlHttpReq = new XMLHttpRequest();
     Array.from(document.getElementsByClassName("retwotmenu"+id)).forEach(function(element) {
         element.classList.add("hidden");
     });
@@ -188,6 +190,7 @@ function retwotWithText(id){
     afficher_msg("retwotform"+id);
 }
 function submitRetwot(id){
+    var xmlHttpReq = new XMLHttpRequest();
     var form=document.getElementById("retwotform"+id);
     var formdata =new FormData(form);
     xmlHttpReq.open("POST", "../retwot", false);
