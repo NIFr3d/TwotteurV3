@@ -2,7 +2,7 @@
     <div th:fragment="twot">
     <div th:if="${twot.isanswer()}" th:class="'answtodiv'+${twot.getId()}">
         <a href="" th:class="'text-blue-500 url'+${twot.getId()}">Voir le twot original</a>
-        <p th:if="${twot.isanswer()}">Répond à <span th:class="'answto'+${twot.getId()}"></span>
+        <p th:if="${twot.isanswer()}" class="text-slate-400 italic">Répond à <span th:class="'answto'+${twot.getId()}"></span>
             <script th:inline="javascript">getanswto([[${twot.getId()}]]);</script>
         </p>
     </div>
