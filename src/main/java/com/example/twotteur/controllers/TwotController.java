@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,9 +32,12 @@ public class TwotController {
 
 
     @PostMapping(value="/answer")
-    public RedirectView answer(@RequestParam("userid") String userid, @RequestParam("originalid") long originalid, @RequestParam("text") String text, HttpServletRequest request){
-        if(userService.getUserByusername(userid).isPresent() && twotService.getTwotById(originalid).isPresent()) {
-            twotService.newAnswer(userService.getUserByusername(userid).get(), text, twotService.getTwotById(originalid).get());
+    public RedirectView answer(@RequestParam("originalid") long originalid, @RequestParam("text") String text, HttpServletRequest request, HttpSession session){
+        boolean isLogged=false;
+        if(session.getAttribute("isLogged") != null) isLogged=(boolean)session.getAttribute("isLogged");
+        if(isLogged && twotService.getTwotById(originalid).isPresent()){
+            long userid=(long)session.getAttribute("userid");
+            twotService.newAnswer(userService.getUserById(userid).get(),text,twotService.getTwotById(originalid).get());
         }
         return new RedirectView(request.getHeader("referer"));
     }

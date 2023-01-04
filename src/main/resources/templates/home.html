@@ -12,8 +12,9 @@
 <div class="flex h-screen w-full">
     <div th:insert="fragments/leftsidebar :: leftsidebar" th:remove="tag"></div>
     <div class="w-full md:p-4 md:mt-8 md:w-2/5 md:max-w-lg">
+        <div th:if="${session.isLogged==true}">
         <div class="">
-            <form class="border-2 rounded-lg mt-2 w-full px-2 " action="../twot" method="post" th:if="${session.isLogged==true}">
+            <form class="border-2 rounded-lg mt-2 w-full px-2 " action="../twot" method="post">
                 <textarea class="w-full rounded-lg resize-none bg-blue-900 pl-1 mt-2 mb-3 border-2" name="text" placeholder="Quoi de neuf ?" required></textarea>
                 <input type="hidden" name="id" th:value="${session.userid}" />
                 <div class="w-full justify-items-center">
@@ -26,6 +27,10 @@
             <img id="loading_gif" src="../img/loading-gif.gif" class="mx-auto w-20 h-20"/>
         </div>
         <button class="w-full p-2 bg-blue-700 text-white" onclick="load10()" id="loadmore">Charger plus</button>
+        </div>
+        <div th:unless="${session.isLogged==true}">
+            Veuillez vous connecter pour visualiser des twots recommandés pour vous.
+        </div>
     </div>
     <div th:insert="fragments/rightsidebar :: rightsidebar" th:remove="tag"></div>
 </div>

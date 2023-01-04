@@ -1,16 +1,12 @@
 Backend :
 - ajouter des sécurités (ex : que ce passe-t-il si on supprime un compte utilisateur ? Ces tweets sont-ils supprimés ? Sinon, sont-ils toujours accessibles ?)
 - vérifier l'absence de bugs sur l'algorithme de recommandation de la page d'accueil
-- fix le "afficher plus" de la page d'accueil quand on est pas connecté
-- fix le "afficher plus" quand on affiche un twot et qu'il y a moins de 10 réponse (le supprimer ?)
-- fix le bug de twot depuis un autre  profil que celui connecté
 Frontend :
 - finir le CSS pour le tweet depuis la page d'accueil (pas sur d'y arriver un jour aucune idée de pouquoi twoter n'est pas centré alors que c'est une copie de la leftsidebar)
 - améliorer le CSS pour les retweets
 - fix les width/height des pages pour éviter que le contenu ne dépasse
 
 
-Vérifier bugs sur l'inclusion en JS des tweets sur Firefox
 Vérifier bugs de la page de profil (depuis l'ajout des RT)
 
 
