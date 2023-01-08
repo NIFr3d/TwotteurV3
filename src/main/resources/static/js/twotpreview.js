@@ -115,8 +115,15 @@ function initdate(id,javadate){
     var now=new Date();
     var timedif=now.getTime()-jsdate.getTime();
     if(timedif>86400000){
-        if(jsdate.getUTCDate()<10) affichage="0"+jsdate.getUTCDate()+"/"+jsdate.getMonth();
-        else affichage=jsdate.getUTCDate()+"/"+jsdate.getMonth();
+        var month=parseInt(jsdate.getMonth())+1;
+        if(jsdate.getUTCDate()<10){
+            if(month<10) affichage="0"+jsdate.getUTCDate()+"/0"+month
+            else affichage="0"+jsdate.getUTCDate()+"/"+month;
+        }
+        else {
+            if(month<10) affichage=jsdate.getUTCDate()+"/0"+month
+            else affichage=jsdate.getUTCDate()+"/"+month;
+        }
     }else{
         if(timedif<3600000){
             affichage=Math.round(Math.abs(timedif/(1000*60))%60)+"min";
