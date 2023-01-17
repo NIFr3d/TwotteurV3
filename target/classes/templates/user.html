@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <?xml version="1.0" encoding="iso-8859-1"?>
+    <link rel="stylesheet" th:href="@{/css/tailwind.css}" />
+    <title th:text="'Profil de '+${user.getnickname()}"></title>
+    <script th:src="@{/js/twotpreview.js}"></script>
+    <script th:src="@{/js/user.js}"></script>
+    <script th:src="@{/js/jquery-3.6.1.min.js}"></script>
+</head>
+<body class="text-gray-300 bg-blue-900 h-screen w-screen">
+<div class="flex h-screen mx-auto w-full pt-3 overflow-hidden">
+    <div th:insert="fragments/leftsidebar :: leftsidebar" th:remove="tag"></div>
+    <div class="w-full md:w-3/5 md:pl-4 md:max-w-lg h-screen overflow-y-scroll">
+        <div class="p-2 md:border-x md:border-t" >
+            <div class="flex flex-row">
+                <div>
+                    <img th:src="${user.getPicture()}" class="w-12 h-10 rounded-full"/>
+                </div>
+                <div class="w-full ml-2">
+                    <span class="text-xl font-bold" th:text="${user.getnickname()}">nickname </span>
+                    <span class="text-l font-s italic pl-1" th:text="${user.getusername()}">@username</span>
+                    <div th:unless="${(session.userid==user.getId()) or (session.isLogged==null)}">
+                            <button th:onclick="'follow(' + ${user.getId()} + ',0)'" th:id="'doifollow0'+${user.getId()}" type="button" class="float-right rounded-lg p-2 border-2 border-white hover:bg-blue-700 mr-2">Suivre</button>
+                            <script th:inline="javascript">
+                                veriffollow([[${user.getId()}]],0);
+                            </script>
+                    </div>
+                    <div th:if="${session.userid==user.getId()}">
+                            <a href="../editprofile" class="float-right rounded-lg p-2">
+                                <button>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 490.584 490.584" style="enable-background:new 0 0 490.584 490.584; fill:white;" xml:space="preserve" height="20" width="20">
+                                        <g>
+                                            <g>
+                                                <path d="M100.911,419.404l123.8-51c3.1-2.1,6.2-4.2,8.3-6.2l203.9-248.6c6.2-9.4,5.2-21.8-3.1-29.1l-96.8-80.1
+                                                    c-8-5.9-20.3-6.8-28.1,3.1l-204.9,248.5c-2.1,3.1-3.1,6.2-4.2,9.4l-26,132.1C72.511,420.104,90.611,424.004,100.911,419.404z
+                                                     M326.611,49.004l65.5,54.1l-177.7,217.1l-64.9-53.7L326.611,49.004z M133.411,306.904l44.4,36.8l-57.2,23.6L133.411,306.904z"/>
+                                                <path d="M469.111,448.504h-349.5c0,0-72.5,3.4-75.2-15.2c0-1-1.8-5.6,7.6-17c7.3-9.4,6.2-21.8-2.1-29.1
+                                                    c-9.4-7.3-21.8-6.2-29.1,2.1c-19.8,23.9-25,44.7-15.6,63.5c25.5,47.5,111.3,36.3,115.4,37.3h348.5c11.4,0,20.8-9.4,20.8-20.8
+                                                    C490.011,457.804,480.611,448.504,469.111,448.504z"/>
+                                            </g>
+                                        </g>
+                                    </svg>
+                                </button>
+                            </a>
+                    </div>
+                </div>
+            </div>
+            <span class="text-xl font-sm">Biographie :</span><br>
+            <p th:if="${user.getBiography()!=null}">
+                <span class="text-sm pl-2 text-ellipsis overflow-hidden" th:text="${user.getBiography()}"></span>
+            </p>
+            <p th:unless="${user.getBiography()!=null}">
+                <span class="text-m italic">Cet utilisateur n'a pas encore rempli sa biographie.</span>
+            </p>
+
+            <button onclick="showfollowed()" class="underline pt-5 pl-1" th:text="${user.getnickname()+' suit'}"></button>
+            <button onclick="showfollowers()" class="underline pt-5 pl-4" th:text="${user.getnickname()+' est suivi par'}"></button><br>
+            <div id="followed" style="
+            top:10%;
+            z-index:100;
+            display:none;
+            " class="answerForm bg-blue-900 w-11/12 md:w-2/5 fixed rounded-lg">
+                <div th:if="${followeds.size()>0}">
+                    <div class="p-3 inline-flex w-full" th:each="followed : ${followeds}">
+                        <div class="inline-flex w-full">
+                            <a th:href="'../user/'+${followed.getusername()}" class="w-1/3">
+                                <img th:src="${followed.getPicture()}" class="w-12 h-10 rounded-full"/>
+                                <span class="text-l font-bold" th:text="${followed.getnickname()}"></span>
+                                <span class="text-base font-sm" th:text="'@'+${followed.getusername()}"></span>
+                            </a>
+                            <span th:if="${followed.getBiography()!=null}" class="w-1/2 text-ellipsis overflow-hidden" th:text="${followed.getBiography()}"></span>
+                            <span th:unless="${followed.getBiography()!=null}" class="w-1/2 text-ellipsis overflow-hidden italic">Cet utilisateur n'as pas encore de description.</span>
+                            <div th:unless="${session.userid==followed.getId()}" class="text-right w-1/6">
+                                <button th:onclick="'javascript:follow(' + ${followed.getId()} + ',1)'" th:id="'doifollow1'+${followed.getId()}" type="button" class="rounded-lg p-2 border-2 border-blue-700 hover:bg-blue-700 mb-2">Suivre</button>
+                                <script th:inline="javascript">
+                                    veriffollow([[${followed.getId()}]],1);
+                                </script>
+                            </div>
+                        </div>
+                        <div class="w-full border-b border-gray-400" th:unless="${followed.getId().equals(followeds.get(followeds.size()-1).getId())}"></div>
+                    </div>
+                </div>
+                <div class="pl-2 py-2" th:unless="${followeds.size()>0}">
+                    <span>Ne follow personne.</span>
+                </div>
+            </div>
+            <div id="followers" style="
+            top:10%;
+            z-index:100;
+            display:none;
+            " class="answerForm bg-blue-900 w-11/12 md:w-2/5 fixed rounded-lg">
+                <div th:if="${followers.size()>0}">
+                    <div class="p-3 w-full" th:each="follower : ${followers}">
+                        <div class="inline-flex w-full">
+                            <a th:href="'../user/'+${follower.getusername()}" class="w-1/3">
+                                <img th:src="${follower.getPicture()}" class="w-12 h-10 rounded-full"/>
+                                <span class="text-l font-bold" th:text="${follower.getnickname()}"></span>
+                                <span class="text-base font-sm" th:text="'@'+${follower.getusername()}"></span>
+                            </a>
+                            <span th:if="${follower.getBiography()!=null}" class="w-1/2 text-ellipsis overflow-hidden" th:text="${follower.getBiography()}"></span>
+                            <span th:unless="${follower.getBiography()!=null}" class="w-1/2 text-ellipsis overflow-hidden italic">Cet utilisateur n'as pas encore de description.</span>
+                            <div th:unless="${session.userid==follower.getId()}" class="text-right w-1/6">
+                                <button th:onclick="'javascript:follow(' + ${follower.getId()} + ',2)'" th:id="'doifollow2'+${follower.getId()}" type="button" class="rounded-lg p-2 border-2 border-blue-700 hover:bg-blue-700 mb-2">Suivre</button>
+                                <script th:inline="javascript">
+                                    veriffollow([[${follower.getId()}]],2);
+                                </script>
+                            </div>
+                        </div>
+                        <div class="w-full border-b border-gray-400" th:unless="${follower.getId().equals(followers.get(followers.size()-1).getId())}"></div>
+                    </div>
+                </div>
+                <div class="pl-2 py-2" th:unless="${followers.size()>0}">
+                    <span>Aucun follower.</span>
+                </div>
+            </div>
+            <p th:with="date=${user.getCreatedat().toString()}" class="text-l font-sm italic text-right pr-2 pt-2">A rejoint twotteur le
+                <span th:text="${date.substring(8,10)}"></span>/<span th:text="${date.substring(5,7)}"></span>/<span th:text="${date.substring(0,4)}"></span>
+            </p>
+        </div>
+        <div class="border-b-2 w-full"></div>
+        <div id="twots"></div>
+        <div class="w-full">
+            <img id="loading_gif" src="../img/loading-gif.gif" class="mx-auto w-20 h-20"/>
+        </div>
+        <button class="w-full p-2 bg-blue-700 text-white" onclick="load10()" id="loadmore">Charger plus</button>
+        <p class="mt-2 w-full pl-2 hidden" id="notwots">
+            Cet utilisateur n'as pas encore twotté.
+        </p>
+            <button onclick="fadeOut()"><div id="overlay-back" style="position   : fixed;
+                top        : 0;
+                left       : 0;
+                width      : 100%;
+                height     : 100%;
+                background : #000;
+                opacity    : 0.6;
+                filter     : alpha(opacity=60);
+                z-index    : 5;
+                display    : none;"></div></button>
+        </div>
+    <div th:insert="fragments/rightsidebar :: rightsidebar" th:remove="tag"></div>
+</div>
+</body>
+<script th:inline="javascript">
+    $('#loading_gif').hide();
+    var last;
+    var count=0;
+    async function init(){
+        await $.ajax({
+            url:"/getprevious/"+[[${user.getId()}]]+"/last/0",
+            type:"GET",
+            success:function(data){
+                appendTwot(data);
+            }
+        });
+        while(count<10){
+            if(last.Type=="last") break;
+            count++;
+            await loadMore();
+        }
+        if(last.Type=="last"){
+            $("#loadmore").addClass("hidden");
+        }
+    }
+    init();
+    async function loadMore(){
+        await $.ajax({
+            url:"/getprevious/"+[[${user.getId()}]]+"/"+last.Type+"/"+last.Id,
+            type:"GET",
+            success:function(data){
+                appendTwot(data);
+            }
+        })
+    }
+    async function appendTwot(data){
+        data=JSON.parse(data);
+        last=data;
+        if(data.Type=="twot"){
+            await $.ajax({
+                url: "/smalltwot/" + data.Id,
+                type: "GET",
+                success: function (data) {
+                    $("#twots").append(data);
+                }
+            });
+        }
+        else if(data.Type=="retwot"){
+            await $.ajax({
+                url: "/retwot/" + data.Id,
+                type: "GET",
+                success: function (data) {
+                    $("#twots").append(data);
+                }
+            });
+        }else if(data.Type=="last" && count==0){
+            $("#notwots").removeClass("hidden");
+        }
+    }
+    async function load10(){
+        for(var i=0;i<10;i++){
+            if(last.Type=="last") break;
+            await loadMore();
+        }
+        if(last.Type=="last"){
+            $("#loadmore").addClass("hidden");
+        }
+    }
+</script>
+</html>

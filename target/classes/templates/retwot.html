@@ -1,0 +1,5 @@
+<div class="w-full p-2 md:border-x">
+    <a th:href="${'../user/'+user.getusername()}"><h1 th:text="${user.getnickname()+' a retwoté'}" class="font-bold"></h1></a>
+    <div th:insert="smalltwot :: twot" class="pl-8 pt-4"></div>
+</div>
+<div class="border-b w-full"></div>

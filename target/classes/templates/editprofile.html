@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/tailwind.css}" />
+    <title>Edition du profil</title>
+</head>
+<body class="text-gray-300 bg-blue-900 h-screen w-screen">
+<div class="flex h-screen mx-auto w-4/5">
+  <div th:insert="fragments/leftsidebar :: leftsidebar" th:remove="tag"></div>
+  <div class="w-full md:w-3/5">
+    <form method="post" class="w-full md:mt-8 md:max-w-lg" enctype="multipart/form-data">
+        <label class="font-bold">Pseudo</label><br>
+        <input type="text" name="nickname" class="border-2 rounded-lg bg-blue-900 w-full mb-4 mt-1 pl-1" th:value="${user.getnickname()}" required/><br>
+        <label class="font-bold">Biographie</label><br>
+        <textarea class="resize-none border-2 rounded-lg bg-blue-900 w-full mb-4 mt-1 pl-1" name="biography" th:text="${user.getBiography()}"></textarea><br>
+        <label class="font-bold">Photo de profil</label><br>
+        <input type="file" name="profilePic" accept="image/*" onchange="loadFile(event)" class="border-2 rounded-lg bg-blue-900 w-full mt-1 pl-1" id="fileInput"/><br>
+        <textarea class="hidden" name="base64" id="base64" value=""></textarea>
+        <canvas id="output2" height="200" width="200" class="hidden b-2 bg-white mt-2"></canvas>
+        <input type="range" min="20" max="" value=”100″ id="rectSize" class="hidden">
+        <img id="output" class="hidden" /><br>
+      <button type="submit" class="text-white border-2 bg-blue-900 rounded-lg mt-2 pl-2 pr-2">Sauvegarder</button>
+    </form>
+  </div>
+</div>
+</body>
+<script>
+    let x = 0;
+    let y = 0;
+    let r= 50;
+    var loadFile = function(event) {
+        var output = document.getElementById('output');
+        output.src = URL.createObjectURL(event.target.files[0]);
+        output.onload = function() {
+            URL.revokeObjectURL(output.src)
+            var h=200;
+            var w=output.width*(h/output.height);
+            var output2 = document.getElementById('output2');
+            output2.width=w;
+            output2.classList.remove("hidden");
+            document.getElementById("rectSize").classList.remove("hidden");
+            var ctx=output2.getContext("2d");
+            ctx.drawImage(document.getElementById("output"), 0, 0,w,h);
+            x=h/2;
+            y=h/2;
+            r=50;
+            var dragging=false;
+            var dragx=0;
+            var dragy=0;
+            ctx.beginPath();
+            ctx.arc(x,y,r,0,2*Math.PI);
+            ctx.stroke();
+            output2.addEventListener("mousedown",function(e){
+                var rect = output2.getBoundingClientRect();
+                var x2=e.clientX-rect.left;
+                var y2=e.clientY-rect.top;
+                if(Math.sqrt((x2-x)*(x2-x)+(y2-y)*(y2-y))<r){
+                    dragging=true;
+                    dragx=x2-x;
+                    dragy=y2-y;
+                }
+            });
+            document.getElementById("rectSize").addEventListener("input",function(e){
+                r=e.target.value;
+                ctx.clearRect(0, 0, output2.width, output2.height);
+                ctx.drawImage(document.getElementById("output"), 0, 0,w,h);
+                ctx.beginPath();
+                ctx.arc(x,y,r,0,2*Math.PI);
+                ctx.stroke();
+                changeBase64();
+            });
+            output2.addEventListener("mousemove",function(e){
+                if(dragging){
+                    var rect = output2.getBoundingClientRect();
+                    var x2=e.clientX-rect.left;
+                    var y2=e.clientY-rect.top;
+                    x=x2-dragx;
+                    y=y2-dragy;
+                    if(x<r){
+                        x=r;
+                    }
+                    if(x>w-r){
+                        x=w-r;
+                    }
+                    if(y<r){
+                        y=r;
+                    }
+                    if(y>200-r){
+                        y=200-r;
+                    }
+                    ctx.clearRect(0, 0, output2.width, output2.height);
+                    ctx.drawImage(document.getElementById("output"), 0, 0,w,h);
+                    ctx.beginPath();
+                    ctx.arc(x,y,r,0,2*Math.PI);
+                    ctx.stroke();
+                }
+            });
+            output2.addEventListener("mouseup",function(e){
+                dragging=false;
+                changeBase64();
+            });
+
+
+        }
+    };
+    function changeBase64(){
+        var imageData = document.getElementById("output2").getContext("2d").getImageData(x-r,y-r,2*r,2*r);
+        var canvas2 = document.createElement("canvas");
+        canvas2.width=2*r;
+        canvas2.height=2*r;
+        var ctx2 = canvas2.getContext("2d");
+        ctx2.putImageData(imageData,0,0);
+        document.getElementById("base64").value=canvas2.toDataURL("image/png");
+    }
+</script>
+</html>

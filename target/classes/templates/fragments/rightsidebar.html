@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+</head>
+<body>
+<div class="hidden md:block md:ml-16 md:mt-8" th:fragment="rightsidebar">
+    <input id="search-input" type="text" class="rounded-lg bg-blue-900 px-2 py-1 text-l border-2" placeholder="Rechercher">
+    <div class="hidden rounded-lg bg-blue-900 text-l border-2 mt-2" id="search-result-list"></div>
+    <script>
+        var searchInput = document.getElementById("search-input");
+        var searchResultList = document.getElementById("search-result-list");
+        // On écoute l'événement "input" sur l'input de recherche
+        searchInput.addEventListener("keyup", function(event) {
+            if (searchInput.value.length > 0) {
+                event.preventDefault();
+                searchResultList.innerHTML = "";
+                searchResultList.classList.remove("hidden"); // On affiche la liste des résultats
+                var searchResult = document.createElement("div"); // On crée un élément div
+                searchResult.classList.add("px-2");
+                searchResult.classList.add("py-2");
+                searchResult.classList.add("italic");
+                searchResult.innerHTML = "Résultats de la recherche pour " + searchInput.value+" :";
+                // récupération des résultats avec fetch
+                fetch("/search?s=" + searchInput.value)
+                    .then(function(response) {
+                        return response.json();
+                    })
+                    .then(function(data) {
+                        if(data.length>0) {
+                            data.forEach(function (user) { // Pour chaque utilisateur, on l'ajoute a la liste des résultats
+                                var searchResult = document.createElement("div");
+                                searchResult.classList.add("p-2");
+                                if (data.indexOf(user) < data.length - 1) {
+                                    searchResult.classList.add("border-b");
+                                    searchResult.classList.add("border-gray-400");
+                                }
+                                searchResult.innerHTML = "<a href='/user/" + user.username + "'>" + user.nickname + " @" + user.username + "</a>";
+                                searchResultList.appendChild(searchResult);
+                            });
+                        }else{
+                            var searchResult = document.createElement("div");
+                            searchResult.classList.add("p-2");
+                            searchResult.innerHTML = "Aucun résultat";
+                            searchResultList.appendChild(searchResult);
+                        }
+                    });
+                searchResultList.appendChild(searchResult);
+            }else{
+                searchResultList.classList.add("hidden");
+            }
+        });
+    </script>
+</div>
+</body>
+</html>

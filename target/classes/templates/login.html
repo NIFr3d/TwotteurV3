@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/tailwind.css}" />
+    <title>Twotteur - Connexion</title>
+</head>
+<body class="text-gray-300 bg-blue-900 h-screen w-screen">
+<div class="flex w-full h-screen mx-auto md:w-3/5" >
+    <div th:insert="fragments/leftsidebar :: leftsidebar" th:remove="tag"></div>
+    <div class="md:w-2/5 my-auto h-4/5 w-4/5 mx-auto md:ml-8">
+        <form method="post">
+            <label class="text-2xl">Email</label><br>
+            <input class="border-2 text-2xl rounded-lg bg-blue-900 mb-2 mt-1 pl-2 pb-1" type="email" name="email"/><br>
+            <label class="text-2xl">Mot de passe</label><br>
+            <input class="border-2 text-2xl rounded-lg mb-2 bg-blue-900 mt-1 pl-2" type="password" name="password"/><br>
+            <span th:if="${(param.e != null) and (param.e[0]=='0')}">Mot de passe incorrect.<br></span>
+            <span th:if="${(param.e != null) and (param.e[0]=='1')}">Email inconnu !<br></span>
+            <button class="rounded-lg text-2xl border-2 mb-24 px-3 py-1 mt-5 hover:bg-blue-700" type="submit">Connexion</button>
+
+        </form>
+        <p class="text-xl">Vous n'avez pas de compte ?</p>
+        <a class="text-blue-700 underline text-xl" href="register">S'enregistrer</a>
+    </div>
+</div>
+</body>
+</html>

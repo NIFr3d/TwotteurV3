@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<div class="text-center inset-x-0 fixed bottom-0 md:relative md:h-1/2 md:w-1/3 mb-0 md:my-auto md:pr-4"  th:fragment="leftsidebar">
+  <div class="mx-auto w-fit flex flex-row md:flex-col">
+  <a href="../home" class="h-fit w-fit">
+    <button class="rounded-lg bg-blue-900 text-xl p-2 inline-flex h-fit hover:bg-blue-700" type=button>
+      <svg class="mb-1 h-12 w-12 md:h-6 md:w-6" viewBox="0 0 251.479 251.479" fill="white">
+        <path d="M209.355,135.551c-4.143,0-7.5,3.358-7.5,7.5v76.109H49.634v-76.109c0-4.142-3.357-7.5-7.5-7.5c-4.143,0-7.5,3.358-7.5,7.5
+            v83.609c0,4.142,3.357,7.5,7.5,7.5h167.221c4.143,0,7.5-3.358,7.5-7.5v-83.609C216.855,138.909,213.497,135.551,209.355,135.551z"
+        />
+        <path d="M249.282,137.748L131.035,19.515c-2.928-2.929-7.677-2.928-10.606,0L2.197,137.748c-2.929,2.929-2.929,7.678,0,10.606
+            c1.465,1.464,3.385,2.197,5.304,2.197c1.92,0,3.839-0.732,5.304-2.197l112.929-112.93l112.943,112.93
+            c2.928,2.929,7.677,2.928,10.607-0.001C252.211,145.425,252.211,140.676,249.282,137.748z"/>
+      </svg>
+      <span class="ml-2 hidden md:block">Accueil</span>
+    </button>
+  </a>
+  <div th:if="${session.isLogged==true}" th:remove="tag">
+      <a href="../messages" class="h-fit w-fit">
+        <button class="rounded-lg bg-blue-900 text-xl p-2 inline-flex h-fit hover:bg-blue-700" type=button>
+          <svg class="mt-1 h-12 w-12 md:h-6 md:w-6" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="white">
+            <path d="M20 2H4c-1.103 0-2 .894-2 1.992v12.016C2 17.106 2.897 18 4 18h3v4l6.351-4H20c1.103 0 2-.894 2-1.992V3.992A1.998 1.998 0 0 0 20 2z"/>
+          </svg>
+          <span class="ml-2 hidden md:block">Messages</span>
+        </button>
+      </a>
+      <a href="../profile" class="h-fit w-fit">
+        <button class="rounded-lg bg-blue-900 text-xl p-2 inline-flex h-fit hover:bg-blue-700" type=button>
+          <svg class="mt-1 h-12 w-12 md:h-6 md:w-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M16 9C16 11.2091 14.2091 13 12 13C9.79086 13 8 11.2091 8 9C8 6.79086 9.79086 5 12 5C14.2091 5 16 6.79086 16 9ZM14 9C14 10.1046 13.1046 11 12 11C10.8954 11 10 10.1046 10 9C10 7.89543 10.8954 7 12 7C13.1046 7 14 7.89543 14 9Z" fill="white"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 1C5.92487 1 1 5.92487 1 12C1 18.0751 5.92487 23 12 23C18.0751 23 23 18.0751 23 12C23 5.92487 18.0751 1 12 1ZM3 12C3 14.0902 3.71255 16.014 4.90798 17.5417C6.55245 15.3889 9.14627 14 12.0645 14C14.9448 14 17.5092 15.3531 19.1565 17.4583C20.313 15.9443 21 14.0524 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12ZM12 21C9.84977 21 7.87565 20.2459 6.32767 18.9878C7.59352 17.1812 9.69106 16 12.0645 16C14.4084 16 16.4833 17.1521 17.7538 18.9209C16.1939 20.2191 14.1881 21 12 21Z" fill="white"/>
+          </svg>
+          <span class="ml-2 hidden md:block">Profil</span>
+        </button>
+      </a>
+      <a href="../logout" class="h-fit w-fit">
+        <button class="rounded-lg bg-blue-900 text-xl p-2 inline-flex h-fit hover:bg-blue-700" type=button>
+          <svg class="mt-1 h-12 w-12 md:h-6 md:w-6" fill="white" xmlns="http://www.w3.org/2000/svg"
+               viewBox="0 0 320.002 320.002" style="enable-background:new 0 0 320.002 320.002;">
+              <path d="M51.213,175.001h173.785c8.284,0,15-6.716,15-15c0-8.284-6.716-15-15-15H51.213l19.394-19.394
+                  c5.858-5.858,5.858-15.355,0-21.213c-5.857-5.858-15.355-5.858-21.213,0L4.396,149.393c-0.351,0.351-0.683,0.719-0.997,1.103
+                  c-0.137,0.167-0.256,0.344-0.385,0.515c-0.165,0.22-0.335,0.435-0.488,0.664c-0.14,0.209-0.261,0.426-0.389,0.64
+                  c-0.123,0.206-0.252,0.407-0.365,0.619c-0.118,0.22-0.217,0.446-0.323,0.67c-0.104,0.219-0.213,0.435-0.306,0.659
+                  c-0.09,0.219-0.164,0.442-0.243,0.664c-0.087,0.24-0.179,0.477-0.253,0.722c-0.067,0.222-0.116,0.447-0.172,0.672
+                  c-0.063,0.249-0.133,0.497-0.183,0.751c-0.051,0.259-0.082,0.521-0.119,0.782c-0.032,0.223-0.075,0.443-0.097,0.669
+                  c-0.048,0.484-0.073,0.971-0.074,1.457c0,0.007-0.001,0.015-0.001,0.022c0,0.007,0.001,0.015,0.001,0.022
+                  c0.001,0.487,0.026,0.973,0.074,1.458c0.022,0.223,0.064,0.44,0.095,0.661c0.038,0.264,0.069,0.528,0.121,0.79
+                  c0.05,0.252,0.119,0.496,0.182,0.743c0.057,0.227,0.107,0.456,0.175,0.681c0.073,0.241,0.164,0.474,0.248,0.71
+                  c0.081,0.226,0.155,0.453,0.247,0.675c0.091,0.22,0.198,0.431,0.3,0.646c0.108,0.229,0.21,0.46,0.33,0.685
+                  c0.11,0.205,0.235,0.4,0.354,0.599c0.131,0.221,0.256,0.444,0.4,0.659c0.146,0.219,0.309,0.424,0.466,0.635
+                  c0.136,0.181,0.262,0.368,0.407,0.544c0.299,0.364,0.616,0.713,0.947,1.048c0.016,0.016,0.029,0.034,0.045,0.05l45,45.001
+                  c2.93,2.929,6.768,4.394,10.607,4.394c3.838-0.001,7.678-1.465,10.606-4.393c5.858-5.858,5.858-15.355,0.001-21.213L51.213,175.001
+                  z"/>
+            <path d="M305.002,25h-190c-8.284,0-15,6.716-15,15v60c0,8.284,6.716,15,15,15s15-6.716,15-15V55h160v210.001h-160
+                  v-45.001c0-8.284-6.716-15-15-15s-15,6.716-15,15v60.001c0,8.284,6.716,15,15,15h190c8.284,0,15-6.716,15-15V40
+                  C320.002,31.716,313.286,25,305.002,25z"/>
+          </svg>
+          <span class="ml-2 hidden md:block">Se déconnecter</span>
+        </button>
+      </a>
+  </div>
+  <div th:unless="${session.isLogged==true}" th:remove="tag">
+    <a href="../login" class="h-fit w-fit">
+      <button class="rounded-lg bg-blue-900 text-xl p-2 inline-flex h-fit hover:bg-blue-700" type=button>
+        <svg class="mt-1 h-12 w-12 md:h-6 md:w-6" xmlns="http://www.w3.org/2000/svg" fill="white"
+             viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+		<path d="M327.287,246.852l-74.931-76.595c-4.941-5.06-13.039-5.146-18.099-0.205c-5.06,4.941-5.146,13.056-0.205,18.099
+			l53.854,55.057H12.8C5.734,243.2,0,248.934,0,256c0,7.066,5.734,12.8,12.8,12.8h275.098l-53.845,55.057
+			c-4.941,5.043-4.855,13.158,0.205,18.099c5.06,4.941,13.158,4.855,18.099-0.205l75.128-76.8
+			C332.424,259.908,332.339,251.793,327.287,246.852z"/>
+		<path d="M499.2,0H166.4c-7.066,0-12.8,5.734-12.8,12.8V192h25.6V25.6h307.2v460.8H179.2V320h-25.6v179.2
+			c0,7.066,5.734,12.8,12.8,12.8h332.8c7.066,0,12.8-5.734,12.8-12.8V12.8C512,5.734,506.266,0,499.2,0z"/>
+        </svg>
+        <span class="ml-2 hidden md:block hover:bg-blue-700">Se connecter</span>
+      </button>
+    </a>
+  </div>
+  <div th:if="${session.isLogged==true}" th:remove="tag">
+    <button class="rounded-lg bg-blue-900 text-2xl p-2 inline-flex h-fit w-fit hover:bg-blue-700" onclick="twotter()" type=button>
+      <svg class="mt-1 h-12 w-12 md:h-6 md:w-6" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="white">
+        <polyline points="0 0 24 0 24 24 0 24" opacity="0"/>
+        <path d="M8.08 20A11.07 11.07 0 0 0 19.52 9 8.09 8.09 0 0 0 21 6.16a.44.44 0 0 0-.62-.51 1.88 1.88 0 0 1-2.16-.38 3.89 3.89 0 0 0-5.58-.17A4.13 4.13 0 0 0 11.49 9C8.14 9.2 5.84 7.61 4 5.43a.43.43 0 0 0-.75.24 9.68 9.68 0 0 0 4.6 10.05A6.73 6.73 0 0 1 3.38 18a.45.45 0 0 0-.14.84A11 11 0 0 0 8.08 20"/>
+      </svg>
+      <span class="ml-2 hidden md:block">Twoter</span>
+    </button>
+    <form class="border-2 p-2 rounded-lg mt-2 w-4/5 md:w-1/3 bg-blue-900 top-1/4 left-auto md:left-1/3" style="
+          position:fixed;
+          height:auto;
+          z-index:100;
+          display:none;" method="post" id="twotterform">
+      <textarea id="twottextarea" class="resize-none border-2 rounded-lg bg-blue-900 w-full pl-1" name="text" placeholder="Quoi de neuf ?" required></textarea>
+      <input type="hidden" name="id" th:value="${session.userid}" />
+      <button type="button" onclick="sendtwot()" class="rounded-lg border-2 bg-blue-900 w-fit px-2 py-1 mt-2 mb-1 hover:bg-blue-700">Twoter</button>
+    </form>
+    <button onclick="hide()"><div id="overlay-back0" style="position   : fixed;
+                top        : 0;
+                left       : 0;
+                width      : 100%;
+                height     : 100%;
+                background : #000;
+                opacity    : 0.6;
+                filter     : alpha(opacity=60);
+                z-index    : 5;
+                display    : none;"></div></button>
+    <script th:src="@{/js/jquery-3.6.1.min.js}"></script>
+    <script>
+      function twotter() {
+        $('#twotterform, #overlay-back0').fadeIn(500);
+      }
+      function hide(){
+        $('#twotterform, #overlay-back0').fadeOut(500);
+      }
+      var twotform=document.getElementById("twotterform");
+      function sendtwot(){
+        var response = fetch('../resttwot', {
+          method: 'POST',
+          body: new FormData(twotform)
+        });
+        document.getElementById("twottextarea").value="";
+        hide();
+      }
+    </script>
+  </div>
+  </div>
+</div>
+</body>
+</html>
